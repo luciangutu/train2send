@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("com.google.devtools.ksp")
@@ -13,14 +15,30 @@ android {
         applicationId = "com.train4send"
         minSdk = 26
         targetSdk = 35
-        versionCode = 3
-        versionName = "1.2.0"
+        versionCode = 4
+        versionName = "1.2.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        create("release") {
+            val props = Properties()
+            val propFile = rootProject.file("local.properties")
+            if (propFile.exists()) {
+                props.load(propFile.inputStream())
+            }
+
+            storeFile = file("../train4send-release.jks")
+            storePassword = props.getProperty("keystore.password") ?: ""
+            keyAlias = "train4send"
+            keyPassword = props.getProperty("key.password") ?: ""
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),

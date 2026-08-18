@@ -240,9 +240,9 @@ private fun TodayDashboard(
                 )
                 Spacer(modifier = Modifier.height(4.dp))
 
-                val estimatedMinutes = estimateDuration(exercises)
+                val estimatedSeconds = estimateDuration(exercises)
                 Text(
-                    text = "${exercises.size} exercises · ~${formatDuration(estimatedMinutes * 60)}",
+                    text = "${exercises.size} exercises · ~${formatDuration(estimatedSeconds)}",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f)
                 )
@@ -424,7 +424,7 @@ private fun DaySummaryCard(
                     fontWeight = FontWeight.Medium
                 )
                 Text(
-                    text = "${exercises.size} exercises · ~${formatDuration(estimateDuration(exercises) * 60)}",
+                    text = "${exercises.size} exercises · ~${formatDuration(estimateDuration(exercises))}",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -446,5 +446,5 @@ private fun estimateDuration(exercises: List<PlannedExerciseEntity>): Int {
         val rest = ex.customRestSec ?: 90
         val sets = ex.customSets ?: 3
         (work + rest) * sets
-    } / 60
+    }
 }

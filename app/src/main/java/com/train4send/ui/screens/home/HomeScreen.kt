@@ -29,6 +29,7 @@ import com.train4send.Train4SendApp
 import com.train4send.data.model.ExerciseEntity
 import com.train4send.data.model.PlannedExerciseEntity
 import com.train4send.ui.navigation.Screen
+import com.train4send.utils.formatDuration
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.format.TextStyle
@@ -290,16 +291,16 @@ private fun TodaySessionCard(
                            else MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 
-                val estimatedMin = if (exercises.isEmpty()) 0 else {
+                val estimatedSec = if (exercises.isEmpty()) 0 else {
                     exercises.sumOf { ex ->
                         val work = ex.customDurationSec ?: 60
                         val rest = ex.customRestSec ?: 90
                         val sets = ex.customSets ?: 3
                         (work + rest) * sets
-                    } / 60
+                    }
                 }
                 Text(
-                    text = "${exercises.size} exercises · ~$estimatedMin min",
+                    text = "${exercises.size} exercises · ~${formatDuration(estimatedSec)}",
                     style = MaterialTheme.typography.bodySmall,
                     color = if (isToday) MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f)
                            else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f)
@@ -407,7 +408,7 @@ private fun ExerciseTile(
                     append("$reps")
                 } else if (duration != null) {
                     if (isNotEmpty()) append(" ")
-                    append("${duration}s")
+                    append(formatDuration(duration))
                 }
             }
 

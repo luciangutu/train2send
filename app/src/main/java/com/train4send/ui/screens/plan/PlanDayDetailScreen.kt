@@ -201,7 +201,7 @@ fun PlanDayDetailScreen(
                 // Duration summary
                 item {
                     Spacer(modifier = Modifier.height(8.dp))
-                    val totalMin = estimateDuration(plannedExercises)
+                    val totalSec = estimateDuration(plannedExercises)
                     Surface(
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(12.dp),
@@ -218,7 +218,7 @@ fun PlanDayDetailScreen(
                             )
                             Spacer(modifier = Modifier.width(12.dp))
                             Text(
-                                text = "Estimated duration: ~${formatDuration(totalMin * 60)}",
+                                text = "Estimated duration: ~${formatDuration(totalSec)}",
                                 style = MaterialTheme.typography.bodyMedium
                             )
                         }
@@ -526,5 +526,5 @@ private fun estimateDuration(exercises: List<PlannedExerciseEntity>): Int {
         val rest = ex.customRestSec ?: 90
         val sets = ex.customSets ?: 3
         (work + rest) * sets
-    } / 60
+    }
 }

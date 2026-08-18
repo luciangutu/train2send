@@ -2,6 +2,10 @@
 
 A native Android app (Kotlin + Jetpack Compose) to schedule, execute, and track climbing training programs. Fully configurable — no hardcoded routines.
 
+## Screenshots
+
+![Main Screen](screenshots/main_screen.png)
+
 ## Training Categories
 
 | Category | Color | Purpose |

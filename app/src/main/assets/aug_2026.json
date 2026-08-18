@@ -1,0 +1,308 @@
+{
+  "version": 1,
+  "exportedAt": 1723968000000,
+  "exercises": [
+    {
+      "id": "ex-dead-hang-jugs",
+      "name": "Dead-hang on Jugs",
+      "category": "STRENGTH",
+      "description": "Dead-hang on jug holds for warm-up and endurance.",
+      "defaultSets": 10,
+      "defaultReps": 1,
+      "defaultDurationSec": 10,
+      "defaultRestSec": 30
+    },
+    {
+      "id": "ex-push-ups",
+      "name": "Push-ups",
+      "category": "CONDITIONING",
+      "description": "Standard push-ups for antagonist training.",
+      "defaultSets": 3,
+      "defaultReps": 10,
+      "defaultRestSec": 120
+    },
+    {
+      "id": "ex-no-hangs",
+      "name": "No-hangs Hangboard",
+      "category": "STRENGTH",
+      "description": "Hangboard training using your feet on the ground.",
+      "defaultSets": 5,
+      "defaultReps": 1,
+      "defaultDurationSec": 10,
+      "defaultRestSec": 180
+    },
+    {
+      "id": "ex-bechtel-finger",
+      "name": "Bechtel Finger Training",
+      "category": "STRENGTH",
+      "description": "Steve Bechtel's finger training protocol for max recruitment.",
+      "defaultSets": 4,
+      "defaultReps": 1,
+      "defaultDurationSec": 10,
+      "defaultRestSec": 180
+    },
+    {
+      "id": "ex-easy-routes-autobelay",
+      "name": "Easy Routes Autobelay",
+      "category": "ENDURANCE",
+      "description": "4x6 easy routes on autobelay for aerobic endurance.",
+      "defaultSets": 4,
+      "defaultReps": 6,
+      "defaultRestSec": 120
+    },
+    {
+      "id": "ex-fryer-endurance",
+      "name": "Fryer 2016 Endurance Program",
+      "category": "ENDURANCE",
+      "description": "Tom Fryer's endurance protocol (2016) for sustained climbing capacity."
+    },
+    {
+      "id": "ex-1on1off-endurance",
+      "name": "1 On 1 Off Endurance",
+      "category": "ENDURANCE",
+      "description": "Climb 1 minute, rest 1 minute. Repeat for endurance development.",
+      "defaultReps": 10,
+      "defaultSets": 1,
+      "defaultRestSec": 60,
+      "defaultDurationSec": 1145
+    },
+    {
+      "id": "ex-stretching",
+      "name": "Stretching",
+      "category": "MOBILITY",
+      "description": "Full body stretching session focused on shoulders, hips, and forearms.",
+      "defaultDurationSec": 900
+    },
+    {
+      "id": "ex-outdoor-climbing",
+      "name": "Outdoor Climbing",
+      "category": "POWER",
+      "description": "Outdoor climbing session on rock."
+    },
+    {
+      "id": "ex-bouldering-high-intensity",
+      "name": "Bouldering High Intensity",
+      "category": "POWER",
+      "description": "1 hour bouldering session at high intensity, working limit problems.",
+      "defaultDurationSec": 3600
+    },
+    {
+      "id": "ex-knee-program",
+      "name": "Kenees Program",
+      "category": "MOBILITY",
+      "description": "Knee rehabilitation/prehab program.",
+      "defaultDurationSec": 3600
+    },
+    {
+      "id": "ex-wall-crawling",
+      "name": "Wall Crawling",
+      "category": "POWER_ENDURANCE",
+      "description": "Move on the wall and take 4-7 sec break between moves on small holds",
+      "defaultReps": 1,
+      "defaultSets": 7,
+      "defaultRestSec": 500,
+      "defaultDurationSec": 1440
+    },
+    {
+      "id": "ex-intensive-triples",
+      "name": "Intensive Triples",
+      "category": "POWER_ENDURANCE",
+      "description": "~45 min: 1 round = 3 min climbing (one flash-level boulder per minute) + 3 min rest. Set 1: 3 rounds (18 min). Big rest: 8-10 min. Set 2: 3 rounds (18 min).",
+      "defaultSets": 2,
+      "defaultReps": 3,
+      "defaultDurationSec": 2700,
+      "defaultRestSec": 180
+    },
+    {
+      "id": "ex-carcing",
+      "name": "CARCing",
+      "category": "ENDURANCE",
+      "description": "Continuous Aerobic Regenerative Climbing - easy climbing for recovery and capillarity."
+    },
+    {
+      "id": "ex-explosive-pullups",
+      "name": "Explosive Pull-ups",
+      "category": "POWER",
+      "description": "Explosive/dynamic pull-ups for upper body power.",
+      "defaultSets": 4,
+      "defaultReps": 2,
+      "defaultRestSec": 180
+    }
+  ],
+  "plans": [
+    {
+      "id": "plan-aug2026",
+      "title": "Aug 2026",
+      "isActive": true,
+      "createdAt": 1723968000000,
+      "days": [
+        {
+          "id": "day-aug-mon",
+          "dayOfWeek": 1,
+          "dayTitle": "Z1 - Warm-up & Bouldering",
+          "exercises": [
+            {
+              "id": "pe-aug-mon-1",
+              "exerciseId": "ex-dead-hang-jugs",
+              "section": "COMPLEMENTARY",
+              "orderIndex": 0,
+              "customSets": 10,
+              "customDurationSec": 10,
+              "customRestSec": 30
+            },
+            {
+              "id": "pe-aug-mon-2",
+              "exerciseId": "ex-bouldering-high-intensity",
+              "section": "MAIN",
+              "orderIndex": 1
+            },
+            {
+              "id": "pe-aug-mon-3",
+              "exerciseId": "ex-stretching",
+              "section": "COMPLEMENTARY",
+              "orderIndex": 2
+            }
+          ]
+        },
+        {
+          "id": "day-aug-tue",
+          "dayOfWeek": 2,
+          "dayTitle": "Z2 - Antagonist & Rehab",
+          "exercises": [
+            {
+              "id": "pe-aug-tue-1",
+              "exerciseId": "ex-push-ups",
+              "section": "MAIN",
+              "orderIndex": 0,
+              "customSets": 3,
+              "customReps": 10,
+              "customRestSec": 120
+            },
+            {
+              "id": "pe-aug-tue-2",
+              "exerciseId": "ex-knee-program",
+              "section": "SECONDARY",
+              "orderIndex": 1
+            },
+            {
+              "id": "pe-aug-tue-3",
+              "exerciseId": "ex-explosive-pullups",
+              "section": "MAIN",
+              "orderIndex": 2,
+              "customSets": 4,
+              "customReps": 2,
+              "customRestSec": 180
+            }
+          ]
+        },
+        {
+          "id": "day-aug-wed",
+          "dayOfWeek": 3,
+          "dayTitle": "Z3 - Finger Strength & Power Endurance",
+          "exercises": [
+            {
+              "id": "pe-aug-wed-1",
+              "exerciseId": "ex-no-hangs",
+              "section": "MAIN",
+              "orderIndex": 0
+            },
+            {
+              "id": "pe-aug-wed-2",
+              "exerciseId": "ex-bechtel-finger",
+              "section": "MAIN",
+              "orderIndex": 1
+            },
+            {
+              "id": "pe-aug-wed-3",
+              "exerciseId": "ex-wall-crawling",
+              "section": "SECONDARY",
+              "orderIndex": 2
+            },
+            {
+              "id": "pe-aug-wed-4",
+              "exerciseId": "ex-intensive-triples",
+              "section": "SECONDARY",
+              "orderIndex": 3
+            },
+            {
+              "id": "pe-aug-wed-5",
+              "exerciseId": "ex-stretching",
+              "section": "COMPLEMENTARY",
+              "orderIndex": 4
+            }
+          ]
+        },
+        {
+          "id": "day-aug-thu",
+          "dayOfWeek": 4,
+          "dayTitle": "Z4 - Endurance",
+          "exercises": [
+            {
+              "id": "pe-aug-thu-1",
+              "exerciseId": "ex-easy-routes-autobelay",
+              "section": "MAIN",
+              "orderIndex": 0
+            },
+            {
+              "id": "pe-aug-thu-2",
+              "exerciseId": "ex-fryer-endurance",
+              "section": "MAIN",
+              "orderIndex": 1
+            },
+            {
+              "id": "pe-aug-thu-3",
+              "exerciseId": "ex-1on1off-endurance",
+              "section": "MAIN",
+              "orderIndex": 2
+            },
+            {
+              "id": "pe-aug-thu-4",
+              "exerciseId": "ex-carcing",
+              "section": "SECONDARY",
+              "orderIndex": 3
+            }
+          ]
+        },
+        {
+          "id": "day-aug-fri",
+          "dayOfWeek": 5,
+          "dayTitle": "Z5 - Stretching & Recovery",
+          "exercises": [
+            {
+              "id": "pe-aug-fri-1",
+              "exerciseId": "ex-stretching",
+              "section": "MAIN",
+              "orderIndex": 0
+            }
+          ]
+        },
+        {
+          "id": "day-aug-sat",
+          "dayOfWeek": 6,
+          "dayTitle": "Z6 - Outdoor Climbing",
+          "exercises": [
+            {
+              "id": "pe-aug-sat-1",
+              "exerciseId": "ex-outdoor-climbing",
+              "section": "MAIN",
+              "orderIndex": 0
+            }
+          ]
+        },
+        {
+          "id": "day-aug-sun",
+          "dayOfWeek": 7,
+          "dayTitle": "Z7 - Outdoor Climbing",
+          "exercises": [
+            {
+              "id": "pe-aug-sun-1",
+              "exerciseId": "ex-outdoor-climbing",
+              "section": "MAIN",
+              "orderIndex": 0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

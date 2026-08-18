@@ -34,6 +34,7 @@ local.properties
 # Keystore files
 *.jks
 *.keystore
+*.idsig
 
 # OS files
 .DS_Store

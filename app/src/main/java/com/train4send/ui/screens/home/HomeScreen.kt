@@ -308,31 +308,21 @@ private fun TodaySessionCard(
                 if (exercises.isNotEmpty()) {
                     Spacer(modifier = Modifier.height(16.dp))
                     
-                    // Stylish Grid for Exercises
+                    // Stylish List for Exercises
                     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        exercises.chunked(2).forEach { rowItems ->
-                            Row(
+                        exercises.forEach { planned ->
+                            val exercise = exerciseMap[planned.exerciseId]
+                            ExerciseTile(
+                                planned = planned,
+                                exercise = exercise,
+                                isToday = isToday,
                                 modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.spacedBy(8.dp)
-                            ) {
-                                rowItems.forEach { planned ->
-                                    val exercise = exerciseMap[planned.exerciseId]
-                                    ExerciseTile(
-                                        planned = planned,
-                                        exercise = exercise,
-                                        isToday = isToday,
-                                        modifier = Modifier.weight(1f),
-                                        onClick = {
-                                            exercise?.id?.let { id ->
-                                                navController.navigate(Screen.ExerciseDetail.createRoute(id))
-                                            }
-                                        }
-                                    )
+                                onClick = {
+                                    exercise?.id?.let { id ->
+                                        navController.navigate(Screen.ExerciseDetail.createRoute(id))
+                                    }
                                 }
-                                if (rowItems.size == 1) {
-                                    Spacer(modifier = Modifier.weight(1f))
-                                }
-                            }
+                            )
                         }
                     }
                 } else {

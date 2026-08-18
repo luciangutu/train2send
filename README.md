@@ -1,6 +1,6 @@
 # Train4Send — Climbing Training App
 
-A native Android app (Kotlin + Jetpack Compose) to schedule, execute, and track climbing training programs. Fully configurable — no hardcoded routines.
+A native Android app (Kotlin + Jetpack Compose) to schedule, execute, and track climbing training programs. Fully configurable — no hardcoded routines. Made with AI.
 
 ## Screenshots
 

@@ -84,6 +84,12 @@ fun HomeScreen(navController: NavController) {
                     modifier = Modifier.weight(1f),
                     onClick = { navController.navigate(Screen.Timer.route) }
                 )
+                QuickActionCard(
+                    title = "Backup",
+                    icon = Icons.Default.CloudUpload,
+                    modifier = Modifier.weight(1f),
+                    onClick = { navController.navigate(Screen.Backup.route) }
+                )
             }
 
             Spacer(modifier = Modifier.height(24.dp))

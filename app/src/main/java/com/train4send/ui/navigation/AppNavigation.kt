@@ -6,6 +6,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.train4send.ui.screens.backup.BackupScreen
 import com.train4send.ui.screens.exercises.ExerciseCreateScreen
 import com.train4send.ui.screens.exercises.ExerciseListScreen
 import com.train4send.ui.screens.home.HomeScreen
@@ -60,6 +61,9 @@ fun AppNavigation(navController: NavHostController) {
         }
         composable(Screen.Timer.route) {
             TimerScreen(navController = navController)
+        }
+        composable(Screen.Backup.route) {
+            BackupScreen(navController = navController)
         }
     }
 }

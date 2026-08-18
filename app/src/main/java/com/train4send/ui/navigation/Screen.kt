@@ -15,4 +15,5 @@ sealed class Screen(val route: String) {
         fun createRoute(planDayId: String) = "plan-day/$planDayId"
     }
     data object Timer : Screen("timer")
+    data object Backup : Screen("backup")
 }

@@ -30,6 +30,7 @@ import com.train4send.data.model.PlanDayEntity
 import com.train4send.data.model.PlannedExerciseEntity
 import com.train4send.data.model.TrainingPlanEntity
 import com.train4send.ui.navigation.Screen
+import com.train4send.utils.formatDuration
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.format.TextStyle
@@ -241,7 +242,7 @@ private fun TodayDashboard(
 
                 val estimatedMinutes = estimateDuration(exercises)
                 Text(
-                    text = "${exercises.size} exercises · ~${estimatedMinutes} min",
+                    text = "${exercises.size} exercises · ~${formatDuration(estimatedMinutes * 60)}",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f)
                 )
@@ -423,7 +424,7 @@ private fun DaySummaryCard(
                     fontWeight = FontWeight.Medium
                 )
                 Text(
-                    text = "${exercises.size} exercises · ~${estimateDuration(exercises)} min",
+                    text = "${exercises.size} exercises · ~${formatDuration(estimateDuration(exercises) * 60)}",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )

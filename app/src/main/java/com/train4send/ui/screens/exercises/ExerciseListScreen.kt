@@ -23,6 +23,7 @@ import com.train4send.Train4SendApp
 import com.train4send.data.model.ExerciseCategory
 import com.train4send.data.model.ExerciseEntity
 import com.train4send.ui.navigation.Screen
+import com.train4send.utils.formatDuration
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -159,10 +160,13 @@ private fun ExerciseCard(exercise: ExerciseEntity, onClick: () -> Unit) {
             // Sets/duration info
             Column(horizontalAlignment = Alignment.End) {
                 exercise.defaultSets?.let {
-                    Text("${it}s", style = MaterialTheme.typography.labelSmall)
+                    Text("$it sets", style = MaterialTheme.typography.labelSmall)
                 }
                 exercise.defaultDurationSec?.let {
-                    Text("${it}s", style = MaterialTheme.typography.labelSmall)
+                    Text(formatDuration(it), style = MaterialTheme.typography.labelSmall)
+                }
+                exercise.defaultRestSec?.let {
+                    Text("rest: ${formatDuration(it)}", style = MaterialTheme.typography.labelSmall)
                 }
             }
         }

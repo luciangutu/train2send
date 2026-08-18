@@ -20,6 +20,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.train4send.domain.timer.FlexibleTimerEngine
 import com.train4send.domain.timer.TimerState
+import com.train4send.utils.formatDuration
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 
@@ -92,7 +93,7 @@ fun TimerScreen(navController: NavController) {
                             )
                             Spacer(modifier = Modifier.height(8.dp))
                             Text(
-                                text = "${state.remainingSeconds}",
+                                text = formatDuration(state.remainingSeconds),
                                 fontSize = 72.sp,
                                 fontWeight = FontWeight.Bold,
                                 textAlign = TextAlign.Center
@@ -132,6 +133,9 @@ fun TimerScreen(navController: NavController) {
                         value = workSeconds,
                         onValueChange = { workSeconds = it },
                         label = { Text("Work (s)") },
+                        supportingText = {
+                            workSeconds.toIntOrNull()?.let { Text(formatDuration(it)) }
+                        },
                         modifier = Modifier.weight(1f),
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         singleLine = true
@@ -140,6 +144,9 @@ fun TimerScreen(navController: NavController) {
                         value = restSeconds,
                         onValueChange = { restSeconds = it },
                         label = { Text("Rest (s)") },
+                        supportingText = {
+                            restSeconds.toIntOrNull()?.let { Text(formatDuration(it)) }
+                        },
                         modifier = Modifier.weight(1f),
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         singleLine = true

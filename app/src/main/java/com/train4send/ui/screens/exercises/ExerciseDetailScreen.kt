@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.train4send.Train4SendApp
 import com.train4send.data.model.ExerciseEntity
+import com.train4send.utils.formatDuration
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -116,7 +117,7 @@ private fun ExerciseDetailContent(exercise: ExerciseEntity, modifier: Modifier =
             )
             DetailBox(
                 label = "Default Rest",
-                value = exercise.defaultRestSec?.let { "${it}s" } ?: "--",
+                value = exercise.defaultRestSec?.let { formatDuration(it) } ?: "--",
                 icon = Icons.Default.Timer,
                 modifier = Modifier.weight(1f)
             )
@@ -126,7 +127,7 @@ private fun ExerciseDetailContent(exercise: ExerciseEntity, modifier: Modifier =
 
         val workValue = when {
             exercise.defaultReps != null -> "${exercise.defaultReps} reps"
-            exercise.defaultDurationSec != null -> "${exercise.defaultDurationSec}s"
+            exercise.defaultDurationSec != null -> formatDuration(exercise.defaultDurationSec)
             else -> "--"
         }
         DetailBox(

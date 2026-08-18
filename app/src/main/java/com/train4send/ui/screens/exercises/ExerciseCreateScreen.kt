@@ -24,6 +24,7 @@ import androidx.navigation.NavController
 import com.train4send.Train4SendApp
 import com.train4send.data.model.ExerciseCategory
 import com.train4send.data.model.ExerciseEntity
+import com.train4send.utils.formatDuration
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -173,6 +174,11 @@ fun ExerciseCreateScreen(navController: NavController) {
                     value = defaultDurationSec,
                     onValueChange = { defaultDurationSec = it },
                     label = { Text("Work (sec)") },
+                    supportingText = {
+                        defaultDurationSec.toIntOrNull()?.let {
+                            Text(formatDuration(it))
+                        }
+                    },
                     modifier = Modifier.weight(1f),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     singleLine = true
@@ -181,6 +187,11 @@ fun ExerciseCreateScreen(navController: NavController) {
                     value = defaultRestSec,
                     onValueChange = { defaultRestSec = it },
                     label = { Text("Rest (sec)") },
+                    supportingText = {
+                        defaultRestSec.toIntOrNull()?.let {
+                            Text(formatDuration(it))
+                        }
+                    },
                     modifier = Modifier.weight(1f),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     singleLine = true

@@ -22,6 +22,7 @@ import androidx.navigation.NavController
 import com.train4send.Train4SendApp
 import com.train4send.data.model.*
 import com.train4send.ui.navigation.Screen
+import com.train4send.utils.formatDuration
 import kotlinx.coroutines.launch
 import java.time.DayOfWeek
 import java.time.format.TextStyle
@@ -217,7 +218,7 @@ fun PlanDayDetailScreen(
                             )
                             Spacer(modifier = Modifier.width(12.dp))
                             Text(
-                                text = "Estimated duration: ~$totalMin min",
+                                text = "Estimated duration: ~${formatDuration(totalMin * 60)}",
                                 style = MaterialTheme.typography.bodyMedium
                             )
                         }
@@ -478,8 +479,8 @@ private fun PlannedExerciseCard(
 
                 sets?.let { Text("$it sets", style = MaterialTheme.typography.labelSmall) }
                 reps?.let { Text("$it reps", style = MaterialTheme.typography.labelSmall) }
-                duration?.let { Text("${it}s work", style = MaterialTheme.typography.labelSmall) }
-                rest?.let { Text("${it}s rest", style = MaterialTheme.typography.labelSmall) }
+                duration?.let { Text("${formatDuration(it)} work", style = MaterialTheme.typography.labelSmall) }
+                rest?.let { Text("${formatDuration(it)} rest", style = MaterialTheme.typography.labelSmall) }
             }
             Spacer(modifier = Modifier.width(8.dp))
             IconButton(

@@ -48,6 +48,8 @@ fun PlanListScreen(navController: NavController) {
             }
         }
     ) { padding ->
+        val activeCount = allPlans.count { it.isActive }
+
         if (allPlans.isEmpty()) {
             Box(
                 modifier = Modifier
@@ -87,14 +89,10 @@ fun PlanListScreen(navController: NavController) {
                 items(allPlans) { plan ->
                     PlanCard(
                         plan = plan,
+                        showActivationAction = !plan.isActive || activeCount > 1,
                         onActivate = {
                             scope.launch {
-                                // Deactivate all others
-                                allPlans.filter { it.isActive && it.id != plan.id }.forEach {
-                                    app.trainingPlanRepository.updatePlan(it.copy(isActive = false))
-                                }
-                                // Activate this one
-                                app.trainingPlanRepository.updatePlan(plan.copy(isActive = true))
+                                app.trainingPlanRepository.activatePlan(plan.id)
                             }
                         },
                         onEdit = {
@@ -115,6 +113,7 @@ fun PlanListScreen(navController: NavController) {
 @Composable
 private fun PlanCard(
     plan: TrainingPlanEntity,
+    showActivationAction: Boolean,
     onActivate: () -> Unit,
     onEdit: () -> Unit,
     onDelete: () -> Unit
@@ -164,7 +163,7 @@ private fun PlanCard(
                 }
 
                 // Actions
-                if (!plan.isActive) {
+                if (showActivationAction) {
                     IconButton(onClick = onActivate) {
                         Icon(
                             Icons.Default.CheckCircle,

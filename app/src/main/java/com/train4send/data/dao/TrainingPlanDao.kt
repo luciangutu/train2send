@@ -24,6 +24,18 @@ interface TrainingPlanDao {
     @Update
     suspend fun updatePlan(plan: TrainingPlanEntity)
 
+    @Query("UPDATE training_plans SET isActive = 0")
+    suspend fun deactivateAllPlans()
+
+    @Query("UPDATE training_plans SET isActive = 1 WHERE id = :planId")
+    suspend fun setPlanActive(planId: String)
+
+    @Transaction
+    suspend fun activatePlan(planId: String) {
+        deactivateAllPlans()
+        setPlanActive(planId)
+    }
+
     @Delete
     suspend fun deletePlan(plan: TrainingPlanEntity)
 

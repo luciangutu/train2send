@@ -23,6 +23,9 @@ class TrainingPlanRepository(private val planDao: TrainingPlanDao) {
     suspend fun updatePlan(plan: TrainingPlanEntity) =
         planDao.updatePlan(plan)
 
+    suspend fun activatePlan(planId: String) =
+        planDao.activatePlan(planId)
+
     suspend fun deletePlan(plan: TrainingPlanEntity) =
         planDao.deletePlan(plan)
 

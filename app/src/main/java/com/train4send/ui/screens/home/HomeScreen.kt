@@ -1,7 +1,12 @@
 package com.train4send.ui.screens.home
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
@@ -9,20 +14,28 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.util.lerp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.train4send.Train4SendApp
 import com.train4send.data.model.ExerciseEntity
 import com.train4send.data.model.PlannedExerciseEntity
 import com.train4send.ui.navigation.Screen
+import java.time.DayOfWeek
 import java.time.LocalDate
+import java.time.format.TextStyle
+import java.util.Locale
+import kotlin.math.absoluteValue
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(navController: NavController) {
     val context = LocalContext.current
@@ -96,10 +109,11 @@ fun HomeScreen(navController: NavController) {
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Today's Session Card (if plan exists)
+            // Swipeable Session Pager
             activePlan?.let { plan ->
-                TodaySessionCard(
+                SessionPager(
                     planId = plan.id,
+                    planName = plan.title,
                     app = app,
                     navController = navController
                 )
@@ -108,63 +122,174 @@ fun HomeScreen(navController: NavController) {
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun TodaySessionCard(
+private fun SessionPager(
     planId: String,
+    planName: String,
     app: Train4SendApp,
     navController: NavController
 ) {
     val planDays by app.trainingPlanRepository.getDaysForPlan(planId)
         .collectAsStateWithLifecycle(initialValue = emptyList())
 
-    val todayDow = LocalDate.now().dayOfWeek.value
-    val todayPlanDay = planDays.find { it.dayOfWeek == todayDow }
+    val todayDow = LocalDate.now().dayOfWeek.value // 1-7
+    val pagerState = rememberPagerState(
+        initialPage = todayDow - 1,
+        pageCount = { 7 }
+    )
 
+    Column {
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                text = "Sessions",
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold
+            )
+            // Page indicators
+            Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                repeat(7) { index ->
+                    val isToday = (index + 1) == todayDow
+                    val color = if (pagerState.currentPage == index) {
+                        MaterialTheme.colorScheme.primary
+                    } else if (isToday) {
+                        MaterialTheme.colorScheme.primary.copy(alpha = 0.3f)
+                    } else {
+                        MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f)
+                    }
+                    Box(
+                        modifier = Modifier
+                            .size(if (pagerState.currentPage == index) 12.dp else 6.dp, 6.dp)
+                            .clip(CircleShape)
+                            .background(color)
+                    )
+                }
+            }
+        }
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        HorizontalPager(
+            state = pagerState,
+            contentPadding = PaddingValues(horizontal = 16.dp),
+            pageSpacing = 12.dp,
+            modifier = Modifier.fillMaxWidth()
+        ) { page ->
+            val dayOfWeekValue = page + 1
+            val planDay = planDays.find { it.dayOfWeek == dayOfWeekValue }
+            val isToday = dayOfWeekValue == todayDow
+
+            val pageOffset = (
+                    (pagerState.currentPage - page) + pagerState.currentPageOffsetFraction
+                    ).absoluteValue
+
+            TodaySessionCard(
+                planDay = planDay,
+                planName = planName,
+                dayOfWeek = dayOfWeekValue,
+                isToday = isToday,
+                app = app,
+                navController = navController,
+                modifier = Modifier
+                    .graphicsLayer {
+                        // Grayed out and scaled down effect for non-active pages
+                        val scale = lerp(0.9f, 1f, 1f - pageOffset.coerceIn(0f, 1f))
+                        scaleX = scale
+                        scaleY = scale
+                        alpha = lerp(0.5f, 1f, 1f - pageOffset.coerceIn(0f, 1f))
+                    }
+            )
+        }
+    }
+}
+
+@Composable
+private fun TodaySessionCard(
+    planDay: com.train4send.data.model.PlanDayEntity?,
+    planName: String,
+    dayOfWeek: Int,
+    isToday: Boolean,
+    app: Train4SendApp,
+    navController: NavController,
+    modifier: Modifier = Modifier
+) {
     val allExercises by app.exerciseRepository.getAllExercises()
         .collectAsStateWithLifecycle(initialValue = emptyList())
     val exerciseMap = allExercises.associateBy { it.id }
 
+    val dayName = DayOfWeek.of(dayOfWeek).getDisplayName(TextStyle.FULL, Locale.getDefault())
+
     Card(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
-            .clickable { navController.navigate(Screen.WeeklyPlan.route) },
-        shape = RoundedCornerShape(20.dp),
+            .clickable {
+                planDay?.let {
+                    navController.navigate(Screen.WeeklyPlan.route)
+                }
+            },
+        shape = RoundedCornerShape(24.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer
+            containerColor = if (isToday) MaterialTheme.colorScheme.primaryContainer 
+                             else MaterialTheme.colorScheme.surfaceVariant
         )
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(24.dp)
+                .padding(20.dp)
         ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(
-                    Icons.Default.Today,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onPrimaryContainer
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(
-                    text = "TODAY'S SESSION",
-                    style = MaterialTheme.typography.labelLarge,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)
-                )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Column(modifier = Modifier.weight(1f)) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            if (isToday) Icons.Default.Today else Icons.Default.CalendarToday,
+                            contentDescription = null,
+                            tint = if (isToday) MaterialTheme.colorScheme.onPrimaryContainer
+                            else MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier.size(18.dp)
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = if (isToday) "TODAY'S SESSION" else "${dayName.uppercase()}'S SESSION",
+                            style = MaterialTheme.typography.labelLarge,
+                            fontWeight = FontWeight.Bold,
+                            color = if (isToday) MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)
+                            else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
+                        )
+                    }
+                    Text(
+                        text = planName,
+                        style = MaterialTheme.typography.labelSmall,
+                        color = if (isToday) MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.5f)
+                        else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
             }
             Spacer(modifier = Modifier.height(12.dp))
 
-            if (todayPlanDay != null) {
+            if (planDay != null) {
                 val exercises by app.trainingPlanRepository
-                    .getExercisesForDay(todayPlanDay.id)
+                    .getExercisesForDay(planDay.id)
                     .collectAsStateWithLifecycle(initialValue = emptyList())
 
                 Text(
-                    text = todayPlanDay.dayTitle,
-                    style = MaterialTheme.typography.headlineMedium,
+                    text = planDay.dayTitle,
+                    style = MaterialTheme.typography.headlineSmall,
                     fontWeight = FontWeight.ExtraBold,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer
+                    color = if (isToday) MaterialTheme.colorScheme.onPrimaryContainer 
+                           else MaterialTheme.colorScheme.onSurfaceVariant
                 )
+                
                 val estimatedMin = if (exercises.isEmpty()) 0 else {
                     exercises.sumOf { ex ->
                         val work = ex.customDurationSec ?: 60
@@ -175,44 +300,65 @@ private fun TodaySessionCard(
                 }
                 Text(
                     text = "${exercises.size} exercises · ~$estimatedMin min",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f)
+                    style = MaterialTheme.typography.bodySmall,
+                    color = if (isToday) MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f)
+                           else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f)
                 )
 
                 if (exercises.isNotEmpty()) {
-                    Spacer(modifier = Modifier.height(20.dp))
-                    HorizontalDivider(
-                        color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.1f),
-                        thickness = 1.dp
-                    )
                     Spacer(modifier = Modifier.height(16.dp))
-
-                    exercises.forEach { planned ->
-                        val exercise = exerciseMap[planned.exerciseId]
-                        ExerciseItemMini(
-                            planned = planned,
-                            exercise = exercise,
-                            onClick = {
-                                exercise?.id?.let { id ->
-                                    navController.navigate(Screen.ExerciseDetail.createRoute(id))
+                    
+                    // Stylish Grid for Exercises
+                    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        exercises.chunked(2).forEach { rowItems ->
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                rowItems.forEach { planned ->
+                                    val exercise = exerciseMap[planned.exerciseId]
+                                    ExerciseTile(
+                                        planned = planned,
+                                        exercise = exercise,
+                                        isToday = isToday,
+                                        modifier = Modifier.weight(1f),
+                                        onClick = {
+                                            exercise?.id?.let { id ->
+                                                navController.navigate(Screen.ExerciseDetail.createRoute(id))
+                                            }
+                                        }
+                                    )
+                                }
+                                if (rowItems.size == 1) {
+                                    Spacer(modifier = Modifier.weight(1f))
                                 }
                             }
-                        )
-                        Spacer(modifier = Modifier.height(10.dp))
+                        }
                     }
+                } else {
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Text(
+                        text = "No exercises added to this day yet.",
+                        style = MaterialTheme.typography.bodyMedium,
+                        fontStyle = androidx.compose.ui.text.font.FontStyle.Italic,
+                        color = if (isToday) MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.6f)
+                               else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
+                    )
                 }
             } else {
                 Text(
                     text = "Rest Day 🧘",
-                    style = MaterialTheme.typography.headlineMedium,
+                    style = MaterialTheme.typography.headlineSmall,
                     fontWeight = FontWeight.ExtraBold,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer
+                    color = if (isToday) MaterialTheme.colorScheme.onPrimaryContainer 
+                           else MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = "No training scheduled for today. Take some time to recover!",
+                    text = "No training scheduled. Enjoy your recovery!",
                     style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f)
+                    color = if (isToday) MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f)
+                           else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f)
                 )
             }
         }
@@ -220,70 +366,65 @@ private fun TodaySessionCard(
 }
 
 @Composable
-private fun ExerciseItemMini(
+private fun ExerciseTile(
     planned: PlannedExerciseEntity,
     exercise: ExerciseEntity?,
+    isToday: Boolean,
+    modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
+    val containerColor = if (isToday) {
+        MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.05f)
+    } else {
+        MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.05f)
+    }
+    
+    val contentColor = if (isToday) {
+        MaterialTheme.colorScheme.onPrimaryContainer
+    } else {
+        MaterialTheme.colorScheme.onSurfaceVariant
+    }
+
+    Surface(
+        modifier = modifier
+            .height(72.dp)
+            .clip(RoundedCornerShape(16.dp))
             .clickable(onClick = onClick),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
+        color = containerColor,
+        shape = RoundedCornerShape(16.dp)
     ) {
-        Column(modifier = Modifier.weight(1f)) {
+        Column(
+            modifier = Modifier.padding(12.dp),
+            verticalArrangement = Arrangement.Center
+        ) {
             Text(
-                text = exercise?.name ?: "Unknown Exercise",
-                style = MaterialTheme.typography.bodyLarge,
+                text = exercise?.name ?: "Unknown",
+                style = MaterialTheme.typography.labelLarge,
                 fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onPrimaryContainer
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                color = contentColor
             )
-            exercise?.let {
-                Text(
-                    text = it.category.label,
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.6f)
-                )
-            }
-        }
+            
+            val sets = planned.customSets ?: exercise?.defaultSets
+            val reps = planned.customReps ?: exercise?.defaultReps
+            val duration = planned.customDurationSec ?: exercise?.defaultDurationSec
 
-        val sets = planned.customSets ?: exercise?.defaultSets
-        val reps = planned.customReps ?: exercise?.defaultReps
-        val duration = planned.customDurationSec ?: exercise?.defaultDurationSec
-
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            if (sets != null) {
-                Surface(
-                    shape = RoundedCornerShape(8.dp),
-                    color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.1f)
-                ) {
-                    Text(
-                        text = "$sets",
-                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp),
-                        style = MaterialTheme.typography.labelMedium,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onPrimaryContainer
-                    )
+            val detailText = buildString {
+                if (sets != null) append("${sets}x")
+                if (reps != null) {
+                    if (isNotEmpty()) append(" ")
+                    append("$reps")
+                } else if (duration != null) {
+                    if (isNotEmpty()) append(" ")
+                    append("${duration}s")
                 }
-                Text(
-                    text = " × ",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.6f)
-                )
-            }
-
-            val detail = when {
-                reps != null -> "$reps reps"
-                duration != null -> "${duration}s"
-                else -> "--"
             }
 
             Text(
-                text = detail,
-                style = MaterialTheme.typography.bodyMedium,
-                fontWeight = FontWeight.Medium,
-                color = MaterialTheme.colorScheme.onPrimaryContainer
+                text = detailText,
+                style = MaterialTheme.typography.labelSmall,
+                color = contentColor.copy(alpha = 0.6f)
             )
         }
     }

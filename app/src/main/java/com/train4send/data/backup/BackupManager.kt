@@ -79,6 +79,7 @@ class BackupManager(private val app: Train4SendApp) {
 
         var exercisesImported = 0
         var plansImported = 0
+        var lastActivePlanId: String? = null
 
         // Import exercises
         backup.exercises.forEach { exBackup ->
@@ -113,6 +114,10 @@ class BackupManager(private val app: Train4SendApp) {
                     createdAt = planBackup.createdAt
                 )
             )
+            
+            if (planBackup.isActive) {
+                lastActivePlanId = planBackup.id
+            }
 
             planBackup.days.forEach { dayBackup ->
                 app.trainingPlanRepository.insertPlanDay(
@@ -147,6 +152,11 @@ class BackupManager(private val app: Train4SendApp) {
                 }
             }
             plansImported++
+        }
+        
+        // Ensure only one plan is active if any active plans were imported
+        lastActivePlanId?.let { id ->
+            app.trainingPlanRepository.activatePlan(id)
         }
 
         return ImportResult(exercisesImported, plansImported)

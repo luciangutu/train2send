@@ -329,15 +329,15 @@ private suspend fun savePlan(
     title: String,
     dayConfigs: List<DayConfig>
 ) {
-    // If this is the first plan ever, make it active
-    val isFirstPlan = existingPlan == null
     val plan = existingPlan?.copy(title = title)
-        ?: TrainingPlanEntity(title = title, isActive = isFirstPlan)
+        ?: TrainingPlanEntity(title = title, isActive = false) // Default to inactive, will activate if needed
 
     if (existingPlan != null) {
         app.trainingPlanRepository.updatePlan(plan)
     } else {
         app.trainingPlanRepository.insertPlan(plan)
+        // If it's the first plan ever, or we just want new plans to be active
+        app.trainingPlanRepository.activatePlan(plan.id)
     }
 
     // Sync days: delete removed, update existing, insert new

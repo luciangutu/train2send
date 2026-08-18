@@ -147,6 +147,11 @@ fun PlanDayDetailScreen(
                                 scope.launch {
                                     app.trainingPlanRepository.deletePlannedExercise(planned)
                                 }
+                            },
+                            onClick = {
+                                planned.exerciseId.let { id ->
+                                    navController.navigate(Screen.ExerciseDetail.createRoute(id))
+                                }
                             }
                         )
                     }
@@ -162,6 +167,11 @@ fun PlanDayDetailScreen(
                                 scope.launch {
                                     app.trainingPlanRepository.deletePlannedExercise(planned)
                                 }
+                            },
+                            onClick = {
+                                planned.exerciseId.let { id ->
+                                    navController.navigate(Screen.ExerciseDetail.createRoute(id))
+                                }
                             }
                         )
                     }
@@ -176,6 +186,11 @@ fun PlanDayDetailScreen(
                             onRemove = {
                                 scope.launch {
                                     app.trainingPlanRepository.deletePlannedExercise(planned)
+                                }
+                            },
+                            onClick = {
+                                planned.exerciseId.let { id ->
+                                    navController.navigate(Screen.ExerciseDetail.createRoute(id))
                                 }
                             }
                         )
@@ -414,7 +429,8 @@ private fun SectionHeader(title: String) {
 private fun PlannedExerciseCard(
     planned: PlannedExerciseEntity,
     exercise: ExerciseEntity?,
-    onRemove: () -> Unit
+    onRemove: () -> Unit,
+    onClick: () -> Unit
 ) {
     val categoryColor = exercise?.let {
         Color(android.graphics.Color.parseColor(it.category.colorHex))
@@ -423,7 +439,9 @@ private fun PlannedExerciseCard(
     var showRemoveConfirm by remember { mutableStateOf(false) }
 
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick),
         shape = RoundedCornerShape(12.dp)
     ) {
         Row(

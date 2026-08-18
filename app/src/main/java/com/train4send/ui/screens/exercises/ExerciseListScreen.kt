@@ -1,6 +1,7 @@
 package com.train4send.ui.screens.exercises
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -100,7 +101,12 @@ fun ExerciseListScreen(navController: NavController) {
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     items(filteredExercises) { exercise ->
-                        ExerciseCard(exercise = exercise)
+                        ExerciseCard(
+                            exercise = exercise,
+                            onClick = {
+                                navController.navigate(Screen.ExerciseDetail.createRoute(exercise.id))
+                            }
+                        )
                     }
                 }
             }
@@ -109,11 +115,13 @@ fun ExerciseListScreen(navController: NavController) {
 }
 
 @Composable
-private fun ExerciseCard(exercise: ExerciseEntity) {
+private fun ExerciseCard(exercise: ExerciseEntity, onClick: () -> Unit) {
     val categoryColor = Color(android.graphics.Color.parseColor(exercise.category.colorHex))
 
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick),
         shape = RoundedCornerShape(12.dp)
     ) {
         Row(

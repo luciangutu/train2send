@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.train4send.ui.screens.backup.BackupScreen
 import com.train4send.ui.screens.exercises.ExerciseCreateScreen
+import com.train4send.ui.screens.exercises.ExerciseDetailScreen
 import com.train4send.ui.screens.exercises.ExerciseListScreen
 import com.train4send.ui.screens.home.HomeScreen
 import com.train4send.ui.screens.plan.PlanDayDetailScreen
@@ -30,6 +31,15 @@ fun AppNavigation(navController: NavHostController) {
         }
         composable(Screen.ExerciseCreate.route) {
             ExerciseCreateScreen(navController = navController)
+        }
+        composable(
+            route = "exercises/{exerciseId}",
+            arguments = listOf(
+                navArgument("exerciseId") { type = NavType.StringType }
+            )
+        ) { backStackEntry ->
+            val exerciseId = backStackEntry.arguments?.getString("exerciseId") ?: ""
+            ExerciseDetailScreen(exerciseId = exerciseId, navController = navController)
         }
         composable(Screen.WeeklyPlan.route) {
             WeeklyPlanScreen(navController = navController)

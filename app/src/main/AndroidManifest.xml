@@ -10,6 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Train4Send"
+        android:enableOnBackInvokedCallback="true"
         tools:targetApi="35">
         <activity
             android:name=".MainActivity"

@@ -4,9 +4,14 @@ sealed class Screen(val route: String) {
     data object Home : Screen("home")
     data object Exercises : Screen("exercises")
     data object ExerciseCreate : Screen("exercises/create")
-    data object Plans : Screen("plans")
-    data object PlanDetail : Screen("plans/{planId}") {
-        fun createRoute(planId: String) = "plans/$planId"
+    data object WeeklyPlan : Screen("weekly-plan")
+    data object PlanSetup : Screen("plan-setup?planId={planId}") {
+        const val route_base = "plan-setup"
+        fun createRoute(planId: String? = null): String =
+            if (planId != null) "plan-setup?planId=$planId" else "plan-setup"
+    }
+    data object PlanDayDetail : Screen("plan-day/{planDayId}") {
+        fun createRoute(planDayId: String) = "plan-day/$planDayId"
     }
     data object Timer : Screen("timer")
     data object History : Screen("history")

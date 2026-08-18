@@ -79,30 +79,6 @@ app/src/main/java/com/train4send/
 
 ---
 
-## Features Implemented (Phase 1–2)
-
-- [x] Room database with full entity schema (exercises, plans, days, planned exercises, workout logs)
-- [x] Foreign key relationships with cascade deletes
-- [x] Dynamic exercise creation with category color picker
-- [x] Filterable exercise list by category
-- [x] Flexible interval timer engine (configurable work/rest/sets)
-- [x] Timer UI with live countdown and phase display
-- [x] Workout history log viewer
-- [x] Material 3 theming with dynamic color support
-- [x] Edge-to-edge display
-- [x] Navigation between all screens
-
-## Roadmap (Remaining)
-
-- [ ] Training plan builder (weekly schedule with Z1–Z7 days)
-- [ ] OR-group exercise alternatives per day
-- [ ] Active workout execution with timer integration
-- [ ] Workout logging from execution screen
-- [ ] Analytics/progress charts
-- [ ] Data export/import
-
----
-
 ## Build & Run
 
 ```bash

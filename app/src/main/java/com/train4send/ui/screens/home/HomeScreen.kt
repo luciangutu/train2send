@@ -22,8 +22,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.train4send.Train4SendApp
 import com.train4send.data.model.ExerciseCategory
-import com.train4send.data.model.PlanDayEntity
-import com.train4send.data.model.PlannedExerciseEntity
 import com.train4send.ui.navigation.Screen
 import java.time.LocalDate
 
@@ -85,12 +83,6 @@ fun HomeScreen(navController: NavController) {
                     icon = Icons.Default.Timer,
                     modifier = Modifier.weight(1f),
                     onClick = { navController.navigate(Screen.Timer.route) }
-                )
-                QuickActionCard(
-                    title = "History",
-                    icon = Icons.Default.History,
-                    modifier = Modifier.weight(1f),
-                    onClick = { navController.navigate(Screen.History.route) }
                 )
             }
 

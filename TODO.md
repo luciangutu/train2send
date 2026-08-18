@@ -1,0 +1,1 @@
+- import/export as JSON or link with google play/google drive and save all there (plans, exercises etc)

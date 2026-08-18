@@ -329,8 +329,10 @@ private suspend fun savePlan(
     title: String,
     dayConfigs: List<DayConfig>
 ) {
+    // If this is the first plan ever, make it active
+    val isFirstPlan = existingPlan == null
     val plan = existingPlan?.copy(title = title)
-        ?: TrainingPlanEntity(title = title, isActive = true)
+        ?: TrainingPlanEntity(title = title, isActive = isFirstPlan)
 
     if (existingPlan != null) {
         app.trainingPlanRepository.updatePlan(plan)

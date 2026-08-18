@@ -179,3 +179,9 @@ cd ~/Dropbox/Other/train4send
 # 5. Launch the app
 adb shell am start -n com.train4send/.MainActivity
 ```
+
+
+### remove any lingering Gradle daemons
+```
+pkill -f "GradleDaemon" 2>/dev/null; pkill -f "gradle" 2>/dev/null; sleep 2; echo "done"
+```

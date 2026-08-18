@@ -8,9 +8,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.train4send.ui.screens.exercises.ExerciseCreateScreen
 import com.train4send.ui.screens.exercises.ExerciseListScreen
-import com.train4send.ui.screens.history.HistoryScreen
 import com.train4send.ui.screens.home.HomeScreen
 import com.train4send.ui.screens.plan.PlanDayDetailScreen
+import com.train4send.ui.screens.plan.PlanListScreen
 import com.train4send.ui.screens.plan.PlanSetupScreen
 import com.train4send.ui.screens.plan.WeeklyPlanScreen
 import com.train4send.ui.screens.timer.TimerScreen
@@ -32,6 +32,9 @@ fun AppNavigation(navController: NavHostController) {
         }
         composable(Screen.WeeklyPlan.route) {
             WeeklyPlanScreen(navController = navController)
+        }
+        composable(Screen.PlanList.route) {
+            PlanListScreen(navController = navController)
         }
         composable(
             route = "plan-setup?planId={planId}",
@@ -57,9 +60,6 @@ fun AppNavigation(navController: NavHostController) {
         }
         composable(Screen.Timer.route) {
             TimerScreen(navController = navController)
-        }
-        composable(Screen.History.route) {
-            HistoryScreen(navController = navController)
         }
     }
 }

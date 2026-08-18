@@ -58,6 +58,11 @@ fun WeeklyPlanScreen(navController: NavController) {
                             Icon(Icons.Default.Edit, contentDescription = "Edit Plan")
                         }
                     }
+                    IconButton(onClick = {
+                        navController.navigate(Screen.PlanList.route)
+                    }) {
+                        Icon(Icons.Default.List, contentDescription = "All Plans")
+                    }
                 }
             )
         },

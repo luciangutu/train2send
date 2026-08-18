@@ -1,6 +1,7 @@
 package com.train4send.ui.screens.plan
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -19,12 +20,9 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.train4send.Train4SendApp
-import com.train4send.data.model.ExerciseEntity
-import com.train4send.data.model.ExerciseSection
-import com.train4send.data.model.PlanDayEntity
-import com.train4send.data.model.PlannedExerciseEntity
+import com.train4send.data.model.*
 import com.train4send.ui.navigation.Screen
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import java.time.DayOfWeek
 import java.time.format.TextStyle
 import java.util.Locale
@@ -36,8 +34,8 @@ fun PlanDayDetailScreen(
     navController: NavController
 ) {
     val app = LocalContext.current.applicationContext as Train4SendApp
+    val scope = rememberCoroutineScope()
 
-    // Load the plan day info
     val activePlan by app.trainingPlanRepository.getActivePlan()
         .collectAsStateWithLifecycle(initialValue = null)
 
@@ -60,6 +58,8 @@ fun PlanDayDetailScreen(
     val dayName = planDay?.let {
         DayOfWeek.of(it.dayOfWeek).getDisplayName(TextStyle.FULL, Locale.getDefault())
     } ?: ""
+
+    var showAddExerciseSheet by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -87,6 +87,13 @@ fun PlanDayDetailScreen(
                     }
                 }
             )
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { showAddExerciseSheet = true }
+            ) {
+                Icon(Icons.Default.Add, contentDescription = "Add Exercise")
+            }
         }
     ) { padding ->
         if (plannedExercises.isEmpty()) {
@@ -111,7 +118,7 @@ fun PlanDayDetailScreen(
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        text = "Edit the plan to add exercises",
+                        text = "Tap + to add exercises to this day",
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -131,29 +138,47 @@ fun PlanDayDetailScreen(
                 val complementaryExercises = plannedExercises.filter { it.section == ExerciseSection.COMPLEMENTARY }
 
                 if (mainExercises.isNotEmpty()) {
-                    item {
-                        SectionHeader("Main Exercises")
-                    }
+                    item { SectionHeader("Main Exercises") }
                     items(mainExercises) { planned ->
-                        PlannedExerciseCard(planned, exerciseMap[planned.exerciseId])
+                        PlannedExerciseCard(
+                            planned = planned,
+                            exercise = exerciseMap[planned.exerciseId],
+                            onRemove = {
+                                scope.launch {
+                                    app.trainingPlanRepository.deletePlannedExercise(planned)
+                                }
+                            }
+                        )
                     }
                 }
 
                 if (secondaryExercises.isNotEmpty()) {
-                    item {
-                        SectionHeader("Secondary")
-                    }
+                    item { SectionHeader("Secondary") }
                     items(secondaryExercises) { planned ->
-                        PlannedExerciseCard(planned, exerciseMap[planned.exerciseId])
+                        PlannedExerciseCard(
+                            planned = planned,
+                            exercise = exerciseMap[planned.exerciseId],
+                            onRemove = {
+                                scope.launch {
+                                    app.trainingPlanRepository.deletePlannedExercise(planned)
+                                }
+                            }
+                        )
                     }
                 }
 
                 if (complementaryExercises.isNotEmpty()) {
-                    item {
-                        SectionHeader("Complementary")
-                    }
+                    item { SectionHeader("Complementary") }
                     items(complementaryExercises) { planned ->
-                        PlannedExerciseCard(planned, exerciseMap[planned.exerciseId])
+                        PlannedExerciseCard(
+                            planned = planned,
+                            exercise = exerciseMap[planned.exerciseId],
+                            onRemove = {
+                                scope.launch {
+                                    app.trainingPlanRepository.deletePlannedExercise(planned)
+                                }
+                            }
+                        )
                     }
                 }
 
@@ -186,6 +211,192 @@ fun PlanDayDetailScreen(
             }
         }
     }
+
+    // Add Exercise Bottom Sheet
+    if (showAddExerciseSheet) {
+        AddExerciseSheet(
+            allExercises = allExercises,
+            alreadyAdded = plannedExercises.map { it.exerciseId }.toSet(),
+            onDismiss = { showAddExerciseSheet = false },
+            onAdd = { exerciseId, section ->
+                scope.launch {
+                    app.trainingPlanRepository.insertPlannedExercise(
+                        PlannedExerciseEntity(
+                            planDayId = planDayId,
+                            exerciseId = exerciseId,
+                            section = section,
+                            orderIndex = plannedExercises.size
+                        )
+                    )
+                }
+                showAddExerciseSheet = false
+            }
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun AddExerciseSheet(
+    allExercises: List<ExerciseEntity>,
+    alreadyAdded: Set<String>,
+    onDismiss: () -> Unit,
+    onAdd: (exerciseId: String, section: ExerciseSection) -> Unit
+) {
+    var selectedSection by remember { mutableStateOf(ExerciseSection.MAIN) }
+    var selectedCategory by remember { mutableStateOf<ExerciseCategory?>(null) }
+
+    val filteredExercises = allExercises
+        .filter { it.id !in alreadyAdded }
+        .filter { selectedCategory == null || it.category == selectedCategory }
+
+    ModalBottomSheet(onDismissRequest = onDismiss) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
+                .padding(bottom = 32.dp)
+        ) {
+            Text(
+                text = "Add Exercise",
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(bottom = 16.dp)
+            )
+
+            // Section picker
+            Text(
+                text = "Section",
+                style = MaterialTheme.typography.labelLarge,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                ExerciseSection.entries.forEach { section ->
+                    FilterChip(
+                        selected = selectedSection == section,
+                        onClick = { selectedSection = section },
+                        label = {
+                            Text(
+                                when (section) {
+                                    ExerciseSection.MAIN -> "Main"
+                                    ExerciseSection.SECONDARY -> "Secondary"
+                                    ExerciseSection.COMPLEMENTARY -> "Complementary"
+                                }
+                            )
+                        }
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            // Category filter
+            Text(
+                text = "Filter by category",
+                style = MaterialTheme.typography.labelLarge,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                FilterChip(
+                    selected = selectedCategory == null,
+                    onClick = { selectedCategory = null },
+                    label = { Text("All") }
+                )
+                // Show first few categories that fit
+                ExerciseCategory.entries.take(4).forEach { cat ->
+                    FilterChip(
+                        selected = selectedCategory == cat,
+                        onClick = { selectedCategory = cat },
+                        label = { Text(cat.label.take(8)) }
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            if (filteredExercises.isEmpty()) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(120.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = if (allExercises.isEmpty()) "No exercises created yet.\nCreate exercises first."
+                        else "All exercises already added.",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            } else {
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .heightIn(max = 300.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    items(filteredExercises) { exercise ->
+                        ExercisePickerItem(
+                            exercise = exercise,
+                            onClick = { onAdd(exercise.id, selectedSection) }
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun ExercisePickerItem(
+    exercise: ExerciseEntity,
+    onClick: () -> Unit
+) {
+    val categoryColor = Color(android.graphics.Color.parseColor(exercise.category.colorHex))
+
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick),
+        shape = RoundedCornerShape(10.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(8.dp, 32.dp)
+                    .background(categoryColor, RoundedCornerShape(4.dp))
+            )
+            Spacer(modifier = Modifier.width(12.dp))
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = exercise.name,
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.Medium
+                )
+                Text(
+                    text = exercise.category.label,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = categoryColor
+                )
+            }
+            Icon(
+                Icons.Default.AddCircleOutline,
+                contentDescription = "Add",
+                tint = MaterialTheme.colorScheme.primary
+            )
+        }
+    }
 }
 
 @Composable
@@ -202,11 +413,14 @@ private fun SectionHeader(title: String) {
 @Composable
 private fun PlannedExerciseCard(
     planned: PlannedExerciseEntity,
-    exercise: ExerciseEntity?
+    exercise: ExerciseEntity?,
+    onRemove: () -> Unit
 ) {
     val categoryColor = exercise?.let {
         Color(android.graphics.Color.parseColor(it.category.colorHex))
     } ?: MaterialTheme.colorScheme.outline
+
+    var showRemoveConfirm by remember { mutableStateOf(false) }
 
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -244,20 +458,45 @@ private fun PlannedExerciseCard(
                 val duration = planned.customDurationSec ?: exercise?.defaultDurationSec
                 val rest = planned.customRestSec ?: exercise?.defaultRestSec
 
-                sets?.let {
-                    Text("$it sets", style = MaterialTheme.typography.labelSmall)
-                }
-                reps?.let {
-                    Text("$it reps", style = MaterialTheme.typography.labelSmall)
-                }
-                duration?.let {
-                    Text("${it}s work", style = MaterialTheme.typography.labelSmall)
-                }
-                rest?.let {
-                    Text("${it}s rest", style = MaterialTheme.typography.labelSmall)
-                }
+                sets?.let { Text("$it sets", style = MaterialTheme.typography.labelSmall) }
+                reps?.let { Text("$it reps", style = MaterialTheme.typography.labelSmall) }
+                duration?.let { Text("${it}s work", style = MaterialTheme.typography.labelSmall) }
+                rest?.let { Text("${it}s rest", style = MaterialTheme.typography.labelSmall) }
+            }
+            Spacer(modifier = Modifier.width(8.dp))
+            IconButton(
+                onClick = { showRemoveConfirm = true },
+                modifier = Modifier.size(32.dp)
+            ) {
+                Icon(
+                    Icons.Default.RemoveCircleOutline,
+                    contentDescription = "Remove",
+                    tint = MaterialTheme.colorScheme.error,
+                    modifier = Modifier.size(20.dp)
+                )
             }
         }
+    }
+
+    if (showRemoveConfirm) {
+        AlertDialog(
+            onDismissRequest = { showRemoveConfirm = false },
+            title = { Text("Remove Exercise") },
+            text = { Text("Remove \"${exercise?.name ?: "this exercise"}\" from this day?") },
+            confirmButton = {
+                TextButton(onClick = {
+                    showRemoveConfirm = false
+                    onRemove()
+                }) {
+                    Text("Remove", color = MaterialTheme.colorScheme.error)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showRemoveConfirm = false }) {
+                    Text("Cancel")
+                }
+            }
+        )
     }
 }
 

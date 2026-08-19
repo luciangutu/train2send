@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "exportedAt": 1723968000000,
   "exercises": [
     {
@@ -63,8 +63,8 @@
       "description": "Climb 1 minute, rest 1 minute. Repeat for endurance development.",
       "defaultReps": 10,
       "defaultSets": 1,
-      "defaultRestSec": 60,
-      "defaultDurationSec": 1145
+      "defaultDurationSec": 60,
+      "defaultRestBetweenSetsSec": 60
     },
     {
       "id": "ex-stretching",
@@ -100,8 +100,8 @@
       "description": "Move on the wall and take 4-7 sec break between moves on small holds",
       "defaultReps": 1,
       "defaultSets": 7,
-      "defaultRestSec": 500,
-      "defaultDurationSec": 1440
+      "defaultDurationSec": 200,
+      "defaultRestBetweenSetsSec": 500
     },
     {
       "id": "ex-intensive-triples",
@@ -110,8 +110,9 @@
       "description": "~45 min: 1 round = 3 min climbing (one flash-level boulder per minute) + 3 min rest. Set 1: 3 rounds (18 min). Big rest: 8-10 min. Set 2: 3 rounds (18 min).",
       "defaultSets": 2,
       "defaultReps": 3,
-      "defaultDurationSec": 2700,
-      "defaultRestSec": 180
+      "defaultDurationSec": 180,
+      "defaultRestSec": 180,
+      "defaultRestBetweenSetsSec": 480
     },
     {
       "id": "ex-carcing",

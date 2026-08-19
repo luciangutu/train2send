@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "exportedAt": 1723968000000,
   "exercises": [
     {
@@ -10,7 +10,7 @@
       "defaultSets": 5,
       "defaultReps": 1,
       "defaultDurationSec": 10,
-      "defaultRestSec": 180
+      "defaultRestBetweenSetsSec": 180
     },
     {
       "id": "ex-hangboard-repeaters",
@@ -20,7 +20,8 @@
       "defaultSets": 6,
       "defaultReps": 6,
       "defaultDurationSec": 7,
-      "defaultRestSec": 120
+      "defaultRestSec": 3,
+      "defaultRestBetweenSetsSec": 120
     },
     {
       "id": "ex-campus-ladders",
@@ -28,8 +29,8 @@
       "category": "POWER",
       "description": "Alternate hands going up the campus board rungs 1-3-5 or 1-4-7.",
       "defaultSets": 4,
-      "defaultReps": 3,
-      "defaultRestSec": 180
+      "defaultReps": 1,
+      "defaultRestBetweenSetsSec": 180
     },
     {
       "id": "ex-pullups-weighted",
@@ -38,7 +39,7 @@
       "description": "Pull-ups with added weight on a harness.",
       "defaultSets": 4,
       "defaultReps": 5,
-      "defaultRestSec": 180
+      "defaultRestBetweenSetsSec": 180
     },
     {
       "id": "ex-boulder-4x4",
@@ -47,7 +48,7 @@
       "description": "4 boulder problems back-to-back, repeated 4 times with rest between rounds.",
       "defaultSets": 4,
       "defaultReps": 4,
-      "defaultRestSec": 240
+      "defaultRestBetweenSetsSec": 240
     },
     {
       "id": "ex-core-front-lever",
@@ -57,7 +58,7 @@
       "defaultSets": 4,
       "defaultReps": 1,
       "defaultDurationSec": 10,
-      "defaultRestSec": 120
+      "defaultRestBetweenSetsSec": 120
     },
     {
       "id": "ex-shoulder-warmup",
@@ -66,7 +67,8 @@
       "description": "Band pull-aparts, external rotations, and arm circles.",
       "defaultSets": 2,
       "defaultReps": 15,
-      "defaultRestSec": 30
+      "defaultRestSec": 1,
+      "defaultRestBetweenSetsSec": 30
     },
     {
       "id": "ex-finger-stretch",
@@ -76,7 +78,8 @@
       "defaultSets": 2,
       "defaultReps": 10,
       "defaultDurationSec": 30,
-      "defaultRestSec": 15
+      "defaultRestSec": 1,
+      "defaultRestBetweenSetsSec": 15
     }
   ],
   "plans": [
@@ -104,7 +107,7 @@
               "orderIndex": 1,
               "customSets": 5,
               "customDurationSec": 10,
-              "customRestSec": 180
+              "customRestBetweenSetsSec": 180
             },
             {
               "id": "pe-str-mon-3",
@@ -113,7 +116,7 @@
               "orderIndex": 2,
               "customSets": 4,
               "customReps": 5,
-              "customRestSec": 180
+              "customRestBetweenSetsSec": 180
             },
             {
               "id": "pe-str-mon-4",
@@ -147,7 +150,7 @@
               "orderIndex": 2,
               "customSets": 4,
               "customDurationSec": 10,
-              "customRestSec": 180
+              "customRestBetweenSetsSec": 180
             },
             {
               "id": "pe-str-thu-4",
@@ -214,7 +217,7 @@
               "orderIndex": 1,
               "customSets": 5,
               "customReps": 4,
-              "customRestSec": 300
+              "customRestBetweenSetsSec": 300
             },
             {
               "id": "pe-end-fri-3",

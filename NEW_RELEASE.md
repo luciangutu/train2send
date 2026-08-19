@@ -30,5 +30,5 @@ git push origin v1.2.1
 
 6. GitHub Release:
 - **Tag**: v1.2.1
-- **Title**: Train4Send 1.2.1
-- **Attachment**: Rename `app-release.apk` to `train4send-1.2.1.apk` and upload.
+- **Title**: Train2Send 1.2.1
+- **Attachment**: Rename `app-release.apk` to `train2send-1.2.1.apk` and upload.

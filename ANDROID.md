@@ -1,4 +1,4 @@
-# Installing Train4Send on Samsung Galaxy S23
+# Installing Train2Send on Samsung Galaxy S23
 
 Step-by-step guide to compile and install the app directly on your physical device.
 
@@ -91,7 +91,7 @@ Samsung's USB vendor ID is `04e8`.
 ### 6. Build the Debug APK
 
 ```bash
-cd ~/Dropbox/Other/train4send
+cd ~/Dropbox/Other/train2send
 ./gradlew assembleDebug
 ```
 
@@ -116,10 +116,10 @@ Or build + install in one step:
 ### 8. Launch the App
 
 ```bash
-adb shell am start -n com.train4send/.MainActivity
+adb shell am start -n com.train2send/.MainActivity
 ```
 
-Or just find **Train4Send** in your app drawer.
+Or just find **Train2Send** in your app drawer.
 
 ---
 
@@ -130,9 +130,9 @@ For a release build you can install without Android Studio's debug certificate:
 ### 9. Generate a Keystore (One Time)
 
 ```bash
-keytool -genkey -v -keystore train4send-release.jks \
+keytool -genkey -v -keystore train2send-release.jks \
   -keyalg RSA -keysize 2048 -validity 10000 \
-  -alias train4send
+  -alias train2send
 ```
 
 You'll be prompted for a password and certificate details.
@@ -144,9 +144,9 @@ Add to `app/build.gradle.kts` inside the `android` block:
 ```kotlin
 signingConfigs {
     create("release") {
-        storeFile = file("../train4send-release.jks")
+        storeFile = file("../train2send-release.jks")
         storePassword = "your_password"
-        keyAlias = "train4send"
+        keyAlias = "train2send"
         keyPassword = "your_password"
     }
 }
@@ -208,7 +208,7 @@ adb devices
 |-------|-----|
 | `adb devices` shows empty | Check USB cable supports data (not charge-only), set USB mode to File Transfer |
 | "unauthorized" | Tap Allow on the phone popup, or revoke + re-authorize in Developer Options |
-| Install fails "INSTALL_FAILED_UPDATE_INCOMPATIBLE" | Uninstall old version first: `adb uninstall com.train4send` |
+| Install fails "INSTALL_FAILED_UPDATE_INCOMPATIBLE" | Uninstall old version first: `adb uninstall com.train2send` |
 | App crashes on launch | Check logs: `adb logcat -s "AndroidRuntime"` |
 | Build fails with "SDK not found" | Create `local.properties`: `sdk.dir=/home/YOUR_USER/Android/Sdk` |
 | Slow build | First build downloads dependencies. Subsequent builds are faster. Add `org.gradle.parallel=true` to `gradle.properties` |
@@ -219,14 +219,14 @@ adb devices
 
 ```bash
 # Full workflow from scratch:
-cd ~/Dropbox/Other/train4send
+cd ~/Dropbox/Other/train2send
 adb devices                          # verify phone connected
 ./gradlew installDebug               # build + install
-adb shell am start -n com.train4send/.MainActivity  # launch
+adb shell am start -n com.train2send/.MainActivity  # launch
 
 # View logs:
-adb logcat --pid=$(adb shell pidof com.train4send)
+adb logcat --pid=$(adb shell pidof com.train2send)
 
 # Uninstall:
-adb uninstall com.train4send
+adb uninstall com.train2send
 ```

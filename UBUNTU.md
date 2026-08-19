@@ -1,4 +1,4 @@
-# Running Train4Send on Ubuntu (Emulator)
+# Running Train2Send on Ubuntu (Emulator)
 
 Step-by-step guide to build and run the app on an Android emulator on Ubuntu.
 
@@ -89,10 +89,10 @@ sudo usermod -aG kvm $USER
 ### 5. Clone / Open the Project
 
 ```bash
-cd ~/Dropbox/Other/train4send
+cd ~/Dropbox/Other/train2send
 ```
 
-Open in Android Studio: **File → Open → select the train4send folder**
+Open in Android Studio: **File → Open → select the train2send folder**
 
 Wait for Gradle sync to complete (first time takes a few minutes to download dependencies).
 
@@ -113,7 +113,7 @@ sdkmanager --list | grep "system-images;android-35"
 sdkmanager "system-images;android-35;google_apis;x86_64"
 
 # Create AVD
-avdmanager create avd -n train4send_device -k "system-images;android-35;google_apis;x86_64" -d pixel_7
+avdmanager create avd -n train2send_device -k "system-images;android-35;google_apis;x86_64" -d pixel_7
 ```
 
 ---
@@ -127,7 +127,7 @@ From Android Studio: click the green ▶ Run button with your AVD selected.
 Or from terminal:
 
 ```bash
-emulator -avd train4send_device
+emulator -avd train2send_device
 ```
 
 ### 8. Build and Install
@@ -137,7 +137,7 @@ From Android Studio: **Run → Run 'app'** (Shift+F10)
 Or from terminal:
 
 ```bash
-cd ~/Dropbox/Other/train4send
+cd ~/Dropbox/Other/train2send
 ./gradlew installDebug
 ```
 
@@ -167,17 +167,17 @@ export ANDROID_HOME=$HOME/Android/Sdk
 export PATH=$PATH:$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools
 
 # 2. Start emulator in background
-emulator -avd train4send_device &
+emulator -avd train2send_device &
 
 # 3. Wait for device to boot
 adb wait-for-device
 
 # 4. Build and install
-cd ~/Dropbox/Other/train4send
+cd ~/Dropbox/Other/train2send
 ./gradlew installDebug
 
 # 5. Launch the app
-adb shell am start -n com.train4send/.MainActivity
+adb shell am start -n com.train2send/.MainActivity
 ```
 
 

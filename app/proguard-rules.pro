@@ -2,15 +2,15 @@
 -keepattributes *Annotation*, InnerClasses, Signature, EnclosingMethod
 
 # Keep data models and serialization logic
--keep class com.train4send.data.** { *; }
--keepclassmembers class com.train4send.data.** {
+-keep class com.train2send.data.** { *; }
+-keepclassmembers class com.train2send.data.** {
     *** Companion;
     *** $serializer;
 }
 
 # Keep critical app entry points
--keep class com.train4send.Train4SendApp { *; }
--keep class com.train4send.MainActivity { *; }
+-keep class com.train2send.Train2SendApp { *; }
+-keep class com.train2send.MainActivity { *; }
 
 # Lifecycle & ViewModel
 -keepclassmembers class * extends androidx.lifecycle.ViewModel {

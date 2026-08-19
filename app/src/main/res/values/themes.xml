@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.Train4Send" parent="Theme.Material3.DayNight.NoActionBar" />
+    <style name="Theme.Train2Send" parent="Theme.Material3.DayNight.NoActionBar" />
 </resources>

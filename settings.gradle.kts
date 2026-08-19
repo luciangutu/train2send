@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Train4Send"
+rootProject.name = "Train2Send"
 include(":app")

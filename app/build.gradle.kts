@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    namespace = "com.train4send"
+    namespace = "com.train2send"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.train4send"
+        applicationId = "com.train2send"
         minSdk = 26
         targetSdk = 35
         versionCode = 7
@@ -29,9 +29,9 @@ android {
                 props.load(propFile.inputStream())
             }
 
-            storeFile = file("../train4send-release.jks")
+            storeFile = file("../train2send-release.jks")
             storePassword = props.getProperty("keystore.password") ?: ""
-            keyAlias = "train4send"
+            keyAlias = "train2send"
             keyPassword = props.getProperty("key.password") ?: ""
         }
     }

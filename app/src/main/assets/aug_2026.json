@@ -101,7 +101,7 @@
       "defaultReps": 1,
       "defaultSets": 7,
       "defaultDurationSec": 200,
-      "defaultRestBetweenSetsSec": 500
+      "defaultRestBetweenSetsSec": 180
     },
     {
       "id": "ex-intensive-triples",

@@ -15,8 +15,8 @@ android {
         applicationId = "com.train2send"
         minSdk = 26
         targetSdk = 35
-        versionCode = 7
-        versionName = "1.2.4"
+        versionCode = 8
+        versionName = "1.2.5"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -31,7 +31,7 @@ android {
 
             storeFile = file("../train2send-release.jks")
             storePassword = props.getProperty("keystore.password") ?: ""
-            keyAlias = "train2send"
+            keyAlias = "train4send"
             keyPassword = props.getProperty("key.password") ?: ""
         }
     }

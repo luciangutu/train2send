@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class BackupData(
-    val version: Int = 1,
+    val version: Int = 2,
     val exportedAt: Long = System.currentTimeMillis(),
     val exercises: List<ExerciseBackup> = emptyList(),
     val plans: List<PlanBackup> = emptyList()
@@ -22,7 +22,8 @@ data class ExerciseBackup(
     val defaultSets: Int? = null,
     val defaultReps: Int? = null,
     val defaultDurationSec: Int? = null,
-    val defaultRestSec: Int? = null
+    val defaultRestSec: Int? = null,
+    val defaultRestBetweenSetsSec: Int? = null
 )
 
 @Serializable
@@ -51,5 +52,6 @@ data class PlannedExerciseBackup(
     val customSets: Int? = null,
     val customReps: Int? = null,
     val customDurationSec: Int? = null,
-    val customRestSec: Int? = null
+    val customRestSec: Int? = null,
+    val customRestBetweenSetsSec: Int? = null
 )

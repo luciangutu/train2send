@@ -34,5 +34,6 @@ data class PlannedExerciseEntity(
     val customSets: Int? = null,
     val customReps: Int? = null,
     val customDurationSec: Int? = null,
-    val customRestSec: Int? = null
+    val customRestSec: Int? = null,
+    val customRestBetweenSetsSec: Int? = null
 )

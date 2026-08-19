@@ -139,7 +139,7 @@
         {
           "id": "day-aug-mon",
           "dayOfWeek": 1,
-          "dayTitle": "Z1 - Warm-up & Bouldering",
+          "dayTitle": "Warm-up & Bouldering",
           "exercises": [
             {
               "id": "pe-aug-mon-1",
@@ -167,7 +167,7 @@
         {
           "id": "day-aug-tue",
           "dayOfWeek": 2,
-          "dayTitle": "Z2 - Antagonist & Rehab",
+          "dayTitle": "Antagonist & Rehab",
           "exercises": [
             {
               "id": "pe-aug-tue-1",
@@ -198,7 +198,7 @@
         {
           "id": "day-aug-wed",
           "dayOfWeek": 3,
-          "dayTitle": "Z3 - Finger Strength & Power Endurance",
+          "dayTitle": "Finger Strength & Power Endurance",
           "exercises": [
             {
               "id": "pe-aug-wed-1",
@@ -235,7 +235,7 @@
         {
           "id": "day-aug-thu",
           "dayOfWeek": 4,
-          "dayTitle": "Z4 - Endurance",
+          "dayTitle": "Endurance",
           "exercises": [
             {
               "id": "pe-aug-thu-1",
@@ -266,7 +266,7 @@
         {
           "id": "day-aug-fri",
           "dayOfWeek": 5,
-          "dayTitle": "Z5 - Stretching & Recovery",
+          "dayTitle": "Stretching & Recovery",
           "exercises": [
             {
               "id": "pe-aug-fri-1",
@@ -279,7 +279,7 @@
         {
           "id": "day-aug-sat",
           "dayOfWeek": 6,
-          "dayTitle": "Z6 - Outdoor Climbing",
+          "dayTitle": "Outdoor Climbing",
           "exercises": [
             {
               "id": "pe-aug-sat-1",
@@ -292,7 +292,7 @@
         {
           "id": "day-aug-sun",
           "dayOfWeek": 7,
-          "dayTitle": "Z7 - Outdoor Climbing",
+          "dayTitle": "Outdoor Climbing",
           "exercises": [
             {
               "id": "pe-aug-sun-1",

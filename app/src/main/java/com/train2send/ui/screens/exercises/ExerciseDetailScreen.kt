@@ -6,6 +6,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.FitnessCenter
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Timer
@@ -21,7 +23,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.train2send.Train2SendApp
 import com.train2send.data.model.ExerciseEntity
+import com.train2send.ui.navigation.Screen
+import com.train2send.utils.calculateExerciseDuration
 import com.train2send.utils.formatDuration
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -30,10 +35,13 @@ fun ExerciseDetailScreen(
     navController: NavController
 ) {
     val app = LocalContext.current.applicationContext as Train2SendApp
+    val scope = rememberCoroutineScope()
     val exerciseState = produceState<ExerciseEntity?>(initialValue = null) {
         value = app.exerciseRepository.getExerciseById(exerciseId)
     }
     val exercise = exerciseState.value
+
+    var showDeleteConfirm by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -42,6 +50,20 @@ fun ExerciseDetailScreen(
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                    }
+                },
+                actions = {
+                    IconButton(onClick = {
+                        navController.navigate(Screen.ExerciseEdit.createRoute(exerciseId))
+                    }) {
+                        Icon(Icons.Default.Edit, contentDescription = "Edit")
+                    }
+                    IconButton(onClick = { showDeleteConfirm = true }) {
+                        Icon(
+                            Icons.Default.Delete,
+                            contentDescription = "Delete",
+                            tint = MaterialTheme.colorScheme.error
+                        )
                     }
                 }
             )
@@ -54,6 +76,32 @@ fun ExerciseDetailScreen(
         } else {
             ExerciseDetailContent(exercise, modifier = Modifier.padding(padding))
         }
+    }
+
+    if (showDeleteConfirm && exercise != null) {
+        AlertDialog(
+            onDismissRequest = { showDeleteConfirm = false },
+            title = { Text("Delete Exercise") },
+            text = { Text("Delete \"${exercise.name}\"? This will also remove it from all training plans.") },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        showDeleteConfirm = false
+                        scope.launch {
+                            app.exerciseRepository.deleteExercise(exercise)
+                            navController.popBackStack()
+                        }
+                    }
+                ) {
+                    Text("Delete", color = MaterialTheme.colorScheme.error)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showDeleteConfirm = false }) {
+                    Text("Cancel")
+                }
+            }
+        )
     }
 }
 
@@ -110,13 +158,30 @@ private fun ExerciseDetailContent(exercise: ExerciseEntity, modifier: Modifier =
 
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
             DetailBox(
-                label = "Default Sets",
+                label = "Sets",
                 value = exercise.defaultSets?.toString() ?: "--",
                 icon = Icons.Default.FitnessCenter,
                 modifier = Modifier.weight(1f)
             )
             DetailBox(
-                label = "Default Rest",
+                label = "Reps",
+                value = exercise.defaultReps?.toString() ?: "--",
+                icon = Icons.Default.FitnessCenter,
+                modifier = Modifier.weight(1f)
+            )
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+            DetailBox(
+                label = "Work Rep",
+                value = exercise.defaultDurationSec?.let { formatDuration(it) } ?: "--",
+                icon = Icons.Default.Timer,
+                modifier = Modifier.weight(1f)
+            )
+            DetailBox(
+                label = "Rest Rep",
                 value = exercise.defaultRestSec?.let { formatDuration(it) } ?: "--",
                 icon = Icons.Default.Timer,
                 modifier = Modifier.weight(1f)
@@ -125,17 +190,27 @@ private fun ExerciseDetailContent(exercise: ExerciseEntity, modifier: Modifier =
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        val workValue = when {
-            exercise.defaultReps != null -> "${exercise.defaultReps} reps"
-            exercise.defaultDurationSec != null -> formatDuration(exercise.defaultDurationSec)
-            else -> "--"
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+            DetailBox(
+                label = "Rest Set",
+                value = exercise.defaultRestBetweenSetsSec?.let { formatDuration(it) } ?: "--",
+                icon = Icons.Default.Timer,
+                modifier = Modifier.weight(1f)
+            )
+            val totalSec = calculateExerciseDuration(
+                sets = exercise.defaultSets,
+                reps = exercise.defaultReps,
+                workRepSec = exercise.defaultDurationSec,
+                restRepSec = exercise.defaultRestSec,
+                restSetSec = exercise.defaultRestBetweenSetsSec
+            )
+            DetailBox(
+                label = "Total Duration",
+                value = formatDuration(totalSec),
+                icon = Icons.Default.Timer,
+                modifier = Modifier.weight(1f)
+            )
         }
-        DetailBox(
-            label = "Default Work",
-            value = workValue,
-            icon = Icons.Default.Timer,
-            modifier = Modifier.fillMaxWidth()
-        )
     }
 }
 

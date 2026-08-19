@@ -14,3 +14,22 @@ fun formatDuration(totalSeconds: Int): String {
     
     return parts.joinToString(" ")
 }
+
+fun calculateExerciseDuration(
+    sets: Int?,
+    reps: Int?,
+    workRepSec: Int?,
+    restRepSec: Int?,
+    restSetSec: Int?
+): Int {
+    val s = sets ?: 0
+    val r = reps ?: 1
+    val t = workRepSec ?: 0
+    val rr = restRepSec ?: 0
+    val rs = restSetSec ?: 0
+
+    if (s <= 0) return 0
+
+    val workPerSet = r * t + (if (r > 1) (r - 1) * rr else 0)
+    return s * workPerSet + (s - 1) * rs
+}

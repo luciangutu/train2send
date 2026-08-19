@@ -13,5 +13,6 @@ data class ExerciseEntity(
     val defaultSets: Int? = null,
     val defaultReps: Int? = null,
     val defaultDurationSec: Int? = null,
-    val defaultRestSec: Int? = null
+    val defaultRestSec: Int? = null,
+    val defaultRestBetweenSetsSec: Int? = null
 )

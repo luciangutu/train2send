@@ -3,7 +3,10 @@ package com.train2send.ui.navigation
 sealed class Screen(val route: String) {
     data object Home : Screen("home")
     data object Exercises : Screen("exercises")
-    data object ExerciseCreate : Screen("exercises/create")
+    data object ExerciseEdit : Screen("exercises/edit?exerciseId={exerciseId}") {
+        fun createRoute(exerciseId: String? = null): String =
+            if (exerciseId != null) "exercises/edit?exerciseId=$exerciseId" else "exercises/edit"
+    }
     data object ExerciseDetail : Screen("exercises/{exerciseId}") {
         fun createRoute(exerciseId: String) = "exercises/$exerciseId"
     }

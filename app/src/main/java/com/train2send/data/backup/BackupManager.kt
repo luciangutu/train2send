@@ -37,7 +37,8 @@ class BackupManager(private val app: Train2SendApp) {
                             customSets = pe.customSets,
                             customReps = pe.customReps,
                             customDurationSec = pe.customDurationSec,
-                            customRestSec = pe.customRestSec
+                            customRestSec = pe.customRestSec,
+                            customRestBetweenSetsSec = pe.customRestBetweenSetsSec
                         )
                     }
                 )
@@ -61,7 +62,8 @@ class BackupManager(private val app: Train2SendApp) {
                     defaultSets = ex.defaultSets,
                     defaultReps = ex.defaultReps,
                     defaultDurationSec = ex.defaultDurationSec,
-                    defaultRestSec = ex.defaultRestSec
+                    defaultRestSec = ex.defaultRestSec,
+                    defaultRestBetweenSetsSec = ex.defaultRestBetweenSetsSec
                 )
             },
             plans = planBackups
@@ -98,7 +100,8 @@ class BackupManager(private val app: Train2SendApp) {
                     defaultSets = exBackup.defaultSets,
                     defaultReps = exBackup.defaultReps,
                     defaultDurationSec = exBackup.defaultDurationSec,
-                    defaultRestSec = exBackup.defaultRestSec
+                    defaultRestSec = exBackup.defaultRestSec,
+                    defaultRestBetweenSetsSec = exBackup.defaultRestBetweenSetsSec
                 )
             )
             exercisesImported++
@@ -146,7 +149,8 @@ class BackupManager(private val app: Train2SendApp) {
                             customSets = peBackup.customSets,
                             customReps = peBackup.customReps,
                             customDurationSec = peBackup.customDurationSec,
-                            customRestSec = peBackup.customRestSec
+                            customRestSec = peBackup.customRestSec,
+                            customRestBetweenSetsSec = peBackup.customRestBetweenSetsSec
                         )
                     )
                 }

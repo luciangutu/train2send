@@ -27,8 +27,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.train2send.Train2SendApp
 import com.train2send.data.model.ExerciseEntity
+import com.train2send.data.model.ExerciseSection
 import com.train2send.data.model.PlannedExerciseEntity
 import com.train2send.ui.navigation.Screen
+import com.train2send.utils.calculateExerciseDuration
 import com.train2send.utils.formatDuration
 import java.time.DayOfWeek
 import java.time.LocalDate
@@ -292,11 +294,15 @@ private fun TodaySessionCard(
                 )
                 
                 val estimatedSec = if (exercises.isEmpty()) 0 else {
-                    exercises.sumOf { ex ->
-                        val work = ex.customDurationSec ?: 60
-                        val rest = ex.customRestSec ?: 90
-                        val sets = ex.customSets ?: 3
-                        (work + rest) * sets
+                    exercises.sumOf { planned ->
+                        val exercise = exerciseMap[planned.exerciseId]
+                        calculateExerciseDuration(
+                            sets = planned.customSets ?: exercise?.defaultSets,
+                            reps = planned.customReps ?: exercise?.defaultReps,
+                            workRepSec = planned.customDurationSec ?: exercise?.defaultDurationSec,
+                            restRepSec = planned.customRestSec ?: exercise?.defaultRestSec,
+                            restSetSec = planned.customRestBetweenSetsSec ?: exercise?.defaultRestBetweenSetsSec
+                        )
                     }
                 }
                 Text(
@@ -309,21 +315,38 @@ private fun TodaySessionCard(
                 if (exercises.isNotEmpty()) {
                     Spacer(modifier = Modifier.height(16.dp))
                     
-                    // Stylish List for Exercises
+                    // Grouping exercises by section
+                    val groupedExercises = exercises.groupBy { it.section }
+                    val sectionOrder = listOf(ExerciseSection.MAIN, ExerciseSection.SECONDARY, ExerciseSection.COMPLEMENTARY)
+
                     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        exercises.forEach { planned ->
-                            val exercise = exerciseMap[planned.exerciseId]
-                            ExerciseTile(
-                                planned = planned,
-                                exercise = exercise,
-                                isToday = isToday,
-                                modifier = Modifier.fillMaxWidth(),
-                                onClick = {
-                                    exercise?.id?.let { id ->
-                                        navController.navigate(Screen.ExerciseDetail.createRoute(id))
-                                    }
+                        sectionOrder.forEach { section ->
+                            val sectionExercises = groupedExercises[section] ?: emptyList()
+                            if (sectionExercises.isNotEmpty()) {
+                                sectionExercises.forEach { planned ->
+                                    val exercise = exerciseMap[planned.exerciseId]
+                                    ExerciseTile(
+                                        planned = planned,
+                                        exercise = exercise,
+                                        isToday = isToday,
+                                        modifier = Modifier.fillMaxWidth(),
+                                        onClick = {
+                                            exercise?.id?.let { id ->
+                                                navController.navigate(Screen.ExerciseDetail.createRoute(id))
+                                            }
+                                        }
+                                    )
                                 }
-                            )
+                                
+                                // Check if there are subsequent sections to add a spacer
+                                val hasMoreSections = sectionOrder
+                                    .drop(sectionOrder.indexOf(section) + 1)
+                                    .any { groupedExercises[it]?.isNotEmpty() == true }
+                                
+                                if (hasMoreSections) {
+                                    Spacer(modifier = Modifier.height(8.dp))
+                                }
+                            }
                         }
                     }
                 } else {
@@ -376,6 +399,26 @@ private fun ExerciseTile(
         MaterialTheme.colorScheme.onSurfaceVariant
     }
 
+    val categoryColor = exercise?.let {
+        try {
+            Color(android.graphics.Color.parseColor(it.category.colorHex))
+        } catch (e: Exception) {
+            contentColor
+        }
+    } ?: contentColor
+
+    val indicatorColor = when (planned.section) {
+        ExerciseSection.MAIN -> categoryColor
+        ExerciseSection.SECONDARY -> categoryColor.copy(alpha = 0.7f)
+        ExerciseSection.COMPLEMENTARY -> categoryColor.copy(alpha = 0.4f)
+    }
+
+    val indicatorWidth = when (planned.section) {
+        ExerciseSection.MAIN -> 6.dp
+        ExerciseSection.SECONDARY -> 4.dp
+        ExerciseSection.COMPLEMENTARY -> 2.dp
+    }
+
     Surface(
         modifier = modifier
             .height(72.dp)
@@ -384,39 +427,52 @@ private fun ExerciseTile(
         color = containerColor,
         shape = RoundedCornerShape(16.dp)
     ) {
-        Column(
-            modifier = Modifier.padding(12.dp),
-            verticalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text = exercise?.name ?: "Unknown",
-                style = MaterialTheme.typography.labelLarge,
-                fontWeight = FontWeight.Bold,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                color = contentColor
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            // Section Indicator Bar
+            Box(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .width(indicatorWidth)
+                    .background(indicatorColor)
             )
-            
-            val sets = planned.customSets ?: exercise?.defaultSets
-            val reps = planned.customReps ?: exercise?.defaultReps
-            val duration = planned.customDurationSec ?: exercise?.defaultDurationSec
 
-            val detailText = buildString {
-                if (sets != null) append("${sets}x")
-                if (reps != null) {
-                    if (isNotEmpty()) append(" ")
-                    append("$reps")
-                } else if (duration != null) {
-                    if (isNotEmpty()) append(" ")
-                    append(formatDuration(duration))
+            Column(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp, vertical = 12.dp)
+                    .weight(1f),
+                verticalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    text = exercise?.name ?: "Unknown",
+                    style = MaterialTheme.typography.labelLarge,
+                    fontWeight = FontWeight.Bold,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    color = contentColor
+                )
+                
+                val sets = planned.customSets ?: exercise?.defaultSets
+                val reps = planned.customReps ?: exercise?.defaultReps
+                val duration = planned.customDurationSec ?: exercise?.defaultDurationSec
+
+                val detailText = buildString {
+                    if (sets != null) append("${sets}x")
+                    if (reps != null) {
+                        if (isNotEmpty()) append("")
+                        append("$reps")
+                    }
+                    if (duration != null) {
+                        if (isNotEmpty()) append(" ")
+                        append("(${formatDuration(duration)})")
+                    }
                 }
-            }
 
-            Text(
-                text = detailText,
-                style = MaterialTheme.typography.labelSmall,
-                color = contentColor.copy(alpha = 0.6f)
-            )
+                Text(
+                    text = detailText,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = contentColor.copy(alpha = 0.6f)
+                )
+            }
         }
     }
 }

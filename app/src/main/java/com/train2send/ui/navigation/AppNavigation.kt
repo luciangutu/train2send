@@ -7,7 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.train2send.ui.screens.backup.BackupScreen
-import com.train2send.ui.screens.exercises.ExerciseCreateScreen
+import com.train2send.ui.screens.exercises.ExerciseEditScreen
 import com.train2send.ui.screens.exercises.ExerciseDetailScreen
 import com.train2send.ui.screens.exercises.ExerciseListScreen
 import com.train2send.ui.screens.home.HomeScreen
@@ -29,8 +29,18 @@ fun AppNavigation(navController: NavHostController) {
         composable(Screen.Exercises.route) {
             ExerciseListScreen(navController = navController)
         }
-        composable(Screen.ExerciseCreate.route) {
-            ExerciseCreateScreen(navController = navController)
+        composable(
+            route = Screen.ExerciseEdit.route,
+            arguments = listOf(
+                navArgument("exerciseId") {
+                    type = NavType.StringType
+                    nullable = true
+                    defaultValue = null
+                }
+            )
+        ) { backStackEntry ->
+            val exerciseId = backStackEntry.arguments?.getString("exerciseId")
+            ExerciseEditScreen(exerciseId = exerciseId, navController = navController)
         }
         composable(
             route = "exercises/{exerciseId}",

@@ -22,6 +22,7 @@ import androidx.navigation.NavController
 import com.train2send.Train2SendApp
 import com.train2send.data.model.*
 import com.train2send.ui.navigation.Screen
+import com.train2send.utils.calculateExerciseDuration
 import com.train2send.utils.formatDuration
 import kotlinx.coroutines.launch
 import java.time.DayOfWeek
@@ -201,7 +202,7 @@ fun PlanDayDetailScreen(
                 // Duration summary
                 item {
                     Spacer(modifier = Modifier.height(8.dp))
-                    val totalSec = estimateDuration(plannedExercises)
+                    val totalSec = estimateDuration(plannedExercises, exerciseMap)
                     Surface(
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(12.dp),
@@ -476,11 +477,13 @@ private fun PlannedExerciseCard(
                 val reps = planned.customReps ?: exercise?.defaultReps
                 val duration = planned.customDurationSec ?: exercise?.defaultDurationSec
                 val rest = planned.customRestSec ?: exercise?.defaultRestSec
+                val restSet = planned.customRestBetweenSetsSec ?: exercise?.defaultRestBetweenSetsSec
 
                 sets?.let { Text("$it sets", style = MaterialTheme.typography.labelSmall) }
                 reps?.let { Text("$it reps", style = MaterialTheme.typography.labelSmall) }
                 duration?.let { Text("${formatDuration(it)} work", style = MaterialTheme.typography.labelSmall) }
-                rest?.let { Text("${formatDuration(it)} rest", style = MaterialTheme.typography.labelSmall) }
+                rest?.let { Text("${formatDuration(it)} rest rep", style = MaterialTheme.typography.labelSmall) }
+                restSet?.let { Text("${formatDuration(it)} rest set", style = MaterialTheme.typography.labelSmall) }
             }
             Spacer(modifier = Modifier.width(8.dp))
             IconButton(
@@ -519,12 +522,19 @@ private fun PlannedExerciseCard(
     }
 }
 
-private fun estimateDuration(exercises: List<PlannedExerciseEntity>): Int {
+private fun estimateDuration(
+    exercises: List<PlannedExerciseEntity>,
+    exerciseMap: Map<String, ExerciseEntity>
+): Int {
     if (exercises.isEmpty()) return 0
-    return exercises.sumOf { ex ->
-        val work = ex.customDurationSec ?: 60
-        val rest = ex.customRestSec ?: 90
-        val sets = ex.customSets ?: 3
-        (work + rest) * sets
+    return exercises.sumOf { planned ->
+        val exercise = exerciseMap[planned.exerciseId]
+        calculateExerciseDuration(
+            sets = planned.customSets ?: exercise?.defaultSets,
+            reps = planned.customReps ?: exercise?.defaultReps,
+            workRepSec = planned.customDurationSec ?: exercise?.defaultDurationSec,
+            restRepSec = planned.customRestSec ?: exercise?.defaultRestSec,
+            restSetSec = planned.customRestBetweenSetsSec ?: exercise?.defaultRestBetweenSetsSec
+        )
     }
 }

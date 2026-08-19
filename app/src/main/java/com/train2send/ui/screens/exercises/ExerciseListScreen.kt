@@ -53,7 +53,7 @@ fun ExerciseListScreen(navController: NavController) {
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { navController.navigate(Screen.ExerciseCreate.route) }
+                onClick = { navController.navigate(Screen.ExerciseEdit.createRoute()) }
             ) {
                 Icon(Icons.Default.Add, contentDescription = "Add Exercise")
             }

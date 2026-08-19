@@ -30,6 +30,7 @@ import com.train2send.data.model.PlanDayEntity
 import com.train2send.data.model.PlannedExerciseEntity
 import com.train2send.data.model.TrainingPlanEntity
 import com.train2send.ui.navigation.Screen
+import com.train2send.utils.calculateExerciseDuration
 import com.train2send.utils.formatDuration
 import java.time.DayOfWeek
 import java.time.LocalDate
@@ -139,6 +140,10 @@ private fun WeeklyPlanContent(
     val app = LocalContext.current.applicationContext as Train2SendApp
     val planDays by app.trainingPlanRepository.getDaysForPlan(plan.id)
         .collectAsStateWithLifecycle(initialValue = emptyList())
+    
+    val allExercises by app.exerciseRepository.getAllExercises()
+        .collectAsStateWithLifecycle(initialValue = emptyList())
+    val exerciseMap = allExercises.associateBy { it.id }
 
     val today = LocalDate.now()
     val todayDow = today.dayOfWeek.value // 1=Mon, 7=Sun
@@ -161,7 +166,8 @@ private fun WeeklyPlanContent(
         TodayDashboard(
             todayPlanDay = todayPlanDay,
             navController = navController,
-            app = app
+            app = app,
+            exerciseMap = exerciseMap
         )
 
         // 7-Day Calendar
@@ -185,6 +191,7 @@ private fun WeeklyPlanContent(
                 planDay = day,
                 isToday = day.dayOfWeek == todayDow,
                 app = app,
+                exerciseMap = exerciseMap,
                 onClick = {
                     navController.navigate(Screen.PlanDayDetail.createRoute(day.id))
                 }
@@ -197,7 +204,8 @@ private fun WeeklyPlanContent(
 private fun TodayDashboard(
     todayPlanDay: PlanDayEntity?,
     navController: NavController,
-    app: Train2SendApp
+    app: Train2SendApp,
+    exerciseMap: Map<String, ExerciseEntity>
 ) {
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -240,7 +248,7 @@ private fun TodayDashboard(
                 )
                 Spacer(modifier = Modifier.height(4.dp))
 
-                val estimatedSeconds = estimateDuration(exercises)
+                val estimatedSeconds = estimateDuration(exercises, exerciseMap)
                 Text(
                     text = "${exercises.size} exercises · ~${formatDuration(estimatedSeconds)}",
                     style = MaterialTheme.typography.bodyMedium,
@@ -366,6 +374,7 @@ private fun DaySummaryCard(
     planDay: PlanDayEntity,
     isToday: Boolean,
     app: Train2SendApp,
+    exerciseMap: Map<String, ExerciseEntity>,
     onClick: () -> Unit
 ) {
     val exercises by app.trainingPlanRepository
@@ -424,7 +433,7 @@ private fun DaySummaryCard(
                     fontWeight = FontWeight.Medium
                 )
                 Text(
-                    text = "${exercises.size} exercises · ~${formatDuration(estimateDuration(exercises))}",
+                    text = "${exercises.size} exercises · ~${formatDuration(estimateDuration(exercises, exerciseMap))}",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -438,13 +447,19 @@ private fun DaySummaryCard(
     }
 }
 
-private fun estimateDuration(exercises: List<PlannedExerciseEntity>): Int {
+private fun estimateDuration(
+    exercises: List<PlannedExerciseEntity>,
+    exerciseMap: Map<String, ExerciseEntity>
+): Int {
     if (exercises.isEmpty()) return 0
-    // Rough estimate: each exercise ~4 min (including rest)
-    return exercises.sumOf { ex ->
-        val work = ex.customDurationSec ?: 60
-        val rest = ex.customRestSec ?: 90
-        val sets = ex.customSets ?: 3
-        (work + rest) * sets
+    return exercises.sumOf { planned ->
+        val exercise = exerciseMap[planned.exerciseId]
+        calculateExerciseDuration(
+            sets = planned.customSets ?: exercise?.defaultSets,
+            reps = planned.customReps ?: exercise?.defaultReps,
+            workRepSec = planned.customDurationSec ?: exercise?.defaultDurationSec,
+            restRepSec = planned.customRestSec ?: exercise?.defaultRestSec,
+            restSetSec = planned.customRestBetweenSetsSec ?: exercise?.defaultRestBetweenSetsSec
+        )
     }
 }

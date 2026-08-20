@@ -21,6 +21,16 @@ A native Android app (Kotlin + Jetpack Compose) to schedule, execute, and track 
 | **Mobility & Recovery** | 🟢 | Stretching, CARs, tissue care |
 | **Antagonist & Core** | 🔵 | Push-ups, TRX, shoulder stability |
 
+## How it works
+
+1. **Create exercises** — Define the exercises you train (e.g. pull-ups, hangboard repeaters, ARCs).
+2. **Build a plan** — Assemble exercises into a weekly training plan, assigning them to specific days.
+3. **Activate a plan** — Only one plan is active at a time. The main screen shows today's exercises from that plan.
+4. **Swipe through the week** — Swipe left/right on the main screen to preview upcoming or past days.
+5. **Run a workout** — Tap any exercise to see its details and start a session using the built-in timer.
+
+Each plan covers a single week. For multi-week programs, create a separate plan for each week and activate them in sequence.
+
 ## Architecture
 
 ```

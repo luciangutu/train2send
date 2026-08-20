@@ -62,6 +62,9 @@ interface TrainingPlanDao {
     @Update
     suspend fun updatePlannedExercise(exercise: PlannedExerciseEntity)
 
+    @Query("SELECT * FROM planned_exercises WHERE id = :id")
+    suspend fun getPlannedExerciseById(id: String): PlannedExerciseEntity?
+
     @Delete
     suspend fun deletePlannedExercise(exercise: PlannedExerciseEntity)
 }

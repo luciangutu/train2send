@@ -341,7 +341,7 @@ private fun TodaySessionCard(
                                         modifier = Modifier.fillMaxWidth(),
                                         onClick = {
                                             exercise?.id?.let { id ->
-                                                navController.navigate(Screen.ExerciseDetail.createRoute(id))
+                                                navController.navigate(Screen.ExerciseDetail.createRoute(id, planned.id))
                                             }
                                         }
                                     )

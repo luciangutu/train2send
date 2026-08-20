@@ -43,13 +43,23 @@ fun AppNavigation(navController: NavHostController) {
             ExerciseEditScreen(exerciseId = exerciseId, navController = navController)
         }
         composable(
-            route = "exercises/{exerciseId}",
+            route = Screen.ExerciseDetail.route,
             arguments = listOf(
-                navArgument("exerciseId") { type = NavType.StringType }
+                navArgument("exerciseId") { type = NavType.StringType },
+                navArgument("plannedId") {
+                    type = NavType.StringType
+                    nullable = true
+                    defaultValue = null
+                }
             )
         ) { backStackEntry ->
             val exerciseId = backStackEntry.arguments?.getString("exerciseId") ?: ""
-            ExerciseDetailScreen(exerciseId = exerciseId, navController = navController)
+            val plannedId = backStackEntry.arguments?.getString("plannedId")
+            ExerciseDetailScreen(
+                exerciseId = exerciseId,
+                plannedExerciseId = plannedId,
+                navController = navController
+            )
         }
         composable(Screen.WeeklyPlan.route) {
             WeeklyPlanScreen(navController = navController)
@@ -79,8 +89,30 @@ fun AppNavigation(navController: NavHostController) {
             val planDayId = backStackEntry.arguments?.getString("planDayId") ?: ""
             PlanDayDetailScreen(planDayId = planDayId, navController = navController)
         }
-        composable(Screen.Timer.route) {
-            TimerScreen(navController = navController)
+        composable(
+            route = Screen.Timer.route,
+            arguments = listOf(
+                navArgument("work") { type = NavType.IntType; defaultValue = -1 },
+                navArgument("restRep") { type = NavType.IntType; defaultValue = -1 },
+                navArgument("reps") { type = NavType.IntType; defaultValue = -1 },
+                navArgument("sets") { type = NavType.IntType; defaultValue = -1 },
+                navArgument("restSet") { type = NavType.IntType; defaultValue = -1 }
+            )
+        ) { backStackEntry ->
+            val work = backStackEntry.arguments?.getInt("work").takeIf { it != -1 }
+            val restRep = backStackEntry.arguments?.getInt("restRep").takeIf { it != -1 }
+            val reps = backStackEntry.arguments?.getInt("reps").takeIf { it != -1 }
+            val sets = backStackEntry.arguments?.getInt("sets").takeIf { it != -1 }
+            val restSet = backStackEntry.arguments?.getInt("restSet").takeIf { it != -1 }
+
+            TimerScreen(
+                navController = navController,
+                work = work,
+                restRep = restRep,
+                reps = reps,
+                sets = sets,
+                restSet = restSet
+            )
         }
         composable(Screen.Backup.route) {
             BackupScreen(navController = navController)

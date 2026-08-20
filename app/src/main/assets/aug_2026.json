@@ -7,10 +7,30 @@
       "name": "Dead-hang on Jugs",
       "category": "STRENGTH",
       "description": "Dead-hang on jug holds for warm-up and endurance.",
-      "defaultSets": 10,
-      "defaultReps": 1,
+      "defaultSets": 1,
+      "defaultReps": 10,
       "defaultDurationSec": 10,
       "defaultRestSec": 30
+    },
+    {
+      "id": "ex-dead-hang-small-edge",
+      "name": "Dead-hang on smallest edge",
+      "category": "STRENGTH",
+      "description": "Intermittent dead-hangs on the smallest edge.",
+      "defaultSets": 1,
+      "defaultReps": 7,
+      "defaultDurationSec": 10,
+      "defaultRestSec": 5
+    },
+    {
+      "id": "ex-max-finger",
+      "name": "Max finger strength",
+      "category": "STRENGTH",
+      "description": "Max finger strength (usually half-crimp) weighted hangs (90-100% of your maximum). Hangboard exercise designed to increase the maximum force your fingers can produce, useful especially for hard bouldering and difficult cruxes. Stop if grip position breaks down. For weaker climbers the same exercise can be done with assistance (e.g. pulley/band) to reach the appropriate intensity.",
+      "defaultSets": 1,
+      "defaultReps": 5,
+      "defaultDurationSec": 8,
+      "defaultRestSec": 150
     },
     {
       "id": "ex-push-ups",
@@ -22,24 +42,95 @@
       "defaultRestSec": 120
     },
     {
+      "id": "ex-strength-endurance-hangboard",
+      "name": "Strength Endurance Hangboard",
+      "category": "POWER_ENDURANCE",
+      "description": "Hangboard strength-endurance protocol using repeated 7-second hangs with 3 seconds of rest. Use a moderate-high intensity that allows all repetitions with controlled grip position. Designed to improve the ability to sustain repeated high-intensity finger contractions and tolerate pump.",
+      "defaultSets": 1,
+      "defaultReps": 15,
+      "defaultDurationSec": 7,
+      "defaultRestSec": 3
+    }
+    {
       "id": "ex-no-hangs",
       "name": "No-hangs Hangboard",
       "category": "STRENGTH",
       "description": "Hangboard training using your feet on the ground.",
-      "defaultSets": 5,
-      "defaultReps": 1,
+      "defaultSets": 1,
+      "defaultReps": 11,
       "defaultDurationSec": 10,
-      "defaultRestSec": 180
+      "defaultRestSec": 50
     },
     {
-      "id": "ex-bechtel-finger",
-      "name": "Bechtel Finger Training",
-      "category": "STRENGTH",
-      "description": "Steve Bechtel's finger training protocol for max recruitment.",
-      "defaultSets": 4,
-      "defaultReps": 1,
+      "id": "ex-megos-pe-finger",
+      "name": "Megos PE Finger Training",
+      "category": "POWER_ENDURANCE",
+      "description": "Alex Megos's finger training protocol for power endurance. Hang with both arms on an edge that you can finnish the exercise on.",
+      "defaultSets": 6,
+      "defaultReps": 4,
+      "defaultDurationSec": 7,
+      "defaultRestSec": 3,
+      "defaultRestBetweenSetsSec": 120
+    },
+    {
+      "id": "ex-hangboard-pe",
+      "name": "Hangboard PE Finger Training",
+      "category": "POWER_ENDURANCE",
+      "description": "Hangboard standard finger training protocol for power endurance. Hang with both arms on an edge that you can finnish the exercise on.",
+      "defaultSets": 3,
+      "defaultReps": 3,
       "defaultDurationSec": 10,
-      "defaultRestSec": 180
+      "defaultRestSec": 45,
+      "defaultRestBetweenSetsSec": 180
+    },
+    {
+      "id": "ex-finger-curls",
+      "name": "Finger Curls on Hangboard",
+      "category": "POWER_ENDURANCE",
+      "description": "Finger curls on hangboard with your feet on. Can be used as warm-up.",
+      "defaultSets": 1,
+      "defaultReps": 6,
+      "defaultDurationSec": 5,
+      "defaultRestSec": 5
+    },
+    {
+      "id": "ex-finger-lift",
+      "name": "Finger Lifting weights",
+      "category": "POWER_ENDURANCE",
+      "description": "Lift weights with each hand. 5 reps of 25sec per hand.",
+      "defaultSets": 1,
+      "defaultReps": 10,
+      "defaultDurationSec": 25,
+      "defaultRestSec": 10
+    },
+    {
+      "id": "ex-2on2off",
+      "name": "2on 2off",
+      "category": "ENDURANCE",
+      "description": "2 minutes on the wall, 2 minutes off the wall. No hard pump. Primarily aerobic/low-intensity endurance training",
+      "defaultSets": 1,
+      "defaultReps": 8,
+      "defaultDurationSec": 120,
+      "defaultRestSec":120
+    },
+    {
+      "id": "ex-bechtel-5min",
+      "name": "Bechtel 5min",
+      "category": "STRENGTH",
+      "description": "Fast, 5 min Bechtel's workout. Each min do 3 to 5 pull-ups or push-ups then rest the remaining minute.",
+      "defaultSets": 1,
+      "defaultReps": 6,
+      "defaultDurationSec": 60
+    },
+    {
+      "id": "ex-shoulder-iso",
+      "name": "Shoulder Isometric",
+      "category": "STRENGTH",
+      "description": "Shoulder Isometric 30 sec",
+      "defaultSets": 1,
+      "defaultReps": 4,
+      "defaultDurationSec": 30,
+      "defaultRestSec": 5
     },
     {
       "id": "ex-easy-routes-autobelay",
@@ -54,7 +145,11 @@
       "id": "ex-fryer-endurance",
       "name": "Fryer 2016 Endurance Program",
       "category": "ENDURANCE",
-      "description": "Tom Fryer's endurance protocol (2016) for sustained climbing capacity."
+      "description": "Tom Fryer's endurance protocol (2016) for sustained climbing capacity (50-60%). No hard pump.",
+      "defaultReps": 4,
+      "defaultSets": 1,
+      "defaultDurationSec": 300,
+      "defaultRestSec": 120
     },
     {
       "id": "ex-1on1off-endurance",
@@ -64,7 +159,7 @@
       "defaultReps": 10,
       "defaultSets": 1,
       "defaultDurationSec": 60,
-      "defaultRestBetweenSetsSec": 60
+      "defaultRestSec": 60
     },
     {
       "id": "ex-stretching",
@@ -98,10 +193,10 @@
       "name": "Wall Crawling",
       "category": "POWER_ENDURANCE",
       "description": "Move on the wall and take 4-7 sec break between moves on small holds",
-      "defaultReps": 1,
-      "defaultSets": 7,
-      "defaultDurationSec": 200,
-      "defaultRestBetweenSetsSec": 180
+      "defaultReps": 7,
+      "defaultSets": 1,
+      "defaultDurationSec": 50,
+      "defaultRestSec": 120
     },
     {
       "id": "ex-intensive-triples",
@@ -127,7 +222,7 @@
       "description": "Explosive/dynamic pull-ups for upper body power.",
       "defaultSets": 4,
       "defaultReps": 2,
-      "defaultRestSec": 180
+      "defaultRestBetweenSetsSec": 180
     }
   ],
   "plans": [

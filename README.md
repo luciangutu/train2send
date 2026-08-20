@@ -6,6 +6,10 @@ A native Android app (Kotlin + Jetpack Compose) to schedule, execute, and track 
 
 ![Main Screen](screenshots/main_screen.png)
 
+![Exercises Screen](screenshots/exercises_screen.png)
+
+![Timer Screen](screenshots/timer_screen.png)
+
 ## Training Categories
 
 | Category | Color | Purpose |

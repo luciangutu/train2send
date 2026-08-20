@@ -8,27 +8,21 @@ keystore.password=your_password
 key.password=your_password
 ```
 
-3. Build the signed release APK:
+3. Build the signed release Android App Bundle (AAB):
 ```bash
-./gradlew assembleRelease
+./gradlew :app:bundleRelease
 ```
-The signed APK will be generated at: `app/build/outputs/apk/release/app-release.apk`
+The signed AAB will be generated at: `app/build/outputs/bundle/release/app-release.aab`
 
-4. (Optional) Verify the signature:
+4. (Optional) Verify the AAB using bundletool:
 ```bash
-apksigner verify --verbose app/build/outputs/apk/release/app-release.apk
+bundletool validate --bundle app/build/outputs/bundle/release/app-release.aab
 ```
 
 5. Commit and push:
-```bash
-git add .
-git commit -m "Release 1.2.1"
-git push
-git tag v1.2.1
-git push origin v1.2.1
-```
+- Increase the version, tag it, and push to GitHub.
 
 6. GitHub Release:
-- **Tag**: v1.2.1
-- **Title**: Train2Send 1.2.1
-- **Attachment**: Rename `app-release.apk` to `train2send-1.2.1.apk` and upload.
+- **Tag**: v1.x.y
+- **Title**: Train2Send 1.x.y
+- **Attachment**: Rename `app-release.aab` to `train2send-1.x.y.aab` and upload.

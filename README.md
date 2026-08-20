@@ -31,6 +31,15 @@ A native Android app (Kotlin + Jetpack Compose) to schedule, execute, and track 
 
 Each plan covers a single week. For multi-week programs, create a separate plan for each week and activate them in sequence.
 
+## Import & Export
+
+All your data (exercises + plans) can be exported to a single JSON file and imported back later. This is useful for backups, sharing plans with friends, or moving data between devices.
+
+- **Export** — Saves everything to a `.json` file or shares it directly via any app (email, messaging, cloud storage).
+- **Import** — Loads a previously exported JSON file. Existing data with the same IDs gets overwritten; everything else is left untouched.
+
+The JSON format is human-readable, so you can also hand-edit plans in a text editor and import them into the app. See `app/src/main/assets/demo_climbing_plans.json` for a working example.
+
 ## Architecture
 
 ```

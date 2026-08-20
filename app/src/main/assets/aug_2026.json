@@ -50,7 +50,7 @@
       "defaultReps": 15,
       "defaultDurationSec": 7,
       "defaultRestSec": 3
-    }
+    },
     {
       "id": "ex-no-hangs",
       "name": "No-hangs Hangboard",
@@ -304,7 +304,7 @@
             },
             {
               "id": "pe-aug-wed-2",
-              "exerciseId": "ex-bechtel-finger",
+              "exerciseId": "ex-megos-pe-finger",
               "section": "MAIN",
               "orderIndex": 1
             },

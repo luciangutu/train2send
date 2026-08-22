@@ -85,7 +85,7 @@
   "plans": [
     {
       "id": "plan-climbing-strength",
-      "title": "Climbing – Max Strength",
+      "title": "Max Strength",
       "isActive": true,
       "createdAt": 1723968000000,
       "days": [
@@ -164,7 +164,7 @@
     },
     {
       "id": "plan-climbing-endurance",
-      "title": "Climbing – Power Endurance",
+      "title": "Power Endurance",
       "isActive": false,
       "createdAt": 1723968000000,
       "days": [

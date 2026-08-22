@@ -339,7 +339,7 @@ private fun TodaySessionCard(
 
                 Text(
                     text = planDay.dayTitle,
-                    style = MaterialTheme.typography.headlineSmall,
+                    style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.ExtraBold,
                     color = if (isToday) MaterialTheme.colorScheme.onPrimaryContainer 
                            else MaterialTheme.colorScheme.onSurfaceVariant
@@ -421,7 +421,7 @@ private fun TodaySessionCard(
             } else {
                 Text(
                     text = "Rest Day 🧘",
-                    style = MaterialTheme.typography.headlineSmall,
+                    style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.ExtraBold,
                     color = if (isToday) MaterialTheme.colorScheme.onPrimaryContainer 
                            else MaterialTheme.colorScheme.onSurfaceVariant
@@ -545,7 +545,8 @@ private fun QuickActionCard(
 ) {
     Card(
         modifier = modifier.clickable(onClick = onClick),
-        shape = RoundedCornerShape(12.dp)
+        shape = RoundedCornerShape(12.dp),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFF757575))
     ) {
         Box(
             modifier = Modifier
@@ -557,7 +558,7 @@ private fun QuickActionCard(
                 imageVector = icon,
                 contentDescription = title,
                 modifier = Modifier.size(32.dp),
-                tint = MaterialTheme.colorScheme.primary
+                tint = Color.White
             )
         }
     }

@@ -242,7 +242,7 @@ private fun TodayDashboard(
 
                 Text(
                     text = todayPlanDay.dayTitle,
-                    style = MaterialTheme.typography.headlineSmall,
+                    style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onPrimaryContainer
                 )
@@ -271,7 +271,7 @@ private fun TodayDashboard(
             } else {
                 Text(
                     text = "Rest Day",
-                    style = MaterialTheme.typography.headlineSmall,
+                    style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onPrimaryContainer
                 )

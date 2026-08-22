@@ -33,6 +33,10 @@ The app includes a few mock plans and exercises to get you going, but everything
 
 Each plan covers a single week. For multi-week programs, create a separate plan for each week and activate them in sequence.
 
+## Theme
+
+The app supports Light, Dark, and System theme modes. Toggle between them from the main screen - upper right corner icon.
+
 ## Import & Export
 
 All your data (exercises + plans) can be exported to a single JSON file and imported back later. This is useful for backups, sharing plans with friends, or moving data between devices.

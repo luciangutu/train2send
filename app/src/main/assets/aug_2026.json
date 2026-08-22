@@ -178,7 +178,14 @@
       "id": "ex-bouldering-high-intensity",
       "name": "Bouldering High Intensity",
       "category": "POWER",
-      "description": "1 hour bouldering session at high intensity, working limit problems.",
+      "description": "1 hour, low volume, low fatigue, high intensity bouldering session, working limit problems (7-12 total attempts). Climb 3-5 move problems (5-10 seconds per attempt) with 3-5 minutes of rest between goes.",
+      "defaultDurationSec": 3600
+    },
+    {
+      "id": "ex-bouldering-boards",
+      "name": "Bouldering",
+      "category": "POWER",
+      "description": "1 hour bouldering session. Best done on boards.",
       "defaultDurationSec": 3600
     },
     {

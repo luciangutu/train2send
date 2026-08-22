@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "exportedAt": 1723968000000,
+  "exportedAt": 1724340000000,
   "exercises": [
     {
       "id": "ex-hangboard-max",
@@ -80,9 +80,382 @@
       "defaultDurationSec": 30,
       "defaultRestSec": 1,
       "defaultRestBetweenSetsSec": 15
+    },
+    {
+      "id": "ex-volume-climbing",
+      "name": "Volume Climbing",
+      "category": "ENDURANCE",
+      "description": "Climb 8-12 easier routes (2 grades below flash) in a session focusing on fluid movement.",
+      "defaultSets": 10,
+      "defaultReps": 1,
+      "defaultRestBetweenSetsSec": 300
+    },
+    {
+      "id": "ex-limit-bouldering",
+      "name": "Limit Bouldering",
+      "category": "POWER",
+      "description": "Work on boulder problems at your absolute limit (1-2 moves max).",
+      "defaultSets": 6,
+      "defaultReps": 3,
+      "defaultRestBetweenSetsSec": 300
+    },
+    {
+      "id": "ex-arc-training",
+      "name": "ARC Training",
+      "category": "ENDURANCE",
+      "description": "Continuous low-intensity climbing for 20-30 minutes to build aerobic capacity.",
+      "defaultSets": 2,
+      "defaultReps": 1,
+      "defaultDurationSec": 1200,
+      "defaultRestBetweenSetsSec": 600
+    },
+    {
+      "id": "ex-technique-drills",
+      "name": "Technique Drills",
+      "category": "TECHNIQUE",
+      "description": "Focused practice: silent feet, precise hand placements, or flagging.",
+      "defaultSets": 3,
+      "defaultReps": 1,
+      "defaultDurationSec": 600,
+      "defaultRestBetweenSetsSec": 120
     }
   ],
   "plans": [
+    {
+      "id": "plan-road-to-7a",
+      "title": "Road to 7a (Sport)",
+      "isActive": false,
+      "createdAt": 1724340000000,
+      "days": [
+        {
+          "id": "day-7a-mon",
+          "dayOfWeek": 1,
+          "dayTitle": "Technique & Volume",
+          "exercises": [
+            {
+              "id": "pe-7a-mon-1",
+              "exerciseId": "ex-shoulder-warmup",
+              "section": "COMPLEMENTARY",
+              "orderIndex": 0
+            },
+            {
+              "id": "pe-7a-mon-2",
+              "exerciseId": "ex-technique-drills",
+              "section": "MAIN",
+              "orderIndex": 1
+            },
+            {
+              "id": "pe-7a-mon-3",
+              "exerciseId": "ex-volume-climbing",
+              "section": "MAIN",
+              "orderIndex": 2,
+              "customSets": 8
+            }
+          ]
+        },
+        {
+          "id": "day-7a-wed",
+          "dayOfWeek": 3,
+          "dayTitle": "Foundational Strength",
+          "exercises": [
+            {
+              "id": "pe-7a-wed-1",
+              "exerciseId": "ex-shoulder-warmup",
+              "section": "COMPLEMENTARY",
+              "orderIndex": 0
+            },
+            {
+              "id": "pe-7a-wed-2",
+              "exerciseId": "ex-hangboard-max",
+              "section": "MAIN",
+              "orderIndex": 1,
+              "description": "Introductory Max Hangs: Focus on form, avoid failure.",
+              "customSets": 3,
+              "customDurationSec": 7
+            },
+            {
+              "id": "pe-7a-wed-3",
+              "exerciseId": "ex-arc-training",
+              "section": "MAIN",
+              "orderIndex": 2,
+              "customDurationSec": 900
+            }
+          ]
+        },
+        {
+          "id": "day-7a-fri",
+          "dayOfWeek": 5,
+          "dayTitle": "Power Endurance & Core",
+          "exercises": [
+            {
+              "id": "pe-7a-fri-1",
+              "exerciseId": "ex-shoulder-warmup",
+              "section": "COMPLEMENTARY",
+              "orderIndex": 0
+            },
+            {
+              "id": "pe-7a-fri-2",
+              "exerciseId": "ex-boulder-4x4",
+              "section": "MAIN",
+              "orderIndex": 1
+            },
+            {
+              "id": "pe-7a-fri-3",
+              "exerciseId": "ex-core-front-lever",
+              "section": "SECONDARY",
+              "orderIndex": 2,
+              "description": "Tuck front lever holds."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "plan-bouldering-power-7b",
+      "title": "Bouldering Power (Target 7B)",
+      "isActive": false,
+      "createdAt": 1724340000000,
+      "days": [
+        {
+          "id": "day-7b-mon",
+          "dayOfWeek": 1,
+          "dayTitle": "Max Finger Strength",
+          "exercises": [
+            {
+              "id": "pe-7b-mon-1",
+              "exerciseId": "ex-shoulder-warmup",
+              "section": "COMPLEMENTARY",
+              "orderIndex": 0
+            },
+            {
+              "id": "pe-7b-mon-2",
+              "exerciseId": "ex-hangboard-max",
+              "section": "MAIN",
+              "orderIndex": 1,
+              "customSets": 6,
+              "customDurationSec": 10
+            },
+            {
+              "id": "pe-7b-mon-3",
+              "exerciseId": "ex-pullups-weighted",
+              "section": "MAIN",
+              "orderIndex": 2,
+              "customSets": 5,
+              "customReps": 3
+            }
+          ]
+        },
+        {
+          "id": "day-7b-tue",
+          "dayOfWeek": 2,
+          "dayTitle": "Explosive Power",
+          "exercises": [
+            {
+              "id": "pe-7b-tue-1",
+              "exerciseId": "ex-shoulder-warmup",
+              "section": "COMPLEMENTARY",
+              "orderIndex": 0
+            },
+            {
+              "id": "pe-7b-tue-2",
+              "exerciseId": "ex-campus-ladders",
+              "section": "MAIN",
+              "orderIndex": 1,
+              "description": "Simple ladders, focus on explosive movement."
+            },
+            {
+              "id": "pe-7b-tue-3",
+              "exerciseId": "ex-limit-bouldering",
+              "section": "MAIN",
+              "orderIndex": 2,
+              "customSets": 5
+            }
+          ]
+        },
+        {
+          "id": "day-7b-thu",
+          "dayOfWeek": 4,
+          "dayTitle": "Repeat Power & Core",
+          "exercises": [
+            {
+              "id": "pe-7b-thu-1",
+              "exerciseId": "ex-shoulder-warmup",
+              "section": "COMPLEMENTARY",
+              "orderIndex": 0
+            },
+            {
+              "id": "pe-7b-thu-2",
+              "exerciseId": "ex-limit-bouldering",
+              "section": "MAIN",
+              "orderIndex": 1
+            },
+            {
+              "id": "pe-7b-thu-3",
+              "exerciseId": "ex-core-front-lever",
+              "section": "SECONDARY",
+              "orderIndex": 2
+            }
+          ]
+        },
+        {
+          "id": "day-7b-sat",
+          "dayOfWeek": 6,
+          "dayTitle": "Limit Session",
+          "exercises": [
+            {
+              "id": "pe-7b-sat-1",
+              "exerciseId": "ex-shoulder-warmup",
+              "section": "COMPLEMENTARY",
+              "orderIndex": 0
+            },
+            {
+              "id": "pe-7b-sat-2",
+              "exerciseId": "ex-limit-bouldering",
+              "section": "MAIN",
+              "orderIndex": 1,
+              "customSets": 8
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "plan-elite-sport-8a",
+      "title": "Elite Sport Climber (8a)",
+      "isActive": false,
+      "createdAt": 1724340000000,
+      "days": [
+        {
+          "id": "day-8a-mon",
+          "dayOfWeek": 1,
+          "dayTitle": "Max Strength & Power",
+          "exercises": [
+            {
+              "id": "pe-8a-mon-1",
+              "exerciseId": "ex-shoulder-warmup",
+              "section": "COMPLEMENTARY",
+              "orderIndex": 0
+            },
+            {
+              "id": "pe-8a-mon-2",
+              "exerciseId": "ex-hangboard-max",
+              "section": "MAIN",
+              "orderIndex": 1,
+              "customSets": 6,
+              "customDurationSec": 10
+            },
+            {
+              "id": "pe-8a-mon-3",
+              "exerciseId": "ex-pullups-weighted",
+              "section": "MAIN",
+              "orderIndex": 2,
+              "customSets": 5,
+              "customReps": 3
+            }
+          ]
+        },
+        {
+          "id": "day-8a-tue",
+          "dayOfWeek": 2,
+          "dayTitle": "Power Endurance",
+          "exercises": [
+            {
+              "id": "pe-8a-tue-1",
+              "exerciseId": "ex-shoulder-warmup",
+              "section": "COMPLEMENTARY",
+              "orderIndex": 0
+            },
+            {
+              "id": "pe-8a-tue-2",
+              "exerciseId": "ex-boulder-4x4",
+              "section": "MAIN",
+              "orderIndex": 1,
+              "customSets": 5,
+              "customRestBetweenSetsSec": 300
+            },
+            {
+              "id": "pe-8a-tue-3",
+              "exerciseId": "ex-core-front-lever",
+              "section": "SECONDARY",
+              "orderIndex": 2
+            }
+          ]
+        },
+        {
+          "id": "day-8a-thu",
+          "dayOfWeek": 4,
+          "dayTitle": "Endurance & Recovery",
+          "exercises": [
+            {
+              "id": "pe-8a-thu-1",
+              "exerciseId": "ex-shoulder-warmup",
+              "section": "COMPLEMENTARY",
+              "orderIndex": 0
+            },
+            {
+              "id": "pe-8a-thu-2",
+              "exerciseId": "ex-arc-training",
+              "section": "MAIN",
+              "orderIndex": 1,
+              "customDurationSec": 1800
+            },
+            {
+              "id": "pe-8a-thu-3",
+              "exerciseId": "ex-technique-drills",
+              "section": "SECONDARY",
+              "orderIndex": 2
+            }
+          ]
+        },
+        {
+          "id": "day-8a-fri",
+          "dayOfWeek": 5,
+          "dayTitle": "Finger Endurance & Volume",
+          "exercises": [
+            {
+              "id": "pe-8a-fri-1",
+              "exerciseId": "ex-shoulder-warmup",
+              "section": "COMPLEMENTARY",
+              "orderIndex": 0
+            },
+            {
+              "id": "pe-8a-fri-2",
+              "exerciseId": "ex-hangboard-repeaters",
+              "section": "MAIN",
+              "orderIndex": 1,
+              "customSets": 8
+            },
+            {
+              "id": "pe-8a-fri-3",
+              "exerciseId": "ex-volume-climbing",
+              "section": "MAIN",
+              "orderIndex": 2,
+              "customSets": 12
+            }
+          ]
+        },
+        {
+          "id": "day-8a-sun",
+          "dayOfWeek": 7,
+          "dayTitle": "Performance Session",
+          "exercises": [
+            {
+              "id": "pe-8a-sun-1",
+              "exerciseId": "ex-shoulder-warmup",
+              "section": "COMPLEMENTARY",
+              "orderIndex": 0
+            },
+            {
+              "id": "pe-8a-sun-2",
+              "exerciseId": "ex-limit-bouldering",
+              "section": "MAIN",
+              "orderIndex": 1,
+              "customSets": 8
+            }
+          ]
+        }
+      ]
+    },
     {
       "id": "plan-climbing-strength",
       "title": "Max Strength",

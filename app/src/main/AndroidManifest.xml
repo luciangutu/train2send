@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Train2Send"
         android:enableOnBackInvokedCallback="true"
-        tools:targetApi="35">
+        tools:targetApi="37">
         <activity
             android:name=".MainActivity"
             android:exported="true"

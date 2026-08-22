@@ -23,6 +23,8 @@ A native Android app (Kotlin + Jetpack Compose) to schedule, execute, and track 
 
 ## How it works
 
+The app includes a few mock plans and exercises to get you going, but everything is fully customizable.
+
 1. **Create exercises** — Define the exercises you train (e.g. pull-ups, hangboard repeaters, ARCs).
 2. **Build a plan** — Assemble exercises into a weekly training plan, assigning them to specific days.
 3. **Activate a plan** — Only one plan is active at a time. The main screen shows today's exercises from that plan.

@@ -65,7 +65,7 @@ fun ExerciseListScreen(navController: NavController) {
                 .padding(padding)
         ) {
             // Category filter chips
-            ScrollableTabRow(
+            SecondaryScrollableTabRow(
                 selectedTabIndex = selectedCategory?.ordinal?.plus(1) ?: 0,
                 modifier = Modifier.fillMaxWidth(),
                 edgePadding = 16.dp

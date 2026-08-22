@@ -78,7 +78,7 @@ fun ExerciseDetailScreen(
                             restSet = restSet
                         ))
                     }) {
-                        Icon(Icons.Default.Timer, contentDescription = "Start Timer", tint = Color.White)
+                        Icon(Icons.Default.Timer, contentDescription = "Start Timer")
                     }
                     IconButton(onClick = {
                         navController.navigate(Screen.ExerciseEdit.createRoute(exerciseId))

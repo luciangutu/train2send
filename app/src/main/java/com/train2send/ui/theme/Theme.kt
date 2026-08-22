@@ -6,6 +6,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import com.train2send.data.repository.ThemePreference
 
 private val DarkColorScheme = darkColorScheme(
     primary = Color(0xFF90CAF9),
@@ -35,10 +36,16 @@ private val LightColorScheme = lightColorScheme(
 
 @Composable
 fun Train2SendTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    themePreference: ThemePreference = ThemePreference.SYSTEM,
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
+    val darkTheme = when (themePreference) {
+        ThemePreference.LIGHT -> false
+        ThemePreference.DARK -> true
+        ThemePreference.SYSTEM -> isSystemInDarkTheme()
+    }
+
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current

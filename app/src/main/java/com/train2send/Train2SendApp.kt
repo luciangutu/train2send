@@ -5,6 +5,7 @@ import com.train2send.data.backup.BackupManager
 import com.train2send.data.local.AppDatabase
 import com.train2send.data.repository.ExerciseRepository
 import com.train2send.data.repository.TrainingPlanRepository
+import com.train2send.data.repository.UserPreferencesRepository
 import com.train2send.data.repository.WorkoutLogRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
@@ -25,12 +26,16 @@ class Train2SendApp : Application() {
     lateinit var workoutLogRepository: WorkoutLogRepository
         private set
 
+    lateinit var userPreferencesRepository: UserPreferencesRepository
+        private set
+
     override fun onCreate() {
         super.onCreate()
         database = AppDatabase.getInstance(this)
         exerciseRepository = ExerciseRepository(database.exerciseDao())
         trainingPlanRepository = TrainingPlanRepository(database.trainingPlanDao())
         workoutLogRepository = WorkoutLogRepository(database.workoutLogDao())
+        userPreferencesRepository = UserPreferencesRepository(this)
 
         prepopulateDataIfNeeded()
     }

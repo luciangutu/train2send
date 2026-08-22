@@ -31,9 +31,11 @@ import com.train2send.Train2SendApp
 import com.train2send.data.model.ExerciseEntity
 import com.train2send.data.model.ExerciseSection
 import com.train2send.data.model.PlannedExerciseEntity
+import com.train2send.data.repository.ThemePreference
 import com.train2send.ui.navigation.Screen
 import com.train2send.utils.calculateExerciseDuration
 import com.train2send.utils.formatDuration
+import kotlinx.coroutines.launch
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.format.TextStyle
@@ -47,6 +49,11 @@ fun HomeScreen(navController: NavController) {
     val app = context.applicationContext as Train2SendApp
     val activePlan by app.trainingPlanRepository.getActivePlan()
         .collectAsStateWithLifecycle(initialValue = null)
+
+    val scope = rememberCoroutineScope()
+    var showThemeMenu by remember { mutableStateOf(false) }
+    val themePreference by app.userPreferencesRepository.themePreferenceFlow
+        .collectAsStateWithLifecycle(initialValue = ThemePreference.SYSTEM)
 
     val versionName = remember {
         try {
@@ -71,6 +78,49 @@ fun HomeScreen(navController: NavController) {
                             style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
                         )
+                    }
+                },
+                actions = {
+                    Box {
+                        IconButton(onClick = { showThemeMenu = true }) {
+                            Icon(
+                                imageVector = when (themePreference) {
+                                    ThemePreference.LIGHT -> Icons.Default.LightMode
+                                    ThemePreference.DARK -> Icons.Default.DarkMode
+                                    ThemePreference.SYSTEM -> Icons.Default.BrightnessAuto
+                                },
+                                contentDescription = "Theme"
+                            )
+                        }
+                        DropdownMenu(
+                            expanded = showThemeMenu,
+                            onDismissRequest = { showThemeMenu = false }
+                        ) {
+                            DropdownMenuItem(
+                                text = { Text("Light") },
+                                onClick = {
+                                    scope.launch { app.userPreferencesRepository.updateThemePreference(ThemePreference.LIGHT) }
+                                    showThemeMenu = false
+                                },
+                                leadingIcon = { Icon(Icons.Default.LightMode, null) }
+                            )
+                            DropdownMenuItem(
+                                text = { Text("Dark") },
+                                onClick = {
+                                    scope.launch { app.userPreferencesRepository.updateThemePreference(ThemePreference.DARK) }
+                                    showThemeMenu = false
+                                },
+                                leadingIcon = { Icon(Icons.Default.DarkMode, null) }
+                            )
+                            DropdownMenuItem(
+                                text = { Text("System") },
+                                onClick = {
+                                    scope.launch { app.userPreferencesRepository.updateThemePreference(ThemePreference.SYSTEM) }
+                                    showThemeMenu = false
+                                },
+                                leadingIcon = { Icon(Icons.Default.BrightnessAuto, null) }
+                            )
+                        }
                     }
                 }
             )
@@ -507,7 +557,7 @@ private fun QuickActionCard(
                 imageVector = icon,
                 contentDescription = title,
                 modifier = Modifier.size(32.dp),
-                tint = Color.White
+                tint = MaterialTheme.colorScheme.primary
             )
         }
     }

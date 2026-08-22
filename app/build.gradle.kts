@@ -15,8 +15,8 @@ android {
         applicationId = "com.github.luciangutu.train2send"
         minSdk = 26
         targetSdk = 37
-        versionCode = 10
-        versionName = "1.3.1"
+        versionCode = 12
+        versionName = "1.3.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -86,6 +86,9 @@ dependencies {
 
     // JSON Serialization
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
+
+    // DataStore
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
 
     // Testing
     testImplementation("junit:junit:4.13.2")

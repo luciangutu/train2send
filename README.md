@@ -21,6 +21,16 @@ A native Android app (Kotlin + Jetpack Compose) to schedule, execute, and track 
 | **Mobility & Recovery** | 🟢 | Stretching, CARs, tissue care |
 | **Antagonist & Core** | 🔵 | Push-ups, TRX, shoulder stability |
 
+## Exercise Sections
+
+Each exercise assigned to a day has a **section** that indicates its role in the session:
+
+| Section | Purpose |
+|---------|---------|
+| **Main** | Primary focus of the day |
+| **Secondary** | Supporting work that complements the main goal |
+| **Complementary** | Warm-up, cool-down, prehab, or accessory work |
+
 ## How it works
 
 The app includes a few mock plans and exercises to get you going, but everything is fully customizable.

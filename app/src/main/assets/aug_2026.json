@@ -236,6 +236,17 @@
       "name": "Warm-up Paradigm Climbing",
       "category": "MOBILITY",
       "description": "Progressive climbing warm-up: 2 min jumping jacks (easy cardio), arm circles/leg swings/finger movement (tendon glides), scapular pull-ups/asymmetric lock-offs/progressive hangs/easy climbing, quick dead-points/explosive pull-ups."
+    },
+    {
+      "id": "ex-max-force-repeatability",
+      "name": "Max Force Repeatability",
+      "category": "STRENGTH",
+      "description": "Short max-output finger hangs focused on force repeatability. Each rep should be at maximum effort. Rest fully between reps and sets to maintain quality. Best done on an edge.",
+      "defaultSets": 4,
+      "defaultReps": 5,
+      "defaultDurationSec": 3,
+      "defaultRestSec": 60,
+      "defaultRestBetweenSetsSec": 180
     }
   ],
   "plans": [

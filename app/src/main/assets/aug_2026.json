@@ -223,6 +223,12 @@
       "defaultSets": 4,
       "defaultReps": 2,
       "defaultRestBetweenSetsSec": 180
+    },
+    {
+      "id": "ex-warmup-paradigm-climbing",
+      "name": "Warm-up Paradigm Climbing",
+      "category": "MOBILITY",
+      "description": "Progressive climbing warm-up: 2 min jumping jacks (easy cardio), arm circles/leg swings/finger movement (tendon glides), scapular pull-ups/asymmetric lock-offs/progressive hangs/easy climbing, quick dead-points/explosive pull-ups."
     }
   ],
   "plans": [
@@ -379,9 +385,15 @@
           "exercises": [
             {
               "id": "pe-aug-sat-1",
+              "exerciseId": "ex-warmup-paradigm-climbing",
+              "section": "COMPLEMENTARY",
+              "orderIndex": 0
+            },
+            {
+              "id": "pe-aug-sat-2",
               "exerciseId": "ex-outdoor-climbing",
               "section": "MAIN",
-              "orderIndex": 0
+              "orderIndex": 1
             }
           ]
         },
@@ -392,9 +404,15 @@
           "exercises": [
             {
               "id": "pe-aug-sun-1",
+              "exerciseId": "ex-warmup-paradigm-climbing",
+              "section": "COMPLEMENTARY",
+              "orderIndex": 0
+            },
+            {
+              "id": "pe-aug-sun-2",
               "exerciseId": "ex-outdoor-climbing",
               "section": "MAIN",
-              "orderIndex": 0
+              "orderIndex": 1
             }
           ]
         }

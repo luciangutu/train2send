@@ -113,7 +113,7 @@
       "defaultSets": 1,
       "defaultReps": 8,
       "defaultDurationSec": 120,
-      "defaultRestSec":120
+      "defaultRestSec": 120
     },
     {
       "id": "ex-bechtel-5min",
@@ -255,18 +255,18 @@
   ],
   "plans": [
     {
-      "id": "plan-aug2026",
-      "title": "Aug 2026",
+      "id": "plan-8a-plus-target",
+      "title": "Target 8a+",
       "isActive": true,
       "createdAt": 1723968000000,
       "days": [
         {
-          "id": "day-aug-mon",
+          "id": "day-8a-plus-mon",
           "dayOfWeek": 1,
           "dayTitle": "Warm-up & Bouldering",
           "exercises": [
             {
-              "id": "pe-aug-mon-1",
+              "id": "pe-8a-plus-mon-1",
               "exerciseId": "ex-dead-hang-jugs",
               "section": "COMPLEMENTARY",
               "orderIndex": 0,
@@ -275,13 +275,13 @@
               "customRestSec": 30
             },
             {
-              "id": "pe-aug-mon-2",
+              "id": "pe-8a-plus-mon-2",
               "exerciseId": "ex-bouldering-high-intensity",
               "section": "MAIN",
               "orderIndex": 1
             },
             {
-              "id": "pe-aug-mon-3",
+              "id": "pe-8a-plus-mon-3",
               "exerciseId": "ex-stretching",
               "section": "COMPLEMENTARY",
               "orderIndex": 2
@@ -289,12 +289,12 @@
           ]
         },
         {
-          "id": "day-aug-tue",
+          "id": "day-8a-plus-tue",
           "dayOfWeek": 2,
           "dayTitle": "Antagonist & Rehab",
           "exercises": [
             {
-              "id": "pe-aug-tue-1",
+              "id": "pe-8a-plus-tue-1",
               "exerciseId": "ex-push-ups",
               "section": "MAIN",
               "orderIndex": 0,
@@ -303,13 +303,13 @@
               "customRestSec": 120
             },
             {
-              "id": "pe-aug-tue-2",
+              "id": "pe-8a-plus-tue-2",
               "exerciseId": "ex-knee-program",
               "section": "SECONDARY",
               "orderIndex": 1
             },
             {
-              "id": "pe-aug-tue-3",
+              "id": "pe-8a-plus-tue-3",
               "exerciseId": "ex-explosive-pullups",
               "section": "MAIN",
               "orderIndex": 2,
@@ -320,36 +320,36 @@
           ]
         },
         {
-          "id": "day-aug-wed",
+          "id": "day-8a-plus-wed",
           "dayOfWeek": 3,
           "dayTitle": "Finger Strength & Power Endurance",
           "exercises": [
             {
-              "id": "pe-aug-wed-1",
+              "id": "pe-8a-plus-wed-1",
               "exerciseId": "ex-no-hangs",
               "section": "MAIN",
               "orderIndex": 0
             },
             {
-              "id": "pe-aug-wed-2",
+              "id": "pe-8a-plus-wed-2",
               "exerciseId": "ex-megos-pe-finger",
               "section": "MAIN",
               "orderIndex": 1
             },
             {
-              "id": "pe-aug-wed-3",
+              "id": "pe-8a-plus-wed-3",
               "exerciseId": "ex-wall-crawling",
               "section": "SECONDARY",
               "orderIndex": 2
             },
             {
-              "id": "pe-aug-wed-4",
+              "id": "pe-8a-plus-wed-4",
               "exerciseId": "ex-intensive-triples",
               "section": "SECONDARY",
               "orderIndex": 3
             },
             {
-              "id": "pe-aug-wed-5",
+              "id": "pe-8a-plus-wed-5",
               "exerciseId": "ex-stretching",
               "section": "COMPLEMENTARY",
               "orderIndex": 4
@@ -357,30 +357,30 @@
           ]
         },
         {
-          "id": "day-aug-thu",
+          "id": "day-8a-plus-thu",
           "dayOfWeek": 4,
           "dayTitle": "Endurance",
           "exercises": [
             {
-              "id": "pe-aug-thu-1",
+              "id": "pe-8a-plus-thu-1",
               "exerciseId": "ex-easy-routes-autobelay",
               "section": "MAIN",
               "orderIndex": 0
             },
             {
-              "id": "pe-aug-thu-2",
+              "id": "pe-8a-plus-thu-2",
               "exerciseId": "ex-fryer-endurance",
               "section": "MAIN",
               "orderIndex": 1
             },
             {
-              "id": "pe-aug-thu-3",
+              "id": "pe-8a-plus-thu-3",
               "exerciseId": "ex-1on1off-endurance",
               "section": "MAIN",
               "orderIndex": 2
             },
             {
-              "id": "pe-aug-thu-4",
+              "id": "pe-8a-plus-thu-4",
               "exerciseId": "ex-carcing",
               "section": "SECONDARY",
               "orderIndex": 3
@@ -388,12 +388,12 @@
           ]
         },
         {
-          "id": "day-aug-fri",
+          "id": "day-8a-plus-fri",
           "dayOfWeek": 5,
           "dayTitle": "Stretching & Recovery",
           "exercises": [
             {
-              "id": "pe-aug-fri-1",
+              "id": "pe-8a-plus-fri-1",
               "exerciseId": "ex-stretching",
               "section": "MAIN",
               "orderIndex": 0
@@ -401,18 +401,18 @@
           ]
         },
         {
-          "id": "day-aug-sat",
+          "id": "day-8a-plus-sat",
           "dayOfWeek": 6,
           "dayTitle": "Outdoor Climbing",
           "exercises": [
             {
-              "id": "pe-aug-sat-1",
+              "id": "pe-8a-plus-sat-1",
               "exerciseId": "ex-warmup-paradigm-climbing",
               "section": "COMPLEMENTARY",
               "orderIndex": 0
             },
             {
-              "id": "pe-aug-sat-2",
+              "id": "pe-8a-plus-sat-2",
               "exerciseId": "ex-outdoor-climbing",
               "section": "MAIN",
               "orderIndex": 1
@@ -420,18 +420,18 @@
           ]
         },
         {
-          "id": "day-aug-sun",
+          "id": "day-8a-plus-sun",
           "dayOfWeek": 7,
           "dayTitle": "Outdoor Climbing",
           "exercises": [
             {
-              "id": "pe-aug-sun-1",
+              "id": "pe-8a-plus-sun-1",
               "exerciseId": "ex-warmup-paradigm-climbing",
               "section": "COMPLEMENTARY",
               "orderIndex": 0
             },
             {
-              "id": "pe-aug-sun-2",
+              "id": "pe-8a-plus-sun-2",
               "exerciseId": "ex-outdoor-climbing",
               "section": "MAIN",
               "orderIndex": 1

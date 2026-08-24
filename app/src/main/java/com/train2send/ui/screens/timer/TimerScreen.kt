@@ -16,6 +16,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -50,6 +51,18 @@ fun TimerScreen(
     var repsInput by remember { mutableStateOf(reps?.toString() ?: "1") }
     var setsInput by remember { mutableStateOf(sets?.toString() ?: "6") }
     var restSetSecInput by remember { mutableStateOf(restSet?.toString() ?: "60") }
+
+    // Keep screen on during timer
+    val view = LocalView.current
+    val isTimerActive = timerState is TimerState.Running || timerState is TimerState.Preparing
+    LaunchedEffect(isTimerActive) {
+        view.keepScreenOn = isTimerActive
+    }
+    DisposableEffect(Unit) {
+        onDispose {
+            view.keepScreenOn = false
+        }
+    }
 
     // Sound handling
     val toneGenerator = remember { ToneGenerator(AudioManager.STREAM_ALARM, 100) }

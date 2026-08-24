@@ -29,3 +29,6 @@
 -keep @androidx.room.Dao interface *
 -keep class * implements androidx.room.RoomDatabase$* { *; }
 -keep class **.*_Impl { *; }
+
+# SLF4J
+-dontwarn org.slf4j.impl.StaticLoggerBinder

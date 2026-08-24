@@ -8,7 +8,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -22,6 +21,7 @@ import androidx.navigation.NavController
 import com.train2send.Train2SendApp
 import com.train2send.data.model.ExerciseCategory
 import com.train2send.data.model.ExerciseEntity
+import com.train2send.ui.components.SearchTopAppBar
 import com.train2send.ui.navigation.Screen
 import com.train2send.utils.formatDuration
 
@@ -33,22 +33,26 @@ fun ExerciseListScreen(navController: NavController) {
         .collectAsStateWithLifecycle(initialValue = emptyList())
 
     var selectedCategory by remember { mutableStateOf<ExerciseCategory?>(null) }
+    var searchQuery by remember { mutableStateOf("") }
+    var isSearchActive by remember { mutableStateOf(false) }
 
-    val filteredExercises = if (selectedCategory != null) {
-        exercises.filter { it.category == selectedCategory }
-    } else {
-        exercises
+    val filteredExercises = exercises.filter { exercise ->
+        val matchesCategory = selectedCategory == null || exercise.category == selectedCategory
+        val matchesSearch = searchQuery.isBlank() ||
+                exercise.name.contains(searchQuery, ignoreCase = true) ||
+                exercise.description?.contains(searchQuery, ignoreCase = true) == true
+        matchesCategory && matchesSearch
     }
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text("Exercises") },
-                navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
-                    }
-                }
+            SearchTopAppBar(
+                title = "Exercises",
+                query = searchQuery,
+                onQueryChange = { searchQuery = it },
+                isSearchActive = isSearchActive,
+                onSearchActiveChange = { isSearchActive = it },
+                onBackClick = { navController.popBackStack() }
             )
         },
         floatingActionButton = {
@@ -89,10 +93,16 @@ fun ExerciseListScreen(navController: NavController) {
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
                 ) {
+                    val message = if (searchQuery.isNotEmpty()) {
+                        "No exercises matching \"$searchQuery\""
+                    } else {
+                        "No exercises yet.\nTap + to create one."
+                    }
                     Text(
-                        text = "No exercises yet.\nTap + to create one.",
+                        text = message,
                         style = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        textAlign = androidx.compose.ui.text.style.TextAlign.Center
                     )
                 }
             } else {

@@ -6,7 +6,9 @@ import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.*
@@ -17,6 +19,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.train2send.Train2SendApp
 import com.train2send.data.backup.BackupManager
@@ -28,11 +32,16 @@ import java.time.format.DateTimeFormatter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BackupScreen(navController: NavController) {
+fun BackupScreen(
+    navController: NavController,
+    onlinePlanViewModel: OnlinePlanViewModel = viewModel(factory = OnlinePlanViewModel.Factory)
+) {
     val context = LocalContext.current
     val app = context.applicationContext as Train2SendApp
     val scope = rememberCoroutineScope()
     val backupManager = remember { BackupManager(app) }
+
+    val onlinePlansState by onlinePlanViewModel.uiState.collectAsStateWithLifecycle()
 
     var isExporting by remember { mutableStateOf(false) }
     var isImporting by remember { mutableStateOf(false) }
@@ -89,9 +98,6 @@ fun BackupScreen(navController: NavController) {
         }
     }
 
-    // Share export (no file picker needed)
-    var showShareOption by remember { mutableStateOf(false) }
-
     Scaffold(
         topBar = {
             TopAppBar(
@@ -108,7 +114,8 @@ fun BackupScreen(navController: NavController) {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
-                .padding(16.dp),
+                .padding(16.dp)
+                .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             // Export section
@@ -219,6 +226,61 @@ fun BackupScreen(navController: NavController) {
                 Text("Import from File")
             }
 
+            HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+
+            // Online Plans section
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "Online Plans",
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold
+                )
+                IconButton(onClick = { onlinePlanViewModel.refresh() }) {
+                    Icon(Icons.Default.Refresh, contentDescription = "Refresh")
+                }
+            }
+
+            Text(
+                text = "Download predefined plans from the official repository.",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+
+            when (val state = onlinePlansState) {
+                is OnlinePlansUiState.Loading -> {
+                    // Only show loading if we triggered a refresh and files are empty
+                    // or just show a message to refresh
+                    Box(
+                        modifier = Modifier.fillMaxWidth(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = "Tap refresh to check for online plans",
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                    }
+                }
+                is OnlinePlansUiState.Error -> {
+                    Text(
+                        text = state.message,
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                }
+                is OnlinePlansUiState.Success -> {
+                    state.plans.forEach { item ->
+                        OnlinePlanCard(
+                            item = item,
+                            onDownload = { onlinePlanViewModel.downloadPlan(item) }
+                        )
+                    }
+                }
+            }
+
             // Result display
             lastResult?.let { result ->
                 Spacer(modifier = Modifier.height(8.dp))
@@ -250,7 +312,7 @@ fun BackupScreen(navController: NavController) {
                 }
             }
 
-            Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.height(16.dp))
 
             // Info card
             Card(
@@ -277,6 +339,65 @@ fun BackupScreen(navController: NavController) {
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
+            }
+        }
+    }
+}
+
+@Composable
+private fun OnlinePlanCard(
+    item: OnlinePlanItem,
+    onDownload: () -> Unit
+) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(12.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+        )
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = item.file.name.removeSuffix(".json").replace("_", " "),
+                    style = MaterialTheme.typography.bodyLarge,
+                    fontWeight = FontWeight.Medium
+                )
+                Text(
+                    text = when (item.status) {
+                        PlanStatus.NEW -> "Available online"
+                        PlanStatus.UPDATE -> "Update available"
+                        PlanStatus.INSTALLED -> "Installed"
+                    },
+                    style = MaterialTheme.typography.bodySmall,
+                    color = if (item.status == PlanStatus.UPDATE)
+                        MaterialTheme.colorScheme.primary
+                    else MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+
+            if (item.status != PlanStatus.INSTALLED) {
+                IconButton(onClick = onDownload) {
+                    Icon(
+                        imageVector = if (item.status == PlanStatus.UPDATE)
+                            Icons.Default.Update
+                        else Icons.Default.Download,
+                        contentDescription = "Download",
+                        tint = MaterialTheme.colorScheme.primary
+                    )
+                }
+            } else {
+                Icon(
+                    Icons.Default.Check,
+                    contentDescription = "Installed",
+                    tint = MaterialTheme.colorScheme.secondary,
+                    modifier = Modifier.padding(12.dp)
+                )
             }
         }
     }

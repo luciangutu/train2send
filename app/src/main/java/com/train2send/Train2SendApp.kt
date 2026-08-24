@@ -4,6 +4,7 @@ import android.app.Application
 import com.train2send.data.backup.BackupManager
 import com.train2send.data.local.AppDatabase
 import com.train2send.data.repository.ExerciseRepository
+import com.train2send.data.repository.OnlinePlanRepository
 import com.train2send.data.repository.TrainingPlanRepository
 import com.train2send.data.repository.UserPreferencesRepository
 import com.train2send.data.repository.WorkoutLogRepository
@@ -26,6 +27,9 @@ class Train2SendApp : Application() {
     lateinit var workoutLogRepository: WorkoutLogRepository
         private set
 
+    lateinit var onlinePlanRepository: OnlinePlanRepository
+        private set
+
     lateinit var userPreferencesRepository: UserPreferencesRepository
         private set
 
@@ -36,6 +40,7 @@ class Train2SendApp : Application() {
         trainingPlanRepository = TrainingPlanRepository(database.trainingPlanDao())
         workoutLogRepository = WorkoutLogRepository(database.workoutLogDao())
         userPreferencesRepository = UserPreferencesRepository(this)
+        onlinePlanRepository = OnlinePlanRepository(this, BackupManager(this))
 
         prepopulateDataIfNeeded()
     }

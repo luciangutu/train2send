@@ -22,7 +22,7 @@ fun calculateExerciseDuration(
     restRepSec: Int?,
     restSetSec: Int?
 ): Int {
-    val s = sets ?: 0
+    val s = sets ?: 1
     val r = reps ?: 1
     val t = workRepSec ?: 0
     val rr = restRepSec ?: 0

@@ -1,0 +1,336 @@
+{
+  "version": 2,
+  "exportedAt": 1724500000000,
+  "exercises": [
+    {
+      "id": "ex-dead-hang-jugs",
+      "name": "Dead-hang on Jugs",
+      "category": "STRENGTH",
+      "description": "Dead-hang on jug holds for warm-up and endurance.",
+      "defaultSets": 1,
+      "defaultReps": 10,
+      "defaultDurationSec": 10,
+      "defaultRestSec": 30
+    },
+    {
+      "id": "ex-max-finger",
+      "name": "Max finger strength",
+      "category": "STRENGTH",
+      "description": "Max finger strength (usually half-crimp) weighted hangs (90-100% of your maximum). Hangboard exercise designed to increase the maximum force your fingers can produce. Stop if grip position breaks down. For weaker climbers the same exercise can be done with assistance (e.g. pulley/band) to reach the appropriate intensity.",
+      "defaultSets": 1,
+      "defaultReps": 4,
+      "defaultDurationSec": 7,
+      "defaultRestSec": 180
+    },
+    {
+      "id": "ex-push-ups",
+      "name": "Push-ups",
+      "category": "CONDITIONING",
+      "description": "Standard push-ups for antagonist training.",
+      "defaultSets": 3,
+      "defaultReps": 10,
+      "defaultDurationSec": 300,
+      "defaultRestSec": 120
+    },
+    {
+      "id": "ex-strength-endurance-hangboard",
+      "name": "Strength Endurance Hangboard",
+      "category": "POWER_ENDURANCE",
+      "description": "Hangboard strength-endurance protocol using repeated 7-second hangs with 3 seconds of rest. Use a moderate-high intensity that allows all repetitions with controlled grip position.",
+      "defaultSets": 1,
+      "defaultReps": 10,
+      "defaultDurationSec": 7,
+      "defaultRestSec": 3
+    },
+    {
+      "id": "ex-2on2off",
+      "name": "2on 2off",
+      "category": "ENDURANCE",
+      "description": "2 minutes on the wall, 2 minutes off the wall. No hard pump. Primarily aerobic/low-intensity endurance training.",
+      "defaultSets": 1,
+      "defaultReps": 6,
+      "defaultDurationSec": 120,
+      "defaultRestSec": 120
+    },
+    {
+      "id": "ex-easy-routes-autobelay",
+      "name": "Easy Routes Autobelay",
+      "category": "ENDURANCE",
+      "description": "Easy routes on autobelay for aerobic endurance.",
+      "defaultSets": 3,
+      "defaultReps": 5,
+      "defaultDurationSec": 2700,
+      "defaultRestSec": 120
+    },
+    {
+      "id": "ex-fryer-endurance",
+      "name": "Fryer 2016 Endurance Program",
+      "category": "ENDURANCE",
+      "description": "Tom Fryer's endurance protocol (2016) for sustained climbing capacity (50-60%). No hard pump.",
+      "defaultReps": 3,
+      "defaultSets": 1,
+      "defaultDurationSec": 300,
+      "defaultRestSec": 120
+    },
+    {
+      "id": "ex-stretching",
+      "name": "Stretching",
+      "category": "MOBILITY",
+      "description": "Full body stretching session focused on shoulders, hips, and forearms.",
+      "defaultDurationSec": 900
+    },
+    {
+      "id": "ex-outdoor-climbing",
+      "name": "Outdoor Climbing",
+      "category": "POWER",
+      "description": "Outdoor climbing session on rock.",
+      "defaultDurationSec": 14400
+    },
+    {
+      "id": "ex-bouldering-boards",
+      "name": "Bouldering",
+      "category": "POWER",
+      "description": "1 hour bouldering session on boards or in gym. Focus on quality movement and trying hard problems.",
+      "defaultDurationSec": 3600
+    },
+    {
+      "id": "ex-knee-program",
+      "name": "Kenees Program",
+      "category": "MOBILITY",
+      "description": "Knee rehabilitation/prehab program.",
+      "defaultDurationSec": 3600
+    },
+    {
+      "id": "ex-carcing",
+      "name": "CARCing",
+      "category": "ENDURANCE",
+      "description": "Continuous Aerobic Regenerative Climbing - easy climbing for recovery and capillarity.",
+      "defaultDurationSec": 1200
+    },
+    {
+      "id": "ex-warmup-paradigm-climbing",
+      "name": "Warm-up Paradigm Climbing",
+      "category": "MOBILITY",
+      "description": "Progressive climbing warm-up: 2 min jumping jacks (easy cardio), arm circles/leg swings/finger movement (tendon glides), scapular pull-ups/asymmetric lock-offs/progressive hangs/easy climbing, quick dead-points/explosive pull-ups.",
+      "defaultDurationSec": 900
+    },
+    {
+      "id": "ex-shoulder-iso",
+      "name": "Shoulder Isometric",
+      "category": "STRENGTH",
+      "description": "Shoulder Isometric 30 sec",
+      "defaultSets": 1,
+      "defaultReps": 3,
+      "defaultDurationSec": 30,
+      "defaultRestSec": 5
+    },
+
+    {
+      "id": "ex-technique-drills",
+      "name": "Technique Drills",
+      "category": "TECHNIQUE",
+      "description": "Focused climbing practice: silent feet, precise hand placements, flagging, hip rotation, drop-knees. Climb easy problems and routes paying attention to one specific skill per set.",
+      "defaultSets": 3,
+      "defaultReps": 1,
+      "defaultDurationSec": 600,
+      "defaultRestBetweenSetsSec": 120
+    },
+    {
+      "id": "ex-power-endurance-circuits",
+      "name": "Power Endurance Circuits",
+      "category": "POWER_ENDURANCE",
+      "description": "Link 3-4 boulder problems at flash level back-to-back without rest, then rest 4-5 minutes. Trains the ability to sustain hard climbing when pumped. Equivalent to 4x4s.",
+      "defaultSets": 3,
+      "defaultReps": 4,
+      "defaultDurationSec": 1800,
+      "defaultRestBetweenSetsSec": 300
+    }
+  ],
+  "plans": [
+    {
+      "id": "plan-7c-target",
+      "title": "Target 7c",
+      "isActive": true,
+      "createdAt": 1724500000000,
+      "days": [
+        {
+          "id": "day-7c-mon",
+          "dayOfWeek": 1,
+          "dayTitle": "Strength & Power (Bouldering)",
+          "exercises": [
+            {
+              "id": "pe-7c-mon-1",
+              "exerciseId": "ex-warmup-paradigm-climbing",
+              "section": "COMPLEMENTARY",
+              "orderIndex": 0
+            },
+            {
+              "id": "pe-7c-mon-2",
+              "exerciseId": "ex-max-finger",
+              "section": "MAIN",
+              "orderIndex": 1,
+              "description": "3-4 sets of max hangs before climbing. Focus on form, half-crimp position."
+            },
+            {
+              "id": "pe-7c-mon-3",
+              "exerciseId": "ex-bouldering-boards",
+              "section": "MAIN",
+              "orderIndex": 2,
+              "description": "Work problems at your limit or 1 grade below. Focus on quality attempts with full rest."
+            },
+            {
+              "id": "pe-7c-mon-4",
+              "exerciseId": "ex-push-ups",
+              "section": "COMPLEMENTARY",
+              "orderIndex": 3,
+              "customSets": 3,
+              "customReps": 8,
+              "description": "Antagonist work at end of session."
+            }
+          ]
+        },
+        {
+          "id": "day-7c-tue",
+          "dayOfWeek": 2,
+          "dayTitle": "Rest & Mobility",
+          "exercises": [
+            {
+              "id": "pe-7c-tue-1",
+              "exerciseId": "ex-stretching",
+              "section": "MAIN",
+              "orderIndex": 0
+            },
+            {
+              "id": "pe-7c-tue-2",
+              "exerciseId": "ex-knee-program",
+              "section": "SECONDARY",
+              "orderIndex": 1
+            }
+          ]
+        },
+        {
+          "id": "day-7c-wed",
+          "dayOfWeek": 3,
+          "dayTitle": "Power Endurance & Technique",
+          "exercises": [
+            {
+              "id": "pe-7c-wed-1",
+              "exerciseId": "ex-warmup-paradigm-climbing",
+              "section": "COMPLEMENTARY",
+              "orderIndex": 0
+            },
+            {
+              "id": "pe-7c-wed-2",
+              "exerciseId": "ex-technique-drills",
+              "section": "MAIN",
+              "orderIndex": 1,
+              "description": "20-30 min of deliberate practice on easy terrain: silent feet, hip positioning."
+            },
+            {
+              "id": "pe-7c-wed-3",
+              "exerciseId": "ex-power-endurance-circuits",
+              "section": "MAIN",
+              "orderIndex": 2,
+              "description": "3 rounds of 4 boulder problems linked back-to-back. 5 min rest between rounds."
+            },
+            {
+              "id": "pe-7c-wed-4",
+              "exerciseId": "ex-shoulder-iso",
+              "section": "COMPLEMENTARY",
+              "orderIndex": 3
+            }
+          ]
+        },
+        {
+          "id": "day-7c-thu",
+          "dayOfWeek": 4,
+          "dayTitle": "Endurance",
+          "exercises": [
+            {
+              "id": "pe-7c-thu-1",
+              "exerciseId": "ex-dead-hang-jugs",
+              "section": "COMPLEMENTARY",
+              "orderIndex": 0,
+              "customReps": 6,
+              "customDurationSec": 10,
+              "customRestSec": 30
+            },
+            {
+              "id": "pe-7c-thu-2",
+              "exerciseId": "ex-fryer-endurance",
+              "section": "MAIN",
+              "orderIndex": 1,
+              "description": "3 x 5min on the wall at 50-60% intensity with 2 min rest between. Stay below pump threshold."
+            },
+            {
+              "id": "pe-7c-thu-3",
+              "exerciseId": "ex-2on2off",
+              "section": "MAIN",
+              "orderIndex": 2,
+              "description": "6 rounds of 2 min on / 2 min off. Easy climbing, no hard pump."
+            },
+            {
+              "id": "pe-7c-thu-4",
+              "exerciseId": "ex-stretching",
+              "section": "COMPLEMENTARY",
+              "orderIndex": 3
+            }
+          ]
+        },
+        {
+          "id": "day-7c-fri",
+          "dayOfWeek": 5,
+          "dayTitle": "Rest",
+          "exercises": []
+        },
+        {
+          "id": "day-7c-sat",
+          "dayOfWeek": 6,
+          "dayTitle": "Outdoor Climbing (Performance)",
+          "exercises": [
+            {
+              "id": "pe-7c-sat-1",
+              "exerciseId": "ex-warmup-paradigm-climbing",
+              "section": "COMPLEMENTARY",
+              "orderIndex": 0
+            },
+            {
+              "id": "pe-7c-sat-2",
+              "exerciseId": "ex-outdoor-climbing",
+              "section": "MAIN",
+              "orderIndex": 1,
+              "description": "Project session or redpoint attempts on target-grade routes."
+            }
+          ]
+        },
+        {
+          "id": "day-7c-sun",
+          "dayOfWeek": 7,
+          "dayTitle": "Outdoor Climbing (Volume & Technique)",
+          "exercises": [
+            {
+              "id": "pe-7c-sun-1",
+              "exerciseId": "ex-warmup-paradigm-climbing",
+              "section": "COMPLEMENTARY",
+              "orderIndex": 0
+            },
+            {
+              "id": "pe-7c-sun-2",
+              "exerciseId": "ex-outdoor-climbing",
+              "section": "MAIN",
+              "orderIndex": 1,
+              "description": "Volume day: climb many routes below your max. Build mileage and work on technique outdoors."
+            },
+            {
+              "id": "pe-7c-sun-3",
+              "exerciseId": "ex-carcing",
+              "section": "SECONDARY",
+              "orderIndex": 2,
+              "description": "Easy climbing at end of day for recovery and capillarity."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -55,11 +55,11 @@
       "id": "ex-no-hangs",
       "name": "No-hangs Hangboard",
       "category": "STRENGTH",
-      "description": "Hangboard training using your feet on the ground.",
+      "description": "Sub-maximal isometric finger loading on a hangboard with feet on the ground (~30-50% max effort) to promote finger health, tendon collagen synthesis, and warm-up readiness without fatigue.",
       "defaultSets": 1,
-      "defaultReps": 11,
+      "defaultReps": 24,
       "defaultDurationSec": 10,
-      "defaultRestSec": 50
+      "defaultRestSec": 20
     },
     {
       "id": "ex-megos-pe-finger",

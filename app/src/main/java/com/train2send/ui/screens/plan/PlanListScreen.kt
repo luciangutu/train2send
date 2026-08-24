@@ -5,7 +5,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -18,6 +17,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.train2send.Train2SendApp
 import com.train2send.data.model.TrainingPlanEntity
+import com.train2send.ui.components.SearchTopAppBar
 import com.train2send.ui.navigation.Screen
 import kotlinx.coroutines.launch
 
@@ -29,15 +29,22 @@ fun PlanListScreen(navController: NavController) {
     val allPlans by app.trainingPlanRepository.getAllPlans()
         .collectAsStateWithLifecycle(initialValue = emptyList())
 
+    var searchQuery by remember { mutableStateOf("") }
+    var isSearchActive by remember { mutableStateOf(false) }
+
+    val filteredPlans = allPlans.filter {
+        it.title.contains(searchQuery, ignoreCase = true)
+    }
+
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text("My Plans") },
-                navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
-                    }
-                }
+            SearchTopAppBar(
+                title = "My Plans",
+                query = searchQuery,
+                onQueryChange = { searchQuery = it },
+                isSearchActive = isSearchActive,
+                onSearchActiveChange = { isSearchActive = it },
+                onBackClick = { navController.popBackStack() }
             )
         },
         floatingActionButton = {
@@ -78,6 +85,19 @@ fun PlanListScreen(navController: NavController) {
                     )
                 }
             }
+        } else if (filteredPlans.isEmpty()) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(padding),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "No plans matching \"$searchQuery\"",
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
         } else {
             LazyColumn(
                 modifier = Modifier
@@ -86,7 +106,7 @@ fun PlanListScreen(navController: NavController) {
                 contentPadding = PaddingValues(16.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                items(allPlans) { plan ->
+                items(filteredPlans) { plan ->
                     PlanCard(
                         plan = plan,
                         showActivationAction = !plan.isActive || activeCount > 1,

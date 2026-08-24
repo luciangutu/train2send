@@ -30,7 +30,7 @@
       "defaultSets": 3,
       "defaultReps": 10,
       "defaultDurationSec": 30,
-      "defaultRestSec": 120
+      "defaultRestBetweenSetsSec": 120
     },
     {
       "id": "ex-strength-endurance-hangboard",

@@ -46,7 +46,7 @@ class TrainingPlanRepository(private val planDao: TrainingPlanDao) {
     fun getExercisesForDay(planDayId: String): Flow<List<PlannedExerciseEntity>> =
         planDao.getExercisesForDay(planDayId)
 
-    suspend fun getPlannedExerciseById(id: String): PlannedExerciseEntity? =
+    fun getPlannedExerciseById(id: String): Flow<PlannedExerciseEntity?> =
         planDao.getPlannedExerciseById(id)
 
     suspend fun insertPlannedExercise(exercise: PlannedExerciseEntity) =

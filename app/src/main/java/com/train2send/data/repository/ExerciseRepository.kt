@@ -13,7 +13,7 @@ class ExerciseRepository(private val exerciseDao: ExerciseDao) {
     fun getExercisesByCategory(category: ExerciseCategory): Flow<List<ExerciseEntity>> =
         exerciseDao.getExercisesByCategory(category)
 
-    suspend fun getExerciseById(id: String): ExerciseEntity? =
+    fun getExerciseById(id: String): Flow<ExerciseEntity?> =
         exerciseDao.getExerciseById(id)
 
     suspend fun insertExercise(exercise: ExerciseEntity) =

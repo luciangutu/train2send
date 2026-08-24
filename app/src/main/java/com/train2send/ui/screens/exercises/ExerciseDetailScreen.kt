@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.train2send.Train2SendApp
 import com.train2send.data.model.ExerciseEntity
@@ -39,17 +40,15 @@ fun ExerciseDetailScreen(
     val app = LocalContext.current.applicationContext as Train2SendApp
     val scope = rememberCoroutineScope()
     
-    val exerciseState = produceState<ExerciseEntity?>(initialValue = null) {
-        value = app.exerciseRepository.getExerciseById(exerciseId)
-    }
-    val exercise = exerciseState.value
+    val exercise by app.exerciseRepository.getExerciseById(exerciseId)
+        .collectAsStateWithLifecycle(initialValue = null)
 
-    val plannedState = produceState<PlannedExerciseEntity?>(initialValue = null) {
-        if (plannedExerciseId != null) {
-            value = app.trainingPlanRepository.getPlannedExerciseById(plannedExerciseId)
-        }
+    val planned by if (plannedExerciseId != null) {
+        app.trainingPlanRepository.getPlannedExerciseById(plannedExerciseId)
+            .collectAsStateWithLifecycle(initialValue = null)
+    } else {
+        remember { mutableStateOf<PlannedExerciseEntity?>(null) }
     }
-    val planned = plannedState.value
 
     var showDeleteConfirm by remember { mutableStateOf(false) }
 
@@ -96,30 +95,32 @@ fun ExerciseDetailScreen(
             )
         }
     ) { padding ->
-        if (exercise == null) {
+        val currentExercise = exercise
+        if (currentExercise == null) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 CircularProgressIndicator()
             }
         } else {
             ExerciseDetailContent(
-                exercise = exercise,
+                exercise = currentExercise,
                 planned = planned,
                 modifier = Modifier.padding(padding)
             )
         }
     }
 
-    if (showDeleteConfirm && exercise != null) {
+    val currentExercise = exercise
+    if (showDeleteConfirm && currentExercise != null) {
         AlertDialog(
             onDismissRequest = { showDeleteConfirm = false },
             title = { Text("Delete Exercise") },
-            text = { Text("Delete \"${exercise.name}\"? This will also remove it from all training plans.") },
+            text = { Text("Delete \"${currentExercise.name}\"? This will also remove it from all training plans.") },
             confirmButton = {
                 TextButton(
                     onClick = {
                         showDeleteConfirm = false
                         scope.launch {
-                            app.exerciseRepository.deleteExercise(exercise)
+                            app.exerciseRepository.deleteExercise(currentExercise)
                             navController.popBackStack()
                         }
                     }
@@ -177,6 +178,14 @@ private fun ExerciseDetailContent(
                     style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.ExtraBold
                 )
+                planned?.notes?.let {
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = it,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
             }
         }
 

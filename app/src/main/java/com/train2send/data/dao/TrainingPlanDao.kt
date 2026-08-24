@@ -63,7 +63,7 @@ interface TrainingPlanDao {
     suspend fun updatePlannedExercise(exercise: PlannedExerciseEntity)
 
     @Query("SELECT * FROM planned_exercises WHERE id = :id")
-    suspend fun getPlannedExerciseById(id: String): PlannedExerciseEntity?
+    fun getPlannedExerciseById(id: String): Flow<PlannedExerciseEntity?>
 
     @Delete
     suspend fun deletePlannedExercise(exercise: PlannedExerciseEntity)

@@ -37,6 +37,9 @@ class OnlinePlanViewModel(
     private val _onlineFiles = MutableStateFlow<List<GitHubFile>>(emptyList())
     private val _isLoading = MutableStateFlow(false)
     private val _errorMessage = MutableStateFlow<String?>(null)
+    private val _downloadSuccess = MutableStateFlow<String?>(null)
+
+    val downloadSuccess: StateFlow<String?> = _downloadSuccess.asStateFlow()
 
     val uiState: StateFlow<OnlinePlansUiState> = combine(
         _onlineFiles,
@@ -87,11 +90,20 @@ class OnlinePlanViewModel(
 
     fun downloadPlan(item: OnlinePlanItem) {
         viewModelScope.launch {
+            _isLoading.value = true
             repository.downloadAndImportPlan(item.file)
+                .onSuccess {
+                    _downloadSuccess.value = "Plan \"${item.file.name.removeSuffix(".json")}\" imported successfully!"
+                }
                 .onFailure { e ->
                     _errorMessage.value = "Download failed: ${e.message}"
                 }
+            _isLoading.value = false
         }
+    }
+    
+    fun clearDownloadSuccess() {
+        _downloadSuccess.value = null
     }
     
     fun clearError() {

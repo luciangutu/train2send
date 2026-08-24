@@ -1,5 +1,6 @@
 package com.train2send.data.backup
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
@@ -49,6 +50,8 @@ data class PlannedExerciseBackup(
     val exerciseId: String,
     val section: String,
     val orderIndex: Int = 0,
+    @SerialName("description")
+    val notes: String? = null,
     val customSets: Int? = null,
     val customReps: Int? = null,
     val customDurationSec: Int? = null,

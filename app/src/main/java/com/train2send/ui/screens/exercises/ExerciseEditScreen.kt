@@ -26,6 +26,7 @@ import com.train2send.data.model.ExerciseCategory
 import com.train2send.data.model.ExerciseEntity
 import com.train2send.utils.calculateExerciseDuration
 import com.train2send.utils.formatDuration
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.util.UUID
 
@@ -48,7 +49,7 @@ fun ExerciseEditScreen(navController: NavController, exerciseId: String? = null)
 
     LaunchedEffect(exerciseId) {
         if (exerciseId != null) {
-            val exercise = app.exerciseRepository.getExerciseById(exerciseId)
+            val exercise = app.exerciseRepository.getExerciseById(exerciseId).first()
             if (exercise != null) {
                 name = exercise.name
                 description = exercise.description ?: ""

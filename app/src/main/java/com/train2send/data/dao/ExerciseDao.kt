@@ -15,7 +15,7 @@ interface ExerciseDao {
     fun getExercisesByCategory(category: ExerciseCategory): Flow<List<ExerciseEntity>>
 
     @Query("SELECT * FROM exercises WHERE id = :id")
-    suspend fun getExerciseById(id: String): ExerciseEntity?
+    fun getExerciseById(id: String): Flow<ExerciseEntity?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertExercise(exercise: ExerciseEntity)

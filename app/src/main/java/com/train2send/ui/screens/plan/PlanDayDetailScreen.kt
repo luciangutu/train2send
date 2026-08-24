@@ -471,6 +471,14 @@ private fun PlannedExerciseCard(
                         color = categoryColor
                     )
                 }
+                planned.notes?.let {
+                    Text(
+                        text = it,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        maxLines = 2
+                    )
+                }
             }
             Column(horizontalAlignment = Alignment.End) {
                 val sets = planned.customSets ?: exercise?.defaultSets

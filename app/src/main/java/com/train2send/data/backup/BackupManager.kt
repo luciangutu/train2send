@@ -1,5 +1,6 @@
 package com.train2send.data.backup
 
+import android.util.Log
 import com.train2send.Train2SendApp
 import com.train2send.data.model.*
 import kotlinx.coroutines.flow.first
@@ -34,6 +35,7 @@ class BackupManager(private val app: Train2SendApp) {
                             exerciseId = pe.exerciseId,
                             section = pe.section.name,
                             orderIndex = pe.orderIndex,
+                            notes = pe.notes,
                             customSets = pe.customSets,
                             customReps = pe.customReps,
                             customDurationSec = pe.customDurationSec,
@@ -77,7 +79,9 @@ class BackupManager(private val app: Train2SendApp) {
      * Returns a summary of what was imported.
      */
     suspend fun importFromJson(jsonString: String): ImportResult {
+        Log.d("BackupManager", "Starting import from JSON")
         val backup = json.decodeFromString(BackupData.serializer(), jsonString)
+        Log.d("BackupManager", "Decoded ${backup.exercises.size} exercises and ${backup.plans.size} plans")
 
         var exercisesImported = 0
         var plansImported = 0
@@ -146,6 +150,7 @@ class BackupManager(private val app: Train2SendApp) {
                             exerciseId = peBackup.exerciseId,
                             section = section,
                             orderIndex = peBackup.orderIndex,
+                            notes = peBackup.notes,
                             customSets = peBackup.customSets,
                             customReps = peBackup.customReps,
                             customDurationSec = peBackup.customDurationSec,
@@ -156,6 +161,7 @@ class BackupManager(private val app: Train2SendApp) {
                 }
             }
             plansImported++
+            Log.d("BackupManager", "Imported plan: ${planBackup.title} with ${planBackup.days.size} days")
         }
         
         // Ensure only one plan is active if any active plans were imported

@@ -142,7 +142,7 @@
       "description": "Link 3-4 boulder problems at flash level back-to-back without rest, then rest 4-5 minutes. Trains the ability to sustain hard climbing when pumped. Equivalent to 4x4s.",
       "defaultSets": 3,
       "defaultReps": 4,
-      "defaultDurationSec": 1800,
+      "defaultDurationSec": 75,
       "defaultRestBetweenSetsSec": 300
     }
   ],

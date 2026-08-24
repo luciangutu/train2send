@@ -24,6 +24,7 @@ import com.train2send.data.model.*
 import com.train2send.ui.navigation.Screen
 import com.train2send.utils.calculateExerciseDuration
 import com.train2send.utils.formatDuration
+import com.train2send.utils.formatDurationRounded
 import kotlinx.coroutines.launch
 import java.time.DayOfWeek
 import java.time.format.TextStyle
@@ -219,7 +220,7 @@ fun PlanDayDetailScreen(
                             )
                             Spacer(modifier = Modifier.width(12.dp))
                             Text(
-                                text = "Estimated duration: ~${formatDuration(totalSec)}",
+                                text = "Estimated duration: ~${formatDurationRounded(totalSec)}",
                                 style = MaterialTheme.typography.bodyMedium
                             )
                         }
@@ -492,6 +493,23 @@ private fun PlannedExerciseCard(
                 duration?.let { Text("${formatDuration(it)} work", style = MaterialTheme.typography.labelSmall) }
                 rest?.let { Text("${formatDuration(it)} rest rep", style = MaterialTheme.typography.labelSmall) }
                 restSet?.let { Text("${formatDuration(it)} rest set", style = MaterialTheme.typography.labelSmall) }
+                
+                // Add total duration for this exercise
+                val totalSec = calculateExerciseDuration(
+                    sets = sets,
+                    reps = reps,
+                    workRepSec = duration,
+                    restRepSec = rest,
+                    restSetSec = restSet
+                )
+                if (totalSec > 0) {
+                    Text(
+                        text = "Total: ${formatDuration(totalSec)}",
+                        style = MaterialTheme.typography.labelSmall,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                }
             }
             Spacer(modifier = Modifier.width(8.dp))
             IconButton(

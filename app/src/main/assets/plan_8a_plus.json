@@ -39,7 +39,9 @@
       "description": "Standard push-ups for antagonist training.",
       "defaultSets": 3,
       "defaultReps": 10,
-      "defaultRestSec": 120
+      "defaultDurationSec": 3,
+      "defaultRestSec": 0,
+      "defaultRestBetweenSetsSec": 120
     },
     {
       "id": "ex-strength-endurance-hangboard",
@@ -139,7 +141,9 @@
       "description": "4x6 easy routes on autobelay for aerobic endurance.",
       "defaultSets": 4,
       "defaultReps": 6,
-      "defaultRestSec": 120
+      "defaultDurationSec": 180,
+      "defaultRestSec": 0,
+      "defaultRestBetweenSetsSec": 300
     },
     {
       "id": "ex-fryer-endurance",

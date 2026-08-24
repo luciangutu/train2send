@@ -15,6 +15,23 @@ fun formatDuration(totalSeconds: Int): String {
     return parts.joinToString(" ")
 }
 
+fun formatDurationRounded(totalSeconds: Int): String {
+    if (totalSeconds <= 0) return "0m"
+    
+    // Round to nearest minute
+    val totalMinutes = (totalSeconds + 30) / 60
+    val displayMinutes = if (totalMinutes == 0) 1 else totalMinutes
+    
+    val hours = displayMinutes / 60
+    val minutes = displayMinutes % 60
+    
+    val parts = mutableListOf<String>()
+    if (hours > 0) parts.add("${hours}h")
+    if (minutes > 0 || (hours == 0)) parts.add("${minutes}m")
+    
+    return parts.joinToString(" ")
+}
+
 fun calculateExerciseDuration(
     sets: Int?,
     reps: Int?,

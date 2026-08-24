@@ -105,4 +105,18 @@ git tag "v$CURRENT_VERSION_NAME"
 git push origin "v$CURRENT_VERSION_NAME"
 
 echo ""
-echo "✅ Done! Tagged and pushed v$CURRENT_VERSION_NAME"
+echo "✅ Tagged and pushed v$CURRENT_VERSION_NAME"
+
+# --- Create GitHub release and upload AAB ---
+echo ""
+echo "🚀 Creating GitHub release..."
+
+AAB_FILE="$AAB_DIR/train2send-${CURRENT_VERSION_NAME}.aab"
+
+gh release create "v$CURRENT_VERSION_NAME" \
+    "$AAB_FILE" \
+    --title "v$CURRENT_VERSION_NAME" \
+    --generate-notes
+
+echo ""
+echo "✅ Done! GitHub release v$CURRENT_VERSION_NAME created with AAB uploaded."

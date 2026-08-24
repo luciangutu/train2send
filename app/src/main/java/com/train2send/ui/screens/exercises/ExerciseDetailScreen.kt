@@ -329,6 +329,21 @@ private fun PlannedValuesSection(planned: PlannedExerciseEntity, exercise: Exerc
                     compact = true
                 )
             }
+            Spacer(modifier = Modifier.height(12.dp))
+            val totalSec = calculateExerciseDuration(
+                sets = planned.customSets ?: exercise.defaultSets,
+                reps = planned.customReps ?: exercise.defaultReps,
+                workRepSec = planned.customDurationSec ?: exercise.defaultDurationSec,
+                restRepSec = planned.customRestSec ?: exercise.defaultRestSec,
+                restSetSec = planned.customRestBetweenSetsSec ?: exercise.defaultRestBetweenSetsSec
+            )
+            DetailBox(
+                label = "Total Duration",
+                value = formatDuration(totalSec),
+                icon = Icons.Default.Timer,
+                modifier = Modifier.fillMaxWidth(),
+                compact = true
+            )
         }
     }
 }

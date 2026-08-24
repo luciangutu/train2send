@@ -35,6 +35,7 @@ import com.train2send.data.repository.ThemePreference
 import com.train2send.ui.navigation.Screen
 import com.train2send.utils.calculateExerciseDuration
 import com.train2send.utils.formatDuration
+import com.train2send.utils.formatDurationRounded
 import kotlinx.coroutines.launch
 import java.time.DayOfWeek
 import java.time.LocalDate
@@ -358,7 +359,7 @@ private fun TodaySessionCard(
                     }
                 }
                 Text(
-                    text = "${exercises.size} exercises · ~${formatDuration(estimatedSec)}",
+                    text = "${exercises.size} exercises · ~${formatDurationRounded(estimatedSec)}",
                     style = MaterialTheme.typography.bodySmall,
                     color = if (isToday) MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f)
                            else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f)
@@ -517,12 +518,21 @@ private fun ExerciseTile(
                 val detailText = buildString {
                     if (sets != null) append("${sets}x")
                     if (reps != null) {
-                        if (isNotEmpty()) append("")
                         append("$reps")
                     }
                     if (duration != null) {
-                        if (isNotEmpty()) append(" ")
-                        append("(${formatDuration(duration)})")
+                        append(" (${formatDuration(duration)})")
+                    }
+                    
+                    val totalSec = calculateExerciseDuration(
+                        sets = sets,
+                        reps = reps,
+                        workRepSec = duration,
+                        restRepSec = planned.customRestSec ?: exercise?.defaultRestSec,
+                        restSetSec = planned.customRestBetweenSetsSec ?: exercise?.defaultRestBetweenSetsSec
+                    )
+                    if (totalSec > 0) {
+                        append(" · ${formatDuration(totalSec)}")
                     }
                 }
 

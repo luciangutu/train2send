@@ -127,6 +127,8 @@
       "description": "Standard or elevated push-ups for antagonist pressing strength. Balances pulling-dominant climbing.",
       "defaultSets": 3,
       "defaultReps": 10,
+      "defaultDurationSec": 3,
+      "defaultRestSec": 0,
       "defaultRestBetweenSetsSec": 90
     },
     {

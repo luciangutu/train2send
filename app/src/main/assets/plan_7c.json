@@ -138,6 +138,16 @@
       "defaultRestBetweenSetsSec": 120
     },
     {
+      "id": "ex-power-endurance-rope-laps",
+      "name": "Rope Power Endurance Laps",
+      "category": "POWER_ENDURANCE",
+      "description": "Climb 2-3 consecutive laps on a routes climbing wall near flash level without resting (lowered quickly or pulled back up immediately), then rest 8-10 minutes between sets. Trains fatigue resistance and sustained hard execution under severe pump.",
+      "defaultSets": 3,
+      "defaultReps": 2,
+      "defaultDurationSec": 240,
+      "defaultRestBetweenSetsSec": 540
+    },
+    {
       "id": "ex-power-endurance-circuits",
       "name": "Power Endurance Circuits",
       "category": "POWER_ENDURANCE",

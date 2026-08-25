@@ -154,7 +154,7 @@
     {
       "id": "plan-road-to-7a",
       "title": "Road to 7a (Sport)",
-      "isActive": false,
+      "isActive": true,
       "createdAt": 1724340000000,
       "days": [
         {

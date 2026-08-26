@@ -6,6 +6,7 @@
       "id": "ex-dead-hang-jugs",
       "name": "Dead-hang on Jugs",
       "category": "STRENGTH",
+      "climbingType": "ANY",
       "description": "Dead-hang on jug holds for warm-up and endurance.",
       "defaultSets": 1,
       "defaultReps": 10,
@@ -16,6 +17,7 @@
       "id": "ex-max-finger",
       "name": "Max finger strength",
       "category": "STRENGTH",
+      "climbingType": "ANY",
       "description": "Max finger strength (usually half-crimp) weighted hangs (90-100% of your maximum). Hangboard exercise designed to increase the maximum force your fingers can produce. Stop if grip position breaks down. For weaker climbers the same exercise can be done with assistance (e.g. pulley/band) to reach the appropriate intensity.",
       "defaultSets": 1,
       "defaultReps": 4,
@@ -26,6 +28,7 @@
       "id": "ex-push-ups",
       "name": "Push-ups",
       "category": "CONDITIONING",
+      "climbingType": "ANY",
       "description": "Standard push-ups for antagonist training.",
       "defaultSets": 3,
       "defaultReps": 10,
@@ -37,6 +40,7 @@
       "id": "ex-strength-endurance-hangboard",
       "name": "Strength Endurance Hangboard",
       "category": "POWER_ENDURANCE",
+      "climbingType": "ANY",
       "description": "Hangboard strength-endurance protocol using repeated 7-second hangs with 3 seconds of rest. Use a moderate-high intensity that allows all repetitions with controlled grip position.",
       "defaultSets": 1,
       "defaultReps": 10,
@@ -47,6 +51,7 @@
       "id": "ex-2on2off",
       "name": "2on 2off",
       "category": "ENDURANCE",
+      "climbingType": "BOULDERING",
       "description": "2 minutes on the wall, 2 minutes off the wall. No hard pump. Primarily aerobic/low-intensity endurance training.",
       "defaultSets": 1,
       "defaultReps": 6,
@@ -57,6 +62,7 @@
       "id": "ex-easy-routes-autobelay",
       "name": "Easy Routes Autobelay",
       "category": "ENDURANCE",
+      "climbingType": "ROPE",
       "description": "Easy routes on autobelay for aerobic endurance.",
       "defaultSets": 3,
       "defaultReps": 5,
@@ -68,6 +74,7 @@
       "id": "ex-fryer-endurance",
       "name": "Fryer 2016 Endurance Program",
       "category": "ENDURANCE",
+      "climbingType": "BOULDERING",
       "description": "Tom Fryer's endurance protocol (2016) for sustained climbing capacity (50-60%). No hard pump.",
       "defaultReps": 3,
       "defaultSets": 1,
@@ -75,9 +82,32 @@
       "defaultRestSec": 120
     },
     {
+      "id": "ex-fryer-on-routes",
+      "name": "Fryer on Routes (Linked Laps)",
+      "category": "ENDURANCE",
+      "climbingType": "ROPE",
+      "description": "Linked route laps: climb up, lower, immediately back on for 2-3 consecutive laps on easy terrain. 8-12 minutes continuous climbing.",
+      "defaultSets": 1,
+      "defaultReps": 3,
+      "defaultDurationSec": 300,
+      "defaultRestSec": 120
+    },
+    {
+      "id": "ex-easy-routes-shakeout",
+      "name": "Easy Routes with Shake-out Practice",
+      "category": "ENDURANCE",
+      "climbingType": "ROPE",
+      "description": "3-5 easy routes at roughly 2-3 grades below redpoint. Focus on breathing, shaking out on good holds, never approaching pump. On moderate routes (flash level minus 1), climb to a rest, hold a shake-out for 30-60 seconds per arm, then continue.",
+      "defaultSets": 1,
+      "defaultReps": 5,
+      "defaultDurationSec": 300,
+      "defaultRestSec": 180
+    },
+    {
       "id": "ex-stretching",
       "name": "Stretching",
       "category": "MOBILITY",
+      "climbingType": "ANY",
       "description": "Full body stretching session focused on shoulders, hips, and forearms.",
       "defaultDurationSec": 900
     },
@@ -85,6 +115,7 @@
       "id": "ex-outdoor-climbing",
       "name": "Outdoor Climbing",
       "category": "POWER",
+      "climbingType": "ROPE",
       "description": "Outdoor climbing session on rock.",
       "defaultDurationSec": 14400
     },
@@ -92,6 +123,7 @@
       "id": "ex-bouldering-boards",
       "name": "Bouldering",
       "category": "POWER",
+      "climbingType": "BOULDERING",
       "description": "1 hour bouldering session on boards or in gym. Focus on quality movement and trying hard problems.",
       "defaultDurationSec": 3600
     },
@@ -99,6 +131,7 @@
       "id": "ex-knee-program",
       "name": "Kenees Program",
       "category": "MOBILITY",
+      "climbingType": "ANY",
       "description": "Knee rehabilitation/prehab program.",
       "defaultDurationSec": 3600
     },
@@ -106,6 +139,7 @@
       "id": "ex-carcing",
       "name": "CARCing",
       "category": "ENDURANCE",
+      "climbingType": "BOULDERING",
       "description": "Continuous Aerobic Regenerative Climbing - easy climbing for recovery and capillarity.",
       "defaultDurationSec": 1200
     },
@@ -113,6 +147,7 @@
       "id": "ex-warmup-paradigm-climbing",
       "name": "Warm-up Paradigm Climbing",
       "category": "MOBILITY",
+      "climbingType": "ANY",
       "description": "Progressive climbing warm-up: 2 min jumping jacks (easy cardio), arm circles/leg swings/finger movement (tendon glides), scapular pull-ups/asymmetric lock-offs/progressive hangs/easy climbing, quick dead-points/explosive pull-ups.",
       "defaultDurationSec": 900
     },
@@ -120,17 +155,18 @@
       "id": "ex-shoulder-iso",
       "name": "Shoulder Isometric",
       "category": "STRENGTH",
+      "climbingType": "ANY",
       "description": "Shoulder Isometric 30 sec",
       "defaultSets": 1,
       "defaultReps": 4,
       "defaultDurationSec": 30,
       "defaultRestSec": 5
     },
-
     {
       "id": "ex-repeaters",
       "name": "Repeaters (Hangboard)",
       "category": "POWER_ENDURANCE",
+      "climbingType": "ANY",
       "description": "Hangboard repeater protocol: 7 seconds on / 3 seconds off for 6-8 reps per set. Use an edge size and load that produces significant pump by the final rep but allows controlled grip throughout. Trains the forearm's ability to sustain force output under fatigue — a key capacity for sustained hard route climbing.",
       "defaultSets": 4,
       "defaultReps": 7,
@@ -142,6 +178,7 @@
       "id": "ex-power-endurance-rope-laps",
       "name": "Rope Power Endurance Laps",
       "category": "POWER_ENDURANCE",
+      "climbingType": "ROPE",
       "description": "Climb 2-3 consecutive laps on a routes climbing wall near flash level without resting (lowered quickly or pulled back up immediately), then rest 8-10 minutes between sets. Trains fatigue resistance and sustained hard execution under severe pump.",
       "defaultSets": 3,
       "defaultReps": 2,
@@ -152,6 +189,7 @@
       "id": "ex-power-endurance-circuits",
       "name": "Power Endurance Circuits",
       "category": "POWER_ENDURANCE",
+      "climbingType": "BOULDERING",
       "description": "Link 3-4 boulder problems at flash level back-to-back without rest, then rest 4-5 minutes. Trains the ability to sustain hard climbing when pumped. Equivalent to 4x4s.",
       "defaultSets": 3,
       "defaultReps": 4,
@@ -175,13 +213,15 @@
               "id": "pe-7c-mon-1",
               "exerciseId": "ex-warmup-paradigm-climbing",
               "section": "COMPLEMENTARY",
-              "orderIndex": 0
+              "orderIndex": 0,
+              "isSelected": true
             },
             {
               "id": "pe-7c-mon-2",
               "exerciseId": "ex-max-finger",
               "section": "MAIN",
               "orderIndex": 1,
+              "isSelected": true,
               "description": "3-4 sets of max hangs before climbing. Focus on form, half-crimp position."
             },
             {
@@ -189,6 +229,7 @@
               "exerciseId": "ex-bouldering-boards",
               "section": "MAIN",
               "orderIndex": 2,
+              "isSelected": true,
               "description": "Work problems at your limit or 1 grade below. Focus on quality attempts with full rest."
             },
             {
@@ -196,6 +237,7 @@
               "exerciseId": "ex-push-ups",
               "section": "COMPLEMENTARY",
               "orderIndex": 3,
+              "isSelected": true,
               "customSets": 3,
               "customReps": 8,
               "description": "Antagonist work at end of session."
@@ -211,13 +253,15 @@
               "id": "pe-7c-tue-1",
               "exerciseId": "ex-stretching",
               "section": "MAIN",
-              "orderIndex": 0
+              "orderIndex": 0,
+              "isSelected": true
             },
             {
               "id": "pe-7c-tue-2",
               "exerciseId": "ex-knee-program",
               "section": "SECONDARY",
-              "orderIndex": 1
+              "orderIndex": 1,
+              "isSelected": true
             }
           ]
         },
@@ -230,13 +274,15 @@
               "id": "pe-7c-wed-1",
               "exerciseId": "ex-warmup-paradigm-climbing",
               "section": "COMPLEMENTARY",
-              "orderIndex": 0
+              "orderIndex": 0,
+              "isSelected": true
             },
             {
               "id": "pe-7c-wed-2",
               "exerciseId": "ex-repeaters",
               "section": "MAIN",
               "orderIndex": 1,
+              "isSelected": true,
               "description": "4 sets of 7on/3off repeaters. Use an edge that produces solid pump by rep 6-7. 5 min rest between sets. Half-crimp position."
             },
             {
@@ -244,13 +290,15 @@
               "exerciseId": "ex-power-endurance-circuits",
               "section": "MAIN",
               "orderIndex": 2,
+              "isSelected": true,
               "description": "3 rounds of 4 boulder problems linked back-to-back. 5 min rest between rounds."
             },
             {
               "id": "pe-7c-wed-4",
               "exerciseId": "ex-shoulder-iso",
               "section": "COMPLEMENTARY",
-              "orderIndex": 3
+              "orderIndex": 3,
+              "isSelected": true
             }
           ]
         },
@@ -264,29 +312,53 @@
               "exerciseId": "ex-dead-hang-jugs",
               "section": "COMPLEMENTARY",
               "orderIndex": 0,
+              "isSelected": true,
               "customReps": 6,
               "customDurationSec": 10,
               "customRestSec": 30
             },
             {
-              "id": "pe-7c-thu-2",
+              "id": "pe-7c-thu-2-boulder",
               "exerciseId": "ex-fryer-endurance",
               "section": "MAIN",
+              "alternativeGroupId": "alt-7c-thu-fryer",
+              "isSelected": true,
               "orderIndex": 1,
               "description": "3 x 5min on the wall at 50-60% intensity with 2 min rest between. Stay below pump threshold."
             },
             {
-              "id": "pe-7c-thu-3",
+              "id": "pe-7c-thu-2-rope",
+              "exerciseId": "ex-fryer-on-routes",
+              "section": "MAIN",
+              "alternativeGroupId": "alt-7c-thu-fryer",
+              "isSelected": false,
+              "orderIndex": 1,
+              "description": "Linked route laps on easy terrain. Continuous movement for 8-12 minutes per set."
+            },
+            {
+              "id": "pe-7c-thu-3-boulder",
               "exerciseId": "ex-2on2off",
               "section": "MAIN",
+              "alternativeGroupId": "alt-7c-thu-volume",
+              "isSelected": true,
               "orderIndex": 2,
               "description": "6 rounds of 2 min on / 2 min off. Easy climbing, no hard pump."
+            },
+            {
+              "id": "pe-7c-thu-3-rope",
+              "exerciseId": "ex-easy-routes-shakeout",
+              "section": "MAIN",
+              "alternativeGroupId": "alt-7c-thu-volume",
+              "isSelected": false,
+              "orderIndex": 2,
+              "description": "4-5 easy routes with deliberate shake-out practice on moderate sections."
             },
             {
               "id": "pe-7c-thu-4",
               "exerciseId": "ex-stretching",
               "section": "COMPLEMENTARY",
-              "orderIndex": 3
+              "orderIndex": 3,
+              "isSelected": true
             }
           ]
         },
@@ -299,13 +371,15 @@
               "id": "pe-7c-sat-1",
               "exerciseId": "ex-warmup-paradigm-climbing",
               "section": "COMPLEMENTARY",
-              "orderIndex": 0
+              "orderIndex": 0,
+              "isSelected": true
             },
             {
               "id": "pe-7c-sat-2",
               "exerciseId": "ex-outdoor-climbing",
               "section": "MAIN",
               "orderIndex": 1,
+              "isSelected": true,
               "description": "Project session or redpoint attempts on target-grade routes."
             }
           ]
@@ -319,13 +393,15 @@
               "id": "pe-7c-sun-1",
               "exerciseId": "ex-warmup-paradigm-climbing",
               "section": "COMPLEMENTARY",
-              "orderIndex": 0
+              "orderIndex": 0,
+              "isSelected": true
             },
             {
               "id": "pe-7c-sun-2",
               "exerciseId": "ex-outdoor-climbing",
               "section": "MAIN",
               "orderIndex": 1,
+              "isSelected": true,
               "description": "Volume day: climb many routes below your max. Build mileage and work on technique outdoors."
             },
             {
@@ -333,6 +409,7 @@
               "exerciseId": "ex-carcing",
               "section": "SECONDARY",
               "orderIndex": 2,
+              "isSelected": true,
               "description": "Easy climbing at end of day for recovery and capillarity."
             }
           ]

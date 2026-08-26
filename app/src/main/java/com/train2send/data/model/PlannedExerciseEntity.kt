@@ -30,6 +30,7 @@ data class PlannedExerciseEntity(
     val exerciseId: String,
     val section: ExerciseSection,
     val alternativeGroupId: String? = null,
+    val isSelected: Boolean = true,
     val orderIndex: Int = 0,
     val notes: String? = null,
     val customSets: Int? = null,

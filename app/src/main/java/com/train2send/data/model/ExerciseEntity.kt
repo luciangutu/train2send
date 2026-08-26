@@ -9,6 +9,7 @@ data class ExerciseEntity(
     @PrimaryKey val id: String = UUID.randomUUID().toString(),
     val name: String,
     val category: ExerciseCategory,
+    val climbingType: ClimbingType = ClimbingType.ANY,
     val description: String? = null,
     val defaultSets: Int? = null,
     val defaultReps: Int? = null,

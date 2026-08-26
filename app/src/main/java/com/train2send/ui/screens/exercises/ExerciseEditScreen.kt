@@ -22,6 +22,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.train2send.Train2SendApp
+import com.train2send.data.model.ClimbingType
 import com.train2send.data.model.ExerciseCategory
 import com.train2send.data.model.ExerciseEntity
 import com.train2send.utils.calculateExerciseDuration
@@ -39,6 +40,7 @@ fun ExerciseEditScreen(navController: NavController, exerciseId: String? = null)
     var name by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
     var selectedCategory by remember { mutableStateOf(ExerciseCategory.STRENGTH) }
+    var climbingType by remember { mutableStateOf(ClimbingType.ANY) }
     var defaultSets by remember { mutableStateOf("") }
     var defaultReps by remember { mutableStateOf("") }
     var defaultDurationSec by remember { mutableStateOf("") }
@@ -54,6 +56,7 @@ fun ExerciseEditScreen(navController: NavController, exerciseId: String? = null)
                 name = exercise.name
                 description = exercise.description ?: ""
                 selectedCategory = exercise.category
+                climbingType = exercise.climbingType
                 defaultSets = exercise.defaultSets?.toString() ?: ""
                 defaultReps = exercise.defaultReps?.toString() ?: ""
                 defaultDurationSec = exercise.defaultDurationSec?.toString() ?: ""
@@ -83,6 +86,7 @@ fun ExerciseEditScreen(navController: NavController, exerciseId: String? = null)
                                             id = exerciseId ?: UUID.randomUUID().toString(),
                                             name = name.trim(),
                                             category = selectedCategory,
+                                            climbingType = climbingType,
                                             description = description.takeIf { it.isNotBlank() },
                                             defaultSets = defaultSets.toIntOrNull(),
                                             defaultReps = defaultReps.toIntOrNull(),
@@ -178,6 +182,21 @@ fun ExerciseEditScreen(navController: NavController, exerciseId: String? = null)
                     style = MaterialTheme.typography.bodySmall,
                     color = Color(android.graphics.Color.parseColor(selectedCategory.colorHex))
                 )
+
+                // Climbing Type selector
+                Text("Climbing Type", style = MaterialTheme.typography.labelLarge)
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    ClimbingType.entries.forEach { type ->
+                        FilterChip(
+                            selected = climbingType == type,
+                            onClick = { climbingType = type },
+                            label = { Text(type.label) }
+                        )
+                    }
+                }
 
                 HorizontalDivider()
 

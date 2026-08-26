@@ -128,6 +128,11 @@ fun PlanDayDetailScreen(
                 }
             }
         } else {
+            val exercisesToShow = plannedExercises.filter { planned ->
+                if (planned.alternativeGroupId == null) true
+                else planned.isSelected
+            }
+
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
@@ -136,13 +141,17 @@ fun PlanDayDetailScreen(
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 // Group by section
-                val mainExercises = plannedExercises.filter { it.section == ExerciseSection.MAIN }
-                val secondaryExercises = plannedExercises.filter { it.section == ExerciseSection.SECONDARY }
-                val complementaryExercises = plannedExercises.filter { it.section == ExerciseSection.COMPLEMENTARY }
+                val mainExercises = exercisesToShow.filter { it.section == ExerciseSection.MAIN }
+                val secondaryExercises = exercisesToShow.filter { it.section == ExerciseSection.SECONDARY }
+                val complementaryExercises = exercisesToShow.filter { it.section == ExerciseSection.COMPLEMENTARY }
 
                 if (mainExercises.isNotEmpty()) {
                     item { SectionHeader("Main Exercises") }
                     items(mainExercises) { planned ->
+                        val group = planned.alternativeGroupId?.let { gid ->
+                            plannedExercises.filter { it.alternativeGroupId == gid }
+                        } ?: emptyList()
+
                         PlannedExerciseCard(
                             planned = planned,
                             exercise = exerciseMap[planned.exerciseId],
@@ -151,6 +160,21 @@ fun PlanDayDetailScreen(
                                     app.trainingPlanRepository.deletePlannedExercise(planned)
                                 }
                             },
+                            onToggleVariant = if (group.size > 1) {
+                                {
+                                    scope.launch {
+                                        val currentIndex = group.indexOf(planned)
+                                        val nextIndex = (currentIndex + 1) % group.size
+                                        
+                                        // Update all in group: only nextIndex is selected
+                                        group.forEachIndexed { index, pe ->
+                                            app.trainingPlanRepository.updatePlannedExercise(
+                                                pe.copy(isSelected = index == nextIndex)
+                                            )
+                                        }
+                                    }
+                                }
+                            } else null,
                             onClick = {
                                 planned.exerciseId.let { id ->
                                     navController.navigate(Screen.ExerciseDetail.createRoute(id))
@@ -163,6 +187,10 @@ fun PlanDayDetailScreen(
                 if (secondaryExercises.isNotEmpty()) {
                     item { SectionHeader("Secondary") }
                     items(secondaryExercises) { planned ->
+                        val group = planned.alternativeGroupId?.let { gid ->
+                            plannedExercises.filter { it.alternativeGroupId == gid }
+                        } ?: emptyList()
+
                         PlannedExerciseCard(
                             planned = planned,
                             exercise = exerciseMap[planned.exerciseId],
@@ -171,6 +199,19 @@ fun PlanDayDetailScreen(
                                     app.trainingPlanRepository.deletePlannedExercise(planned)
                                 }
                             },
+                            onToggleVariant = if (group.size > 1) {
+                                {
+                                    scope.launch {
+                                        val currentIndex = group.indexOf(planned)
+                                        val nextIndex = (currentIndex + 1) % group.size
+                                        group.forEachIndexed { index, pe ->
+                                            app.trainingPlanRepository.updatePlannedExercise(
+                                                pe.copy(isSelected = index == nextIndex)
+                                            )
+                                        }
+                                    }
+                                }
+                            } else null,
                             onClick = {
                                 planned.exerciseId.let { id ->
                                     navController.navigate(Screen.ExerciseDetail.createRoute(id))
@@ -183,6 +224,10 @@ fun PlanDayDetailScreen(
                 if (complementaryExercises.isNotEmpty()) {
                     item { SectionHeader("Complementary") }
                     items(complementaryExercises) { planned ->
+                        val group = planned.alternativeGroupId?.let { gid ->
+                            plannedExercises.filter { it.alternativeGroupId == gid }
+                        } ?: emptyList()
+
                         PlannedExerciseCard(
                             planned = planned,
                             exercise = exerciseMap[planned.exerciseId],
@@ -191,6 +236,19 @@ fun PlanDayDetailScreen(
                                     app.trainingPlanRepository.deletePlannedExercise(planned)
                                 }
                             },
+                            onToggleVariant = if (group.size > 1) {
+                                {
+                                    scope.launch {
+                                        val currentIndex = group.indexOf(planned)
+                                        val nextIndex = (currentIndex + 1) % group.size
+                                        group.forEachIndexed { index, pe ->
+                                            app.trainingPlanRepository.updatePlannedExercise(
+                                                pe.copy(isSelected = index == nextIndex)
+                                            )
+                                        }
+                                    }
+                                }
+                            } else null,
                             onClick = {
                                 planned.exerciseId.let { id ->
                                     navController.navigate(Screen.ExerciseDetail.createRoute(id))
@@ -203,7 +261,7 @@ fun PlanDayDetailScreen(
                 // Duration summary
                 item {
                     Spacer(modifier = Modifier.height(8.dp))
-                    val totalSec = estimateDuration(plannedExercises, exerciseMap)
+                    val totalSec = estimateDuration(exercisesToShow, exerciseMap)
                     Surface(
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(12.dp),
@@ -433,6 +491,7 @@ private fun PlannedExerciseCard(
     planned: PlannedExerciseEntity,
     exercise: ExerciseEntity?,
     onRemove: () -> Unit,
+    onToggleVariant: (() -> Unit)? = null,
     onClick: () -> Unit
 ) {
     val categoryColor = exercise?.let {
@@ -512,6 +571,25 @@ private fun PlannedExerciseCard(
                 }
             }
             Spacer(modifier = Modifier.width(8.dp))
+            if (onToggleVariant != null) {
+                val icon = when (exercise?.climbingType) {
+                    ClimbingType.BOULDERING -> Icons.Default.Terrain
+                    ClimbingType.ROPE -> Icons.Default.Height
+                    else -> Icons.Default.SwapHoriz
+                }
+                IconButton(
+                    onClick = onToggleVariant,
+                    modifier = Modifier.size(32.dp)
+                ) {
+                    Icon(
+                        icon,
+                        contentDescription = "Switch Variant",
+                        tint = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.size(20.dp)
+                    )
+                }
+                Spacer(modifier = Modifier.width(4.dp))
+            }
             IconButton(
                 onClick = { showRemoveConfirm = true },
                 modifier = Modifier.size(32.dp)

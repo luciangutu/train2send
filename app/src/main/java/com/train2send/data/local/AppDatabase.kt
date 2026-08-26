@@ -18,7 +18,7 @@ import com.train2send.data.model.*
         PlannedExerciseEntity::class,
         WorkoutLogEntity::class
     ],
-    version = 4,
+    version = 5,
     exportSchema = false
 )
 @TypeConverters(Converters::class)

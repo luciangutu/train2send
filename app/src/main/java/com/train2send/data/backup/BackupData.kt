@@ -19,6 +19,7 @@ data class ExerciseBackup(
     val id: String,
     val name: String,
     val category: String,
+    val climbingType: String = "ANY",
     val description: String? = null,
     val defaultSets: Int? = null,
     val defaultReps: Int? = null,
@@ -49,6 +50,8 @@ data class PlannedExerciseBackup(
     val id: String,
     val exerciseId: String,
     val section: String,
+    val alternativeGroupId: String? = null,
+    val isSelected: Boolean = true,
     val orderIndex: Int = 0,
     @SerialName("description")
     val notes: String? = null,

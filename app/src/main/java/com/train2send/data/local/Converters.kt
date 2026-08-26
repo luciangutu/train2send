@@ -1,6 +1,7 @@
 package com.train2send.data.local
 
 import androidx.room.TypeConverter
+import com.train2send.data.model.ClimbingType
 import com.train2send.data.model.ExerciseCategory
 import com.train2send.data.model.ExerciseSection
 
@@ -17,4 +18,10 @@ class Converters {
 
     @TypeConverter
     fun toExerciseSection(value: String): ExerciseSection = ExerciseSection.valueOf(value)
+
+    @TypeConverter
+    fun fromClimbingType(value: ClimbingType): String = value.name
+
+    @TypeConverter
+    fun toClimbingType(value: String): ClimbingType = ClimbingType.valueOf(value)
 }

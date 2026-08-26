@@ -75,6 +75,8 @@
       "description": "Band pull-aparts, external rotations, and arm circles.",
       "defaultSets": 2,
       "defaultReps": 15,
+      "defaultDurationSec": 4,
+      "defaultRestSec": 2,
       "defaultRestBetweenSetsSec": 60
     },
     {
@@ -106,6 +108,8 @@
       "description": "Work on boulder problems at your absolute limit (1-2 moves max).",
       "defaultSets": 6,
       "defaultReps": 3,
+      "defaultDurationSec": 10,
+      "defaultRestSec": 150,
       "defaultRestBetweenSetsSec": 300
     },
     {
@@ -148,6 +152,8 @@
       "description": "Climb many easy boulder problems (3-4 grades below limit) focusing on movement quality and volume. Low intensity, builds base fitness and technique.",
       "defaultSets": 1,
       "defaultReps": 15,
+      "defaultDurationSec": 150,
+      "defaultRestSec": 60,
       "defaultRestBetweenSetsSec": 60
     },
     {
@@ -158,6 +164,8 @@
       "description": "Practice dynamic and explosive moves on the bouldering wall: dynos, deadpoints, and coordination problems. Focus on explosive power generation without the injury risk of campus board.",
       "defaultSets": 5,
       "defaultReps": 3,
+      "defaultDurationSec": 10,
+      "defaultRestSec": 120,
       "defaultRestBetweenSetsSec": 180
     }
   ],

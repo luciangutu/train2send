@@ -55,6 +55,9 @@ class TrainingPlanRepository(private val planDao: TrainingPlanDao) {
     suspend fun updatePlannedExercise(exercise: PlannedExerciseEntity) =
         planDao.updatePlannedExercise(exercise)
 
+    suspend fun deleteExercisesForDay(planDayId: String) =
+        planDao.deleteExercisesForDay(planDayId)
+
     suspend fun deletePlannedExercise(exercise: PlannedExerciseEntity) =
         planDao.deletePlannedExercise(exercise)
 }

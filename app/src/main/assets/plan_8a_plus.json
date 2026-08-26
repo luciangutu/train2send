@@ -6,6 +6,7 @@
       "id": "ex-dead-hang-jugs",
       "name": "Dead-hang on Jugs",
       "category": "STRENGTH",
+      "climbingType": "ANY",
       "description": "Dead-hang on jug holds for warm-up and endurance.",
       "defaultSets": 1,
       "defaultReps": 10,
@@ -16,6 +17,7 @@
       "id": "ex-dead-hang-small-edge",
       "name": "Dead-hang on smallest edge",
       "category": "STRENGTH",
+      "climbingType": "ANY",
       "description": "Intermittent dead-hangs on the smallest edge.",
       "defaultSets": 1,
       "defaultReps": 7,
@@ -26,6 +28,7 @@
       "id": "ex-max-finger",
       "name": "Max finger strength",
       "category": "STRENGTH",
+      "climbingType": "ANY",
       "description": "Max finger strength (usually half-crimp) weighted hangs (90-100% of your maximum). Hangboard exercise designed to increase the maximum force your fingers can produce, useful especially for hard bouldering and difficult cruxes. Stop if grip position breaks down. For weaker climbers the same exercise can be done with assistance (e.g. pulley/band) to reach the appropriate intensity.",
       "defaultSets": 1,
       "defaultReps": 5,
@@ -36,6 +39,7 @@
       "id": "ex-push-ups",
       "name": "Push-ups",
       "category": "CONDITIONING",
+      "climbingType": "ANY",
       "description": "Standard push-ups for antagonist training.",
       "defaultSets": 3,
       "defaultReps": 10,
@@ -47,6 +51,7 @@
       "id": "ex-strength-endurance-hangboard",
       "name": "Strength Endurance Hangboard",
       "category": "POWER_ENDURANCE",
+      "climbingType": "ANY",
       "description": "Hangboard strength-endurance protocol using repeated 7-second hangs with 3 seconds of rest. Use a moderate-high intensity that allows all repetitions with controlled grip position. Designed to improve the ability to sustain repeated high-intensity finger contractions and tolerate pump.",
       "defaultSets": 1,
       "defaultReps": 15,
@@ -57,6 +62,7 @@
       "id": "ex-no-hangs",
       "name": "No-hangs Hangboard",
       "category": "STRENGTH",
+      "climbingType": "ANY",
       "description": "Sub-maximal isometric finger loading on a hangboard with feet on the ground (~30-50% max effort) to promote finger health, tendon collagen synthesis, and warm-up readiness without fatigue.",
       "defaultSets": 1,
       "defaultReps": 24,
@@ -67,6 +73,7 @@
       "id": "ex-megos-pe-finger",
       "name": "Megos PE Finger Training",
       "category": "POWER_ENDURANCE",
+      "climbingType": "ANY",
       "description": "Alex Megos's finger training protocol for power endurance. Hang with both arms on an edge that you can finnish the exercise on.",
       "defaultSets": 6,
       "defaultReps": 4,
@@ -78,6 +85,7 @@
       "id": "ex-hangboard-pe",
       "name": "Hangboard PE Finger Training",
       "category": "POWER_ENDURANCE",
+      "climbingType": "ANY",
       "description": "Hangboard standard finger training protocol for power endurance. Hang with both arms on an edge that you can finnish the exercise on.",
       "defaultSets": 3,
       "defaultReps": 3,
@@ -89,6 +97,7 @@
       "id": "ex-finger-curls",
       "name": "Finger Curls on Hangboard",
       "category": "POWER_ENDURANCE",
+      "climbingType": "ANY",
       "description": "Finger curls on hangboard with your feet on. Can be used as warm-up.",
       "defaultSets": 1,
       "defaultReps": 6,
@@ -99,6 +108,7 @@
       "id": "ex-finger-lift",
       "name": "Finger Lifting weights",
       "category": "POWER_ENDURANCE",
+      "climbingType": "ANY",
       "description": "Lift weights with each hand. 5 reps of 25sec per hand.",
       "defaultSets": 1,
       "defaultReps": 10,
@@ -109,6 +119,7 @@
       "id": "ex-2on2off",
       "name": "2on 2off",
       "category": "ENDURANCE",
+      "climbingType": "BOULDERING",
       "description": "2 minutes on the wall, 2 minutes off the wall. No hard pump. Primarily aerobic/low-intensity endurance training",
       "defaultSets": 1,
       "defaultReps": 8,
@@ -119,6 +130,7 @@
       "id": "ex-bechtel-5min",
       "name": "Bechtel 5min",
       "category": "STRENGTH",
+      "climbingType": "ANY",
       "description": "Fast, 5 min Bechtel's workout. Each min do 3 to 5 pull-ups or push-ups then rest the remaining minute.",
       "defaultSets": 1,
       "defaultReps": 6,
@@ -128,6 +140,7 @@
       "id": "ex-shoulder-iso",
       "name": "Shoulder Isometric",
       "category": "STRENGTH",
+      "climbingType": "ANY",
       "description": "Shoulder Isometric 30 sec",
       "defaultSets": 1,
       "defaultReps": 4,
@@ -138,6 +151,7 @@
       "id": "ex-easy-routes-autobelay",
       "name": "Easy Routes Autobelay",
       "category": "ENDURANCE",
+      "climbingType": "ROPE",
       "description": "4x6 easy routes on autobelay for aerobic endurance.",
       "defaultSets": 4,
       "defaultReps": 6,
@@ -149,6 +163,7 @@
       "id": "ex-fryer-endurance",
       "name": "Fryer 2016 Endurance Program",
       "category": "ENDURANCE",
+      "climbingType": "BOULDERING",
       "description": "Tom Fryer's endurance protocol (2016) for sustained climbing capacity (50-60%). No hard pump.",
       "defaultReps": 4,
       "defaultSets": 1,
@@ -159,6 +174,7 @@
       "id": "ex-1on1off-endurance",
       "name": "1 On 1 Off Endurance",
       "category": "ENDURANCE",
+      "climbingType": "BOULDERING",
       "description": "Climb 1 minute, rest 1 minute. Repeat for endurance development.",
       "defaultReps": 10,
       "defaultSets": 1,
@@ -169,6 +185,7 @@
       "id": "ex-stretching",
       "name": "Stretching",
       "category": "MOBILITY",
+      "climbingType": "ANY",
       "description": "Full body stretching session focused on shoulders, hips, and forearms.",
       "defaultDurationSec": 900
     },
@@ -176,12 +193,14 @@
       "id": "ex-outdoor-climbing",
       "name": "Outdoor Climbing",
       "category": "POWER",
+      "climbingType": "ROPE",
       "description": "Outdoor climbing session on rock."
     },
     {
       "id": "ex-bouldering-high-intensity",
       "name": "Bouldering High Intensity",
       "category": "POWER",
+      "climbingType": "BOULDERING",
       "description": "1 hour, low volume, low fatigue, high intensity bouldering session, working limit problems (7-12 total attempts). Climb 3-5 move problems (5-10 seconds per attempt) with 3-5 minutes of rest between goes.",
       "defaultDurationSec": 3600
     },
@@ -189,6 +208,7 @@
       "id": "ex-bouldering-boards",
       "name": "Bouldering",
       "category": "POWER",
+      "climbingType": "BOULDERING",
       "description": "1 hour bouldering session. Best done on boards.",
       "defaultDurationSec": 3600
     },
@@ -196,6 +216,7 @@
       "id": "ex-knee-program",
       "name": "Kenees Program",
       "category": "MOBILITY",
+      "climbingType": "ANY",
       "description": "Knee rehabilitation/prehab program.",
       "defaultDurationSec": 3600
     },
@@ -203,6 +224,7 @@
       "id": "ex-wall-crawling",
       "name": "Wall Crawling",
       "category": "POWER_ENDURANCE",
+      "climbingType": "BOULDERING",
       "description": "Move on the wall and take 4-7 sec break between moves on small holds",
       "defaultReps": 7,
       "defaultSets": 1,
@@ -213,6 +235,7 @@
       "id": "ex-intensive-triples",
       "name": "Intensive Triples",
       "category": "POWER_ENDURANCE",
+      "climbingType": "BOULDERING",
       "description": "~45 min: 1 round = 3 min climbing (one flash-level boulder per minute) + 3 min rest. Set 1: 3 rounds (18 min). Big rest: 8-10 min. Set 2: 3 rounds (18 min).",
       "defaultSets": 2,
       "defaultReps": 3,
@@ -224,12 +247,14 @@
       "id": "ex-carcing",
       "name": "CARCing",
       "category": "ENDURANCE",
+      "climbingType": "BOULDERING",
       "description": "Continuous Aerobic Regenerative Climbing - easy climbing for recovery and capillarity."
     },
     {
       "id": "ex-explosive-pullups",
       "name": "Explosive Pull-ups",
       "category": "POWER",
+      "climbingType": "ANY",
       "description": "Explosive/dynamic pull-ups for upper body power.",
       "defaultSets": 4,
       "defaultReps": 2,
@@ -239,12 +264,14 @@
       "id": "ex-warmup-paradigm-climbing",
       "name": "Warm-up Paradigm Climbing",
       "category": "MOBILITY",
+      "climbingType": "ANY",
       "description": "Progressive climbing warm-up: 2 min jumping jacks (easy cardio), arm circles/leg swings/finger movement (tendon glides), scapular pull-ups/asymmetric lock-offs/progressive hangs/easy climbing, quick dead-points/explosive pull-ups."
     },
     {
       "id": "ex-max-force-repeatability",
       "name": "Max Force Repeatability",
       "category": "STRENGTH",
+      "climbingType": "ANY",
       "description": "Short max-output finger hangs focused on force repeatability. Each rep should be at maximum effort. Rest fully between reps and sets to maintain quality. Best done on an edge.",
       "defaultSets": 4,
       "defaultReps": 5,
@@ -269,6 +296,8 @@
               "id": "pe-8a-plus-mon-1",
               "exerciseId": "ex-dead-hang-jugs",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0,
               "customSets": 10,
               "customDurationSec": 10,
@@ -278,12 +307,16 @@
               "id": "pe-8a-plus-mon-2",
               "exerciseId": "ex-bouldering-high-intensity",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1
             },
             {
               "id": "pe-8a-plus-mon-3",
               "exerciseId": "ex-stretching",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 2
             }
           ]
@@ -297,6 +330,8 @@
               "id": "pe-8a-plus-tue-1",
               "exerciseId": "ex-push-ups",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0,
               "customSets": 3,
               "customReps": 10,
@@ -306,12 +341,16 @@
               "id": "pe-8a-plus-tue-2",
               "exerciseId": "ex-knee-program",
               "section": "SECONDARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1
             },
             {
               "id": "pe-8a-plus-tue-3",
               "exerciseId": "ex-explosive-pullups",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 2,
               "customSets": 4,
               "customReps": 2,
@@ -328,30 +367,40 @@
               "id": "pe-8a-plus-wed-1",
               "exerciseId": "ex-no-hangs",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0
             },
             {
               "id": "pe-8a-plus-wed-2",
               "exerciseId": "ex-megos-pe-finger",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1
             },
             {
               "id": "pe-8a-plus-wed-3",
               "exerciseId": "ex-wall-crawling",
               "section": "SECONDARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 2
             },
             {
               "id": "pe-8a-plus-wed-4",
               "exerciseId": "ex-intensive-triples",
               "section": "SECONDARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 3
             },
             {
               "id": "pe-8a-plus-wed-5",
               "exerciseId": "ex-stretching",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 4
             }
           ]
@@ -365,24 +414,32 @@
               "id": "pe-8a-plus-thu-1",
               "exerciseId": "ex-easy-routes-autobelay",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0
             },
             {
               "id": "pe-8a-plus-thu-2",
               "exerciseId": "ex-fryer-endurance",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1
             },
             {
               "id": "pe-8a-plus-thu-3",
               "exerciseId": "ex-1on1off-endurance",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 2
             },
             {
               "id": "pe-8a-plus-thu-4",
               "exerciseId": "ex-carcing",
               "section": "SECONDARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 3
             }
           ]
@@ -396,6 +453,8 @@
               "id": "pe-8a-plus-fri-1",
               "exerciseId": "ex-stretching",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0
             }
           ]
@@ -409,12 +468,16 @@
               "id": "pe-8a-plus-sat-1",
               "exerciseId": "ex-warmup-paradigm-climbing",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0
             },
             {
               "id": "pe-8a-plus-sat-2",
               "exerciseId": "ex-outdoor-climbing",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1
             }
           ]
@@ -428,12 +491,16 @@
               "id": "pe-8a-plus-sun-1",
               "exerciseId": "ex-warmup-paradigm-climbing",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0
             },
             {
               "id": "pe-8a-plus-sun-2",
               "exerciseId": "ex-outdoor-climbing",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1
             }
           ]

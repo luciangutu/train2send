@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -129,7 +130,7 @@ fun PlanDayDetailScreen(
             }
         } else {
             val exercisesToShow = plannedExercises.filter { planned ->
-                if (planned.alternativeGroupId == null) true
+                if (planned.alternativeGroupId.isNullOrBlank()) true
                 else planned.isSelected
             }
 
@@ -148,9 +149,8 @@ fun PlanDayDetailScreen(
                 if (mainExercises.isNotEmpty()) {
                     item { SectionHeader("Main Exercises") }
                     items(mainExercises) { planned ->
-                        val group = planned.alternativeGroupId?.let { gid ->
-                            plannedExercises.filter { it.alternativeGroupId == gid }
-                        } ?: emptyList()
+                        val group = if (planned.alternativeGroupId.isNullOrBlank()) emptyList()
+                        else plannedExercises.filter { it.alternativeGroupId == planned.alternativeGroupId }
 
                         PlannedExerciseCard(
                             planned = planned,
@@ -187,9 +187,8 @@ fun PlanDayDetailScreen(
                 if (secondaryExercises.isNotEmpty()) {
                     item { SectionHeader("Secondary") }
                     items(secondaryExercises) { planned ->
-                        val group = planned.alternativeGroupId?.let { gid ->
-                            plannedExercises.filter { it.alternativeGroupId == gid }
-                        } ?: emptyList()
+                        val group = if (planned.alternativeGroupId.isNullOrBlank()) emptyList()
+                        else plannedExercises.filter { it.alternativeGroupId == planned.alternativeGroupId }
 
                         PlannedExerciseCard(
                             planned = planned,
@@ -224,9 +223,8 @@ fun PlanDayDetailScreen(
                 if (complementaryExercises.isNotEmpty()) {
                     item { SectionHeader("Complementary") }
                     items(complementaryExercises) { planned ->
-                        val group = planned.alternativeGroupId?.let { gid ->
-                            plannedExercises.filter { it.alternativeGroupId == gid }
-                        } ?: emptyList()
+                        val group = if (planned.alternativeGroupId.isNullOrBlank()) emptyList()
+                        else plannedExercises.filter { it.alternativeGroupId == planned.alternativeGroupId }
 
                         PlannedExerciseCard(
                             planned = planned,
@@ -572,21 +570,25 @@ private fun PlannedExerciseCard(
             }
             Spacer(modifier = Modifier.width(8.dp))
             if (onToggleVariant != null) {
-                val icon = when (exercise?.climbingType) {
-                    ClimbingType.BOULDERING -> Icons.Default.Terrain
-                    ClimbingType.ROPE -> Icons.Default.Height
-                    else -> Icons.Default.SwapHoriz
+                val label = when (exercise?.climbingType) {
+                    ClimbingType.BOULDERING -> "B"
+                    ClimbingType.ROPE -> "R"
+                    else -> "?"
                 }
-                IconButton(
+                Surface(
                     onClick = onToggleVariant,
-                    modifier = Modifier.size(32.dp)
+                    modifier = Modifier.size(32.dp),
+                    shape = CircleShape,
+                    color = MaterialTheme.colorScheme.primaryContainer,
+                    contentColor = MaterialTheme.colorScheme.primary
                 ) {
-                    Icon(
-                        icon,
-                        contentDescription = "Switch Variant",
-                        tint = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.size(20.dp)
-                    )
+                    Box(contentAlignment = Alignment.Center) {
+                        Text(
+                            text = label,
+                            style = MaterialTheme.typography.labelLarge,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
                 }
                 Spacer(modifier = Modifier.width(4.dp))
             }

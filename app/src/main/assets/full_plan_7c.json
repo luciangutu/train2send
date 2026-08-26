@@ -6,6 +6,7 @@
       "id": "ex-dead-hang-jugs",
       "name": "Dead-hang on Jugs",
       "category": "STRENGTH",
+      "climbingType": "ANY",
       "description": "Dead-hang on jug holds for warm-up and endurance.",
       "defaultSets": 1,
       "defaultReps": 10,
@@ -16,6 +17,7 @@
       "id": "ex-max-finger",
       "name": "Max finger strength",
       "category": "STRENGTH",
+      "climbingType": "ANY",
       "description": "Max finger strength (usually half-crimp) weighted hangs (90-100% of your maximum). Hangboard exercise designed to increase the maximum force your fingers can produce. Stop if grip position breaks down. For weaker climbers the same exercise can be done with assistance (e.g. pulley/band) to reach the appropriate intensity.",
       "defaultSets": 1,
       "defaultReps": 4,
@@ -26,6 +28,7 @@
       "id": "ex-push-ups",
       "name": "Push-ups",
       "category": "CONDITIONING",
+      "climbingType": "ANY",
       "description": "Standard push-ups for antagonist training.",
       "defaultSets": 3,
       "defaultReps": 10,
@@ -36,6 +39,7 @@
       "id": "ex-strength-endurance-hangboard",
       "name": "Strength Endurance Hangboard",
       "category": "POWER_ENDURANCE",
+      "climbingType": "ANY",
       "description": "Hangboard strength-endurance protocol using repeated 7-second hangs with 3 seconds of rest. Use a moderate-high intensity that allows all repetitions with controlled grip position.",
       "defaultSets": 1,
       "defaultReps": 10,
@@ -46,6 +50,7 @@
       "id": "ex-2on2off",
       "name": "2on 2off",
       "category": "ENDURANCE",
+      "climbingType": "BOULDERING",
       "description": "2 minutes on the wall, 2 minutes off the wall. No hard pump. Primarily aerobic/low-intensity endurance training.",
       "defaultSets": 1,
       "defaultReps": 6,
@@ -56,6 +61,7 @@
       "id": "ex-fryer-endurance",
       "name": "Fryer 2016 Endurance Program",
       "category": "ENDURANCE",
+      "climbingType": "BOULDERING",
       "description": "Tom Fryer's endurance protocol (2016) for sustained climbing capacity (50-60%). No hard pump.",
       "defaultReps": 3,
       "defaultSets": 1,
@@ -66,6 +72,7 @@
       "id": "ex-stretching",
       "name": "Stretching",
       "category": "MOBILITY",
+      "climbingType": "ANY",
       "description": "Full body stretching session focused on shoulders, hips, and forearms.",
       "defaultDurationSec": 900
     },
@@ -73,6 +80,7 @@
       "id": "ex-outdoor-climbing",
       "name": "Outdoor Climbing",
       "category": "POWER",
+      "climbingType": "ROPE",
       "description": "Outdoor climbing session on rock.",
       "defaultDurationSec": 14400
     },
@@ -80,6 +88,7 @@
       "id": "ex-bouldering-boards",
       "name": "Bouldering",
       "category": "POWER",
+      "climbingType": "BOULDERING",
       "description": "1 hour bouldering session on boards or in gym. Focus on quality movement and trying hard problems.",
       "defaultDurationSec": 3600
     },
@@ -87,6 +96,7 @@
       "id": "ex-knee-program",
       "name": "Kenees Program",
       "category": "MOBILITY",
+      "climbingType": "ANY",
       "description": "Knee rehabilitation/prehab program.",
       "defaultDurationSec": 3600
     },
@@ -94,6 +104,7 @@
       "id": "ex-carcing",
       "name": "CARCing",
       "category": "ENDURANCE",
+      "climbingType": "BOULDERING",
       "description": "Continuous Aerobic Regenerative Climbing - easy climbing for recovery and capillarity.",
       "defaultDurationSec": 1200
     },
@@ -101,6 +112,7 @@
       "id": "ex-warmup-paradigm-climbing",
       "name": "Warm-up Paradigm Climbing",
       "category": "MOBILITY",
+      "climbingType": "ANY",
       "description": "Progressive climbing warm-up: 2 min jumping jacks (easy cardio), arm circles/leg swings/finger movement (tendon glides), scapular pull-ups/asymmetric lock-offs/progressive hangs/easy climbing, quick dead-points/explosive pull-ups.",
       "defaultDurationSec": 900
     },
@@ -108,6 +120,7 @@
       "id": "ex-shoulder-iso",
       "name": "Shoulder Isometric",
       "category": "STRENGTH",
+      "climbingType": "ANY",
       "description": "Shoulder Isometric 30 sec",
       "defaultSets": 1,
       "defaultReps": 3,
@@ -118,6 +131,7 @@
       "id": "ex-technique-drills",
       "name": "Technique Drills",
       "category": "TECHNIQUE",
+      "climbingType": "BOULDERING",
       "description": "Focused climbing practice: silent feet, precise hand placements, flagging, hip rotation, drop-knees. Climb easy problems and routes paying attention to one specific skill per set.",
       "defaultSets": 3,
       "defaultReps": 1,
@@ -128,6 +142,7 @@
       "id": "ex-power-endurance-circuits",
       "name": "Power Endurance Circuits",
       "category": "POWER_ENDURANCE",
+      "climbingType": "BOULDERING",
       "description": "Link 3-4 boulder problems at flash level back-to-back without rest, then rest 4-5 minutes. Trains the ability to sustain hard climbing when pumped. Equivalent to 4x4s.",
       "defaultSets": 3,
       "defaultReps": 4,
@@ -138,6 +153,7 @@
       "id": "ex-arc-training",
       "name": "ARC Training",
       "category": "ENDURANCE",
+      "climbingType": "BOULDERING",
       "description": "Continuous low-intensity climbing for 20-30 minutes to build aerobic capacity in forearms.",
       "defaultSets": 2,
       "defaultReps": 1,
@@ -148,6 +164,7 @@
       "id": "ex-volume-routes",
       "name": "Volume Routes",
       "category": "ENDURANCE",
+      "climbingType": "ROPE",
       "description": "Climb many routes 2-3 grades below redpoint level. Focus on fluid movement, breathing, and efficient resting on the wall. Build mileage.",
       "defaultSets": 1,
       "defaultReps": 8,
@@ -158,6 +175,7 @@
       "id": "ex-project-work",
       "name": "Project Work",
       "category": "POWER",
+      "climbingType": "ROPE",
       "description": "Work the moves and sequences of your target project. Link sections, rehearse clips, practice resting positions. Full rest between burns.",
       "defaultSets": 1,
       "defaultReps": 4,
@@ -181,12 +199,16 @@
               "id": "pe-p1-mon-1",
               "exerciseId": "ex-warmup-paradigm-climbing",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0
             },
             {
               "id": "pe-p1-mon-2",
               "exerciseId": "ex-technique-drills",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1,
               "description": "20-30 min focused technique: silent feet, hip turns, flagging on easy terrain."
             },
@@ -194,6 +216,8 @@
               "id": "pe-p1-mon-3",
               "exerciseId": "ex-volume-routes",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 2,
               "description": "6-8 routes at 6b-6c. Continuous movement, practice breathing and resting."
             },
@@ -201,6 +225,8 @@
               "id": "pe-p1-mon-4",
               "exerciseId": "ex-push-ups",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 3,
               "customSets": 3,
               "customReps": 10
@@ -216,12 +242,16 @@
               "id": "pe-p1-tue-1",
               "exerciseId": "ex-stretching",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0
             },
             {
               "id": "pe-p1-tue-2",
               "exerciseId": "ex-knee-program",
               "section": "SECONDARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1
             }
           ]
@@ -235,12 +265,16 @@
               "id": "pe-p1-wed-1",
               "exerciseId": "ex-warmup-paradigm-climbing",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0
             },
             {
               "id": "pe-p1-wed-2",
               "exerciseId": "ex-arc-training",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1,
               "customDurationSec": 1500,
               "description": "25 min continuous easy climbing. Stay well below pump threshold. Build capillarity."
@@ -249,6 +283,8 @@
               "id": "pe-p1-wed-3",
               "exerciseId": "ex-fryer-endurance",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 2,
               "description": "3 x 5min at 50-60% intensity. No hard pump."
             },
@@ -256,6 +292,8 @@
               "id": "pe-p1-wed-4",
               "exerciseId": "ex-shoulder-iso",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 3
             }
           ]
@@ -269,6 +307,8 @@
               "id": "pe-p1-thu-1",
               "exerciseId": "ex-dead-hang-jugs",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0,
               "customReps": 6,
               "customDurationSec": 10,
@@ -278,6 +318,8 @@
               "id": "pe-p1-thu-2",
               "exerciseId": "ex-max-finger",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1,
               "customReps": 3,
               "description": "3 reps x 7s. Introductory intensity — focus on form and half-crimp position. Increase load 5% each week."
@@ -286,6 +328,8 @@
               "id": "pe-p1-thu-3",
               "exerciseId": "ex-2on2off",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 2,
               "description": "6 rounds 2on/2off. Easy climbing for aerobic base after hangboard."
             },
@@ -293,6 +337,8 @@
               "id": "pe-p1-thu-4",
               "exerciseId": "ex-push-ups",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 3,
               "customSets": 3,
               "customReps": 10
@@ -308,12 +354,16 @@
               "id": "pe-p1-sat-1",
               "exerciseId": "ex-warmup-paradigm-climbing",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0
             },
             {
               "id": "pe-p1-sat-2",
               "exerciseId": "ex-outdoor-climbing",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1,
               "description": "Volume day: many routes 1-2 grades below max. Build mileage, work technique on rock."
             }
@@ -328,12 +378,16 @@
               "id": "pe-p1-sun-1",
               "exerciseId": "ex-warmup-paradigm-climbing",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0
             },
             {
               "id": "pe-p1-sun-2",
               "exerciseId": "ex-outdoor-climbing",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1,
               "description": "Mix of onsight attempts at flash level and easy routes for volume. End with CARCing."
             },
@@ -341,6 +395,8 @@
               "id": "pe-p1-sun-3",
               "exerciseId": "ex-carcing",
               "section": "SECONDARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 2
             }
           ]
@@ -362,12 +418,16 @@
               "id": "pe-p2-mon-1",
               "exerciseId": "ex-warmup-paradigm-climbing",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0
             },
             {
               "id": "pe-p2-mon-2",
               "exerciseId": "ex-max-finger",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1,
               "customReps": 4,
               "description": "4 reps x 7-10s max hangs. Increase weight weekly. Half-crimp. Full recovery between reps."
@@ -376,6 +436,8 @@
               "id": "pe-p2-mon-3",
               "exerciseId": "ex-bouldering-boards",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 2,
               "description": "45-60 min limit bouldering. Problems at or just below your max. Full rest between attempts."
             },
@@ -383,6 +445,8 @@
               "id": "pe-p2-mon-4",
               "exerciseId": "ex-push-ups",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 3,
               "customSets": 3,
               "customReps": 10
@@ -398,12 +462,16 @@
               "id": "pe-p2-tue-1",
               "exerciseId": "ex-stretching",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0
             },
             {
               "id": "pe-p2-tue-2",
               "exerciseId": "ex-knee-program",
               "section": "SECONDARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1
             }
           ]
@@ -417,12 +485,16 @@
               "id": "pe-p2-wed-1",
               "exerciseId": "ex-warmup-paradigm-climbing",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0
             },
             {
               "id": "pe-p2-wed-2",
               "exerciseId": "ex-technique-drills",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1,
               "description": "20 min focused technique work on easy problems."
             },
@@ -430,6 +502,8 @@
               "id": "pe-p2-wed-3",
               "exerciseId": "ex-arc-training",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 2,
               "customDurationSec": 1200,
               "description": "20 min ARC for endurance maintenance. Don't let base erode during strength phase."
@@ -438,6 +512,8 @@
               "id": "pe-p2-wed-4",
               "exerciseId": "ex-shoulder-iso",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 3
             }
           ]
@@ -451,6 +527,8 @@
               "id": "pe-p2-thu-1",
               "exerciseId": "ex-dead-hang-jugs",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0,
               "customReps": 6,
               "customDurationSec": 10,
@@ -460,6 +538,8 @@
               "id": "pe-p2-thu-2",
               "exerciseId": "ex-strength-endurance-hangboard",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1,
               "customReps": 12,
               "description": "12 reps of 7on/3off. Moderate edge, controlled grip. Build finger endurance under load."
@@ -468,6 +548,8 @@
               "id": "pe-p2-thu-3",
               "exerciseId": "ex-volume-routes",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 2,
               "customReps": 5,
               "description": "5 moderate routes for movement practice and light endurance maintenance."
@@ -476,6 +558,8 @@
               "id": "pe-p2-thu-4",
               "exerciseId": "ex-push-ups",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 3,
               "customSets": 3,
               "customReps": 10
@@ -491,12 +575,16 @@
               "id": "pe-p2-sat-1",
               "exerciseId": "ex-warmup-paradigm-climbing",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0
             },
             {
               "id": "pe-p2-sat-2",
               "exerciseId": "ex-outdoor-climbing",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1,
               "description": "Work project moves and crux sequences. Link sections. Practice resting positions."
             }
@@ -511,12 +599,16 @@
               "id": "pe-p2-sun-1",
               "exerciseId": "ex-warmup-paradigm-climbing",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0
             },
             {
               "id": "pe-p2-sun-2",
               "exerciseId": "ex-outdoor-climbing",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1,
               "description": "Volume day: onsight attempts and moderate routes. Build outdoor mileage."
             }
@@ -539,12 +631,16 @@
               "id": "pe-p3-mon-1",
               "exerciseId": "ex-warmup-paradigm-climbing",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0
             },
             {
               "id": "pe-p3-mon-2",
               "exerciseId": "ex-max-finger",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1,
               "customReps": 3,
               "description": "3 reps maintenance hangs at previous max weight. Keep strength while shifting focus to PE."
@@ -553,6 +649,8 @@
               "id": "pe-p3-mon-3",
               "exerciseId": "ex-power-endurance-circuits",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 2,
               "description": "3 rounds x 4 problems linked. Flash-level difficulty. 5 min rest between rounds."
             },
@@ -560,6 +658,8 @@
               "id": "pe-p3-mon-4",
               "exerciseId": "ex-push-ups",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 3,
               "customSets": 3,
               "customReps": 10
@@ -575,12 +675,16 @@
               "id": "pe-p3-tue-1",
               "exerciseId": "ex-stretching",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0
             },
             {
               "id": "pe-p3-tue-2",
               "exerciseId": "ex-knee-program",
               "section": "SECONDARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1
             }
           ]
@@ -594,12 +698,16 @@
               "id": "pe-p3-wed-1",
               "exerciseId": "ex-warmup-paradigm-climbing",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0
             },
             {
               "id": "pe-p3-wed-2",
               "exerciseId": "ex-fryer-endurance",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1,
               "customReps": 4,
               "customDurationSec": 240,
@@ -609,6 +717,8 @@
               "id": "pe-p3-wed-3",
               "exerciseId": "ex-2on2off",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 2,
               "customReps": 8,
               "description": "8 rounds 2on/2off at slightly higher intensity than Phase 1. Manage pump, don't blow up."
@@ -617,6 +727,8 @@
               "id": "pe-p3-wed-4",
               "exerciseId": "ex-shoulder-iso",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 3
             }
           ]
@@ -630,12 +742,16 @@
               "id": "pe-p3-thu-1",
               "exerciseId": "ex-warmup-paradigm-climbing",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0
             },
             {
               "id": "pe-p3-thu-2",
               "exerciseId": "ex-bouldering-boards",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1,
               "description": "45 min moderate-to-hard bouldering. Maintain power. Don't go to absolute limit — save energy for PE work."
             },
@@ -643,6 +759,8 @@
               "id": "pe-p3-thu-3",
               "exerciseId": "ex-technique-drills",
               "section": "SECONDARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 2,
               "description": "15 min technique focus: efficient movement, clipping positions, shake-out practice."
             },
@@ -650,6 +768,8 @@
               "id": "pe-p3-thu-4",
               "exerciseId": "ex-push-ups",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 3,
               "customSets": 3,
               "customReps": 10
@@ -665,12 +785,16 @@
               "id": "pe-p3-sat-1",
               "exerciseId": "ex-warmup-paradigm-climbing",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0
             },
             {
               "id": "pe-p3-sat-2",
               "exerciseId": "ex-outdoor-climbing",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1,
               "description": "Redpoint attempts on projects. Link full sequences. Practice pacing and resting under pump."
             }
@@ -685,12 +809,16 @@
               "id": "pe-p3-sun-1",
               "exerciseId": "ex-warmup-paradigm-climbing",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0
             },
             {
               "id": "pe-p3-sun-2",
               "exerciseId": "ex-outdoor-climbing",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1,
               "description": "Onsight attempts at 7a-7b. Volume routes for sustained pump management practice."
             },
@@ -698,6 +826,8 @@
               "id": "pe-p3-sun-3",
               "exerciseId": "ex-carcing",
               "section": "SECONDARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 2,
               "description": "End with 15 min easy climbing for recovery."
             }
@@ -720,12 +850,16 @@
               "id": "pe-p4-mon-1",
               "exerciseId": "ex-warmup-paradigm-climbing",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0
             },
             {
               "id": "pe-p4-mon-2",
               "exerciseId": "ex-max-finger",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1,
               "customReps": 3,
               "description": "3 reps at 90% of peak load. Maintain finger strength without fatiguing."
@@ -734,6 +868,8 @@
               "id": "pe-p4-mon-3",
               "exerciseId": "ex-bouldering-boards",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 2,
               "description": "30 min easy-to-moderate bouldering. Stay fresh. Work movement patterns, not limits."
             },
@@ -741,6 +877,8 @@
               "id": "pe-p4-mon-4",
               "exerciseId": "ex-push-ups",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 3,
               "customSets": 2,
               "customReps": 10
@@ -756,12 +894,16 @@
               "id": "pe-p4-wed-1",
               "exerciseId": "ex-warmup-paradigm-climbing",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0
             },
             {
               "id": "pe-p4-wed-2",
               "exerciseId": "ex-technique-drills",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1,
               "description": "15 min light technique. Keep movement sharp without fatiguing."
             },
@@ -769,6 +911,8 @@
               "id": "pe-p4-wed-3",
               "exerciseId": "ex-project-work",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 2,
               "customReps": 2,
               "description": "1-2 light burns on project sequences. Rehearse, don't redpoint. Save it for the weekend."
@@ -784,6 +928,8 @@
               "id": "pe-p4-thu-1",
               "exerciseId": "ex-stretching",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0
             }
           ]
@@ -797,12 +943,16 @@
               "id": "pe-p4-sat-1",
               "exerciseId": "ex-warmup-paradigm-climbing",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0
             },
             {
               "id": "pe-p4-sat-2",
               "exerciseId": "ex-outdoor-climbing",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1,
               "description": "REDPOINT DAY. Full rest before. Warm up thoroughly. Give 100% on project burns."
             }
@@ -817,12 +967,16 @@
               "id": "pe-p4-sun-1",
               "exerciseId": "ex-warmup-paradigm-climbing",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0
             },
             {
               "id": "pe-p4-sun-2",
               "exerciseId": "ex-outdoor-climbing",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1,
               "description": "If project not sent Saturday, try again fresh. Otherwise onsight attempts at 7a+-7b."
             }

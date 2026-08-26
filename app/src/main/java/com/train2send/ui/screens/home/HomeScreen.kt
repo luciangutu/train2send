@@ -335,9 +335,13 @@ private fun TodaySessionCard(
             Spacer(modifier = Modifier.height(12.dp))
 
             if (planDay != null) {
-                val exercises by app.trainingPlanRepository
+                val allPlannedExercises by app.trainingPlanRepository
                     .getExercisesForDay(planDay.id)
                     .collectAsStateWithLifecycle(initialValue = emptyList())
+
+                val exercises = allPlannedExercises.filter { 
+                    it.isSelected || it.alternativeGroupId.isNullOrBlank() 
+                }
 
                 Text(
                     text = planDay.dayTitle,
@@ -386,11 +390,29 @@ private fun TodaySessionCard(
                             if (sectionExercises.isNotEmpty()) {
                                 sectionExercises.forEach { planned ->
                                     val exercise = exerciseMap[planned.exerciseId]
+                                    val group = if (planned.alternativeGroupId.isNullOrBlank()) emptyList()
+                                    else allPlannedExercises.filter { it.alternativeGroupId == planned.alternativeGroupId }
+
+                                    val scope = rememberCoroutineScope()
+
                                     ExerciseTile(
                                         planned = planned,
                                         exercise = exercise,
                                         isToday = isToday,
                                         modifier = Modifier.fillMaxWidth(),
+                                        onToggleVariant = if (group.size > 1) {
+                                            {
+                                                scope.launch {
+                                                    val currentIndex = group.indexOf(planned)
+                                                    val nextIndex = (currentIndex + 1) % group.size
+                                                    group.forEachIndexed { index, pe ->
+                                                        app.trainingPlanRepository.updatePlannedExercise(
+                                                            pe.copy(isSelected = index == nextIndex)
+                                                        )
+                                                    }
+                                                }
+                                            }
+                                        } else null,
                                         onClick = {
                                             exercise?.id?.let { id ->
                                                 navController.navigate(Screen.ExerciseDetail.createRoute(id, planned.id))
@@ -446,6 +468,7 @@ private fun ExerciseTile(
     exercise: ExerciseEntity?,
     isToday: Boolean,
     modifier: Modifier = Modifier,
+    onToggleVariant: (() -> Unit)? = null,
     onClick: () -> Unit
 ) {
     val containerColor = if (isToday) {
@@ -542,6 +565,29 @@ private fun ExerciseTile(
                     style = MaterialTheme.typography.labelSmall,
                     color = contentColor.copy(alpha = 0.6f)
                 )
+            }
+
+            if (onToggleVariant != null) {
+                val label = when (exercise?.climbingType) {
+                    com.train2send.data.model.ClimbingType.BOULDERING -> "B"
+                    com.train2send.data.model.ClimbingType.ROPE -> "R"
+                    else -> "?"
+                }
+                Surface(
+                    onClick = onToggleVariant,
+                    modifier = Modifier.size(32.dp).padding(end = 8.dp),
+                    shape = CircleShape,
+                    color = categoryColor.copy(alpha = 0.2f),
+                    contentColor = categoryColor
+                ) {
+                    Box(contentAlignment = Alignment.Center) {
+                        Text(
+                            text = label,
+                            style = MaterialTheme.typography.labelSmall,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                }
             }
         }
     }

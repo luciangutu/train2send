@@ -6,6 +6,7 @@
       "id": "ex-hangboard-max",
       "name": "Max Hangs (20mm edge)",
       "category": "STRENGTH",
+      "climbingType": "ANY",
       "description": "Hang on a 20mm edge with added weight. 10s hang, full recovery between sets.",
       "defaultSets": 5,
       "defaultReps": 1,
@@ -16,6 +17,7 @@
       "id": "ex-hangboard-repeaters",
       "name": "Repeaters (20mm edge)",
       "category": "POWER_ENDURANCE",
+      "climbingType": "ANY",
       "description": "7s on / 3s off repeaters on a 20mm edge.",
       "defaultSets": 6,
       "defaultReps": 6,
@@ -27,6 +29,7 @@
       "id": "ex-pullups-weighted",
       "name": "Weighted Pull-ups",
       "category": "STRENGTH",
+      "climbingType": "ANY",
       "description": "Pull-ups with added weight on a harness.",
       "defaultSets": 4,
       "defaultReps": 5,
@@ -36,6 +39,7 @@
       "id": "ex-boulder-4x4",
       "name": "4x4 Bouldering",
       "category": "POWER_ENDURANCE",
+      "climbingType": "BOULDERING",
       "description": "4 boulder problems back-to-back, repeated 4 times with rest between rounds.",
       "defaultSets": 4,
       "defaultReps": 4,
@@ -45,6 +49,7 @@
       "id": "ex-core-front-lever",
       "name": "Front Lever Progressions",
       "category": "CONDITIONING",
+      "climbingType": "ANY",
       "description": "Tuck or advanced tuck front lever holds.",
       "defaultSets": 4,
       "defaultReps": 1,
@@ -55,6 +60,7 @@
       "id": "ex-core-basic",
       "name": "Core Circuit",
       "category": "CONDITIONING",
+      "climbingType": "ANY",
       "description": "Plank (30-60s), hollow body hold (20-30s), side plank each side (30s). Fundamental core stability for climbing.",
       "defaultSets": 3,
       "defaultReps": 1,
@@ -65,6 +71,7 @@
       "id": "ex-shoulder-warmup",
       "name": "Shoulder Warm-up Routine",
       "category": "MOBILITY",
+      "climbingType": "ANY",
       "description": "Band pull-aparts, external rotations, and arm circles.",
       "defaultSets": 2,
       "defaultReps": 15,
@@ -75,6 +82,7 @@
       "id": "ex-finger-stretch",
       "name": "Finger & Forearm Stretch",
       "category": "MOBILITY",
+      "climbingType": "ANY",
       "description": "Finger extensions with rubber band, wrist flexor/extensor stretches.",
       "defaultSets": 2,
       "defaultReps": 10,
@@ -86,6 +94,7 @@
       "id": "ex-volume-climbing",
       "name": "Volume Climbing",
       "category": "ENDURANCE",
+      "climbingType": "ROPE",
       "description": "Climb 8-12 easier routes (2 grades below flash) in a session focusing on fluid movement.",
       "defaultSets": 10,
       "defaultReps": 1,
@@ -95,6 +104,7 @@
       "id": "ex-limit-bouldering",
       "name": "Limit Bouldering",
       "category": "POWER",
+      "climbingType": "BOULDERING",
       "description": "Work on boulder problems at your absolute limit (1-2 moves max).",
       "defaultSets": 6,
       "defaultReps": 3,
@@ -104,6 +114,7 @@
       "id": "ex-arc-training",
       "name": "ARC Training",
       "category": "ENDURANCE",
+      "climbingType": "BOULDERING",
       "description": "Continuous low-intensity climbing for 20-30 minutes to build aerobic capacity.",
       "defaultSets": 2,
       "defaultReps": 1,
@@ -114,6 +125,7 @@
       "id": "ex-technique-drills",
       "name": "Technique Drills",
       "category": "TECHNIQUE",
+      "climbingType": "BOULDERING",
       "description": "Focused practice: silent feet, precise hand placements, or flagging.",
       "defaultSets": 3,
       "defaultReps": 1,
@@ -124,6 +136,7 @@
       "id": "ex-push-ups",
       "name": "Push-ups",
       "category": "CONDITIONING",
+      "climbingType": "ANY",
       "description": "Standard or elevated push-ups for antagonist pressing strength. Balances pulling-dominant climbing.",
       "defaultSets": 3,
       "defaultReps": 10,
@@ -135,6 +148,7 @@
       "id": "ex-easy-bouldering",
       "name": "Easy Bouldering",
       "category": "ENDURANCE",
+      "climbingType": "BOULDERING",
       "description": "Climb many easy boulder problems (3-4 grades below limit) focusing on movement quality and volume. Low intensity, builds base fitness and technique.",
       "defaultSets": 1,
       "defaultReps": 15,
@@ -144,6 +158,7 @@
       "id": "ex-dynamic-bouldering",
       "name": "Dynamic Bouldering",
       "category": "POWER",
+      "climbingType": "BOULDERING",
       "description": "Practice dynamic and explosive moves on the bouldering wall: dynos, deadpoints, and coordination problems. Focus on explosive power generation without the injury risk of campus board.",
       "defaultSets": 5,
       "defaultReps": 3,
@@ -166,18 +181,24 @@
               "id": "pe-7a-mon-1",
               "exerciseId": "ex-shoulder-warmup",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0
             },
             {
               "id": "pe-7a-mon-2",
               "exerciseId": "ex-technique-drills",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1
             },
             {
               "id": "pe-7a-mon-3",
               "exerciseId": "ex-volume-climbing",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 2,
               "customSets": 8
             },
@@ -185,6 +206,8 @@
               "id": "pe-7a-mon-4",
               "exerciseId": "ex-push-ups",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 3,
               "customSets": 3,
               "customReps": 8
@@ -200,12 +223,16 @@
               "id": "pe-7a-wed-1",
               "exerciseId": "ex-shoulder-warmup",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0
             },
             {
               "id": "pe-7a-wed-2",
               "exerciseId": "ex-hangboard-max",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1,
               "description": "Introductory Max Hangs: Focus on form, avoid failure. Use pulley/band if needed.",
               "customSets": 3,
@@ -215,6 +242,8 @@
               "id": "pe-7a-wed-3",
               "exerciseId": "ex-easy-bouldering",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 2,
               "description": "Easy bouldering after hangs. Same stimulus (strength/power). Work movement on moderate problems."
             },
@@ -222,6 +251,8 @@
               "id": "pe-7a-wed-4",
               "exerciseId": "ex-core-basic",
               "section": "SECONDARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 3
             }
           ]
@@ -235,12 +266,16 @@
               "id": "pe-7a-fri-1",
               "exerciseId": "ex-shoulder-warmup",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0
             },
             {
               "id": "pe-7a-fri-2",
               "exerciseId": "ex-arc-training",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1,
               "customDurationSec": 900,
               "description": "15 min continuous easy climbing. Build aerobic base."
@@ -249,6 +284,8 @@
               "id": "pe-7a-fri-3",
               "exerciseId": "ex-boulder-4x4",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 2,
               "customSets": 3,
               "customReps": 3,
@@ -258,6 +295,8 @@
               "id": "pe-7a-fri-4",
               "exerciseId": "ex-push-ups",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 3,
               "customSets": 2,
               "customReps": 10
@@ -281,12 +320,16 @@
               "id": "pe-7b-mon-1",
               "exerciseId": "ex-shoulder-warmup",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0
             },
             {
               "id": "pe-7b-mon-2",
               "exerciseId": "ex-hangboard-max",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1,
               "customSets": 5,
               "customDurationSec": 10
@@ -295,6 +338,8 @@
               "id": "pe-7b-mon-3",
               "exerciseId": "ex-pullups-weighted",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 2,
               "customSets": 4,
               "customReps": 3
@@ -303,6 +348,8 @@
               "id": "pe-7b-mon-4",
               "exerciseId": "ex-push-ups",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 3,
               "customSets": 3,
               "customReps": 10
@@ -318,12 +365,16 @@
               "id": "pe-7b-wed-1",
               "exerciseId": "ex-shoulder-warmup",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0
             },
             {
               "id": "pe-7b-wed-2",
               "exerciseId": "ex-dynamic-bouldering",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1,
               "description": "Dynamic moves, deadpoints, coordination problems. Build explosive power safely."
             },
@@ -331,6 +382,8 @@
               "id": "pe-7b-wed-3",
               "exerciseId": "ex-limit-bouldering",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 2,
               "customSets": 5
             },
@@ -338,6 +391,8 @@
               "id": "pe-7b-wed-4",
               "exerciseId": "ex-core-front-lever",
               "section": "SECONDARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 3
             }
           ]
@@ -351,12 +406,16 @@
               "id": "pe-7b-fri-1",
               "exerciseId": "ex-shoulder-warmup",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0
             },
             {
               "id": "pe-7b-fri-2",
               "exerciseId": "ex-easy-bouldering",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1,
               "description": "High volume easy climbing for base fitness and movement quality."
             },
@@ -364,6 +423,8 @@
               "id": "pe-7b-fri-3",
               "exerciseId": "ex-arc-training",
               "section": "SECONDARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 2,
               "customDurationSec": 900,
               "description": "15 min easy traversing for recovery and aerobic base."
@@ -372,6 +433,8 @@
               "id": "pe-7b-fri-4",
               "exerciseId": "ex-push-ups",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 3,
               "customSets": 3,
               "customReps": 10
@@ -387,12 +450,16 @@
               "id": "pe-7b-sat-1",
               "exerciseId": "ex-shoulder-warmup",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0
             },
             {
               "id": "pe-7b-sat-2",
               "exerciseId": "ex-limit-bouldering",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1,
               "customSets": 6,
               "description": "Project-level bouldering. Full rest between attempts. Quality over quantity."
@@ -401,6 +468,8 @@
               "id": "pe-7b-sat-3",
               "exerciseId": "ex-finger-stretch",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 2
             }
           ]
@@ -422,12 +491,16 @@
               "id": "pe-8a-mon-1",
               "exerciseId": "ex-shoulder-warmup",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0
             },
             {
               "id": "pe-8a-mon-2",
               "exerciseId": "ex-hangboard-max",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1,
               "customSets": 6,
               "customDurationSec": 10
@@ -436,6 +509,8 @@
               "id": "pe-8a-mon-3",
               "exerciseId": "ex-pullups-weighted",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 2,
               "customSets": 5,
               "customReps": 3
@@ -444,6 +519,8 @@
               "id": "pe-8a-mon-4",
               "exerciseId": "ex-push-ups",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 3,
               "customSets": 3,
               "customReps": 10
@@ -459,12 +536,16 @@
               "id": "pe-8a-tue-1",
               "exerciseId": "ex-shoulder-warmup",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0
             },
             {
               "id": "pe-8a-tue-2",
               "exerciseId": "ex-arc-training",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1,
               "customDurationSec": 1800,
               "description": "30 min continuous low-intensity climbing. Build aerobic capacity for long routes."
@@ -473,6 +554,8 @@
               "id": "pe-8a-tue-3",
               "exerciseId": "ex-technique-drills",
               "section": "SECONDARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 2
             }
           ]
@@ -486,12 +569,16 @@
               "id": "pe-8a-thu-1",
               "exerciseId": "ex-shoulder-warmup",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0
             },
             {
               "id": "pe-8a-thu-2",
               "exerciseId": "ex-boulder-4x4",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1,
               "customSets": 5,
               "customRestBetweenSetsSec": 300
@@ -500,12 +587,16 @@
               "id": "pe-8a-thu-3",
               "exerciseId": "ex-core-front-lever",
               "section": "SECONDARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 2
             },
             {
               "id": "pe-8a-thu-4",
               "exerciseId": "ex-push-ups",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 3,
               "customSets": 3,
               "customReps": 10
@@ -521,12 +612,16 @@
               "id": "pe-8a-fri-1",
               "exerciseId": "ex-shoulder-warmup",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0
             },
             {
               "id": "pe-8a-fri-2",
               "exerciseId": "ex-hangboard-repeaters",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1,
               "customSets": 6
             },
@@ -534,6 +629,8 @@
               "id": "pe-8a-fri-3",
               "exerciseId": "ex-volume-climbing",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 2,
               "customSets": 8
             }
@@ -548,12 +645,16 @@
               "id": "pe-8a-sun-1",
               "exerciseId": "ex-shoulder-warmup",
               "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 0
             },
             {
               "id": "pe-8a-sun-2",
               "exerciseId": "ex-limit-bouldering",
               "section": "MAIN",
+              "alternativeGroupId": null,
+              "isSelected": true,
               "orderIndex": 1,
               "customSets": 6,
               "description": "Limit bouldering: work 1-2 move problems at absolute max. Full rest between attempts."

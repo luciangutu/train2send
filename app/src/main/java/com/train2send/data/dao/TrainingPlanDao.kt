@@ -65,6 +65,9 @@ interface TrainingPlanDao {
     @Query("SELECT * FROM planned_exercises WHERE id = :id")
     fun getPlannedExerciseById(id: String): Flow<PlannedExerciseEntity?>
 
+    @Query("DELETE FROM planned_exercises WHERE planDayId = :planDayId")
+    suspend fun deleteExercisesForDay(planDayId: String)
+
     @Delete
     suspend fun deletePlannedExercise(exercise: PlannedExerciseEntity)
 }

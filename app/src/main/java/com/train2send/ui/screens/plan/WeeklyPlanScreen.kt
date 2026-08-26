@@ -241,7 +241,9 @@ private fun TodayDashboard(
                     .getExercisesForDay(todayPlanDay.id)
                     .collectAsStateWithLifecycle(initialValue = emptyList())
 
-                val exercises = allPlannedExercises.filter { it.isSelected || it.alternativeGroupId == null }
+                val exercises = allPlannedExercises.filter { 
+                    it.isSelected || it.alternativeGroupId.isNullOrBlank() 
+                }
 
                 Text(
                     text = todayPlanDay.dayTitle,
@@ -384,7 +386,9 @@ private fun DaySummaryCard(
         .getExercisesForDay(planDay.id)
         .collectAsStateWithLifecycle(initialValue = emptyList())
     
-    val exercises = allPlannedExercises.filter { it.isSelected || it.alternativeGroupId == null }
+    val exercises = allPlannedExercises.filter { 
+        it.isSelected || it.alternativeGroupId.isNullOrBlank() 
+    }
 
     val dayName = DayOfWeek.of(planDay.dayOfWeek)
         .getDisplayName(TextStyle.FULL, Locale.getDefault())

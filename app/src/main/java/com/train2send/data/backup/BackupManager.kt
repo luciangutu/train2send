@@ -140,6 +140,8 @@ class BackupManager(private val app: Train2SendApp) {
                     )
                 )
 
+                app.trainingPlanRepository.deleteExercisesForDay(dayBackup.id)
+
                 dayBackup.exercises.forEach { peBackup ->
                     val section = try {
                         ExerciseSection.valueOf(peBackup.section)

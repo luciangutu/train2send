@@ -122,7 +122,7 @@
       "category": "STRENGTH",
       "description": "Shoulder Isometric 30 sec",
       "defaultSets": 1,
-      "defaultReps": 3,
+      "defaultReps": 4,
       "defaultDurationSec": 30,
       "defaultRestSec": 5
     },

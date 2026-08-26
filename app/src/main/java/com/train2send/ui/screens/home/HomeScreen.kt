@@ -131,10 +131,11 @@ fun HomeScreen(navController: NavController) {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
-                .padding(16.dp)
         ) {
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 16.dp),
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 QuickActionCard(
@@ -163,7 +164,7 @@ fun HomeScreen(navController: NavController) {
                 )
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
             // Swipeable Session Pager
             activePlan?.let { plan ->
@@ -197,7 +198,7 @@ private fun SessionPager(
 
     Column {
         Row(
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp),
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -231,8 +232,8 @@ private fun SessionPager(
 
         HorizontalPager(
             state = pagerState,
-            contentPadding = PaddingValues(horizontal = 16.dp),
-            pageSpacing = 12.dp,
+            contentPadding = PaddingValues(horizontal = 12.dp),
+            pageSpacing = 8.dp,
             modifier = Modifier.fillMaxWidth()
         ) { page ->
             val dayOfWeekValue = page + 1
@@ -376,7 +377,7 @@ private fun TodaySessionCard(
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .heightIn(max = 320.dp)
+                            .heightIn(max = 420.dp)
                             .verticalScroll(scrollState),
                         verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {

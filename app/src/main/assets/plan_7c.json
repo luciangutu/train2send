@@ -291,12 +291,6 @@
           ]
         },
         {
-          "id": "day-7c-fri",
-          "dayOfWeek": 5,
-          "dayTitle": "Rest",
-          "exercises": []
-        },
-        {
           "id": "day-7c-sat",
           "dayOfWeek": 6,
           "dayTitle": "Outdoor Climbing (Performance)",

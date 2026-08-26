@@ -300,12 +300,6 @@
           ]
         },
         {
-          "id": "day-p1-fri",
-          "dayOfWeek": 5,
-          "dayTitle": "Rest",
-          "exercises": []
-        },
-        {
           "id": "day-p1-sat",
           "dayOfWeek": 6,
           "dayTitle": "Outdoor Climbing (Volume)",
@@ -489,12 +483,6 @@
           ]
         },
         {
-          "id": "day-p2-fri",
-          "dayOfWeek": 5,
-          "dayTitle": "Rest",
-          "exercises": []
-        },
-        {
           "id": "day-p2-sat",
           "dayOfWeek": 6,
           "dayTitle": "Outdoor Climbing (Projects)",
@@ -669,12 +657,6 @@
           ]
         },
         {
-          "id": "day-p3-fri",
-          "dayOfWeek": 5,
-          "dayTitle": "Rest",
-          "exercises": []
-        },
-        {
           "id": "day-p3-sat",
           "dayOfWeek": 6,
           "dayTitle": "Outdoor Climbing (Redpoint Burns)",
@@ -766,12 +748,6 @@
           ]
         },
         {
-          "id": "day-p4-tue",
-          "dayOfWeek": 2,
-          "dayTitle": "Rest",
-          "exercises": []
-        },
-        {
           "id": "day-p4-wed",
           "dayOfWeek": 3,
           "dayTitle": "Movement & Activation",
@@ -811,12 +787,6 @@
               "orderIndex": 0
             }
           ]
-        },
-        {
-          "id": "day-p4-fri",
-          "dayOfWeek": 5,
-          "dayTitle": "Rest",
-          "exercises": []
         },
         {
           "id": "day-p4-sat",

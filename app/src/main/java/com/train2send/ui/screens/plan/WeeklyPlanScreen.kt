@@ -45,30 +45,46 @@ fun WeeklyPlanScreen(navController: NavController) {
     val activePlan by app.trainingPlanRepository.getActivePlan()
         .collectAsStateWithLifecycle(initialValue = null)
 
+    var selectedTab by remember { mutableIntStateOf(0) }
+    val tabs = listOf("Schedule", "Breakdown")
+
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text("Weekly Plan") },
-                navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
-                    }
-                },
-                actions = {
-                    if (activePlan != null) {
+            Column {
+                TopAppBar(
+                    title = { Text("Weekly Plan") },
+                    navigationIcon = {
+                        IconButton(onClick = { navController.popBackStack() }) {
+                            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        }
+                    },
+                    actions = {
+                        if (activePlan != null) {
+                            IconButton(onClick = {
+                                navController.navigate(Screen.PlanSetup.createRoute(activePlan!!.id))
+                            }) {
+                                Icon(Icons.Default.Edit, contentDescription = "Edit Plan")
+                            }
+                        }
                         IconButton(onClick = {
-                            navController.navigate(Screen.PlanSetup.createRoute(activePlan!!.id))
+                            navController.navigate(Screen.PlanList.route)
                         }) {
-                            Icon(Icons.Default.Edit, contentDescription = "Edit Plan")
+                            Icon(Icons.AutoMirrored.Filled.List, contentDescription = "All Plans")
                         }
                     }
-                    IconButton(onClick = {
-                        navController.navigate(Screen.PlanList.route)
-                    }) {
-                        Icon(Icons.AutoMirrored.Filled.List, contentDescription = "All Plans")
+                )
+                if (activePlan != null) {
+                    TabRow(selectedTabIndex = selectedTab) {
+                        tabs.forEachIndexed { index, title ->
+                            Tab(
+                                selected = selectedTab == index,
+                                onClick = { selectedTab = index },
+                                text = { Text(title) }
+                            )
+                        }
                     }
                 }
-            )
+            }
         },
         floatingActionButton = {
             if (activePlan == null) {
@@ -88,13 +104,21 @@ fun WeeklyPlanScreen(navController: NavController) {
                 onCreatePlan = { navController.navigate(Screen.PlanSetup.route) }
             )
         } else {
-            WeeklyPlanContent(
-                plan = activePlan!!,
-                navController = navController,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(padding)
-            )
+            when (selectedTab) {
+                0 -> WeeklyPlanContent(
+                    plan = activePlan!!,
+                    navController = navController,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(padding)
+                )
+                1 -> PlanBreakdownScreen(
+                    plan = activePlan!!,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(padding)
+                )
+            }
         }
     }
 }

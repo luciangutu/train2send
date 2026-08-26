@@ -75,8 +75,7 @@
       "description": "Band pull-aparts, external rotations, and arm circles.",
       "defaultSets": 2,
       "defaultReps": 15,
-      "defaultRestSec": 1,
-      "defaultRestBetweenSetsSec": 30
+      "defaultRestBetweenSetsSec": 60
     },
     {
       "id": "ex-finger-stretch",
@@ -87,8 +86,7 @@
       "defaultSets": 2,
       "defaultReps": 10,
       "defaultDurationSec": 30,
-      "defaultRestSec": 1,
-      "defaultRestBetweenSetsSec": 15
+      "defaultRestBetweenSetsSec": 30
     },
     {
       "id": "ex-volume-climbing",
@@ -140,8 +138,6 @@
       "description": "Standard or elevated push-ups for antagonist pressing strength. Balances pulling-dominant climbing.",
       "defaultSets": 3,
       "defaultReps": 10,
-      "defaultDurationSec": 3,
-      "defaultRestSec": 0,
       "defaultRestBetweenSetsSec": 90
     },
     {

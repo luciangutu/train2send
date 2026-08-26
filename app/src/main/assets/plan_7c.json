@@ -128,14 +128,15 @@
     },
 
     {
-      "id": "ex-technique-drills",
-      "name": "Technique Drills",
-      "category": "TECHNIQUE",
-      "description": "Focused climbing practice: silent feet, precise hand placements, flagging, hip rotation, drop-knees. Climb easy problems and routes paying attention to one specific skill per set.",
-      "defaultSets": 3,
-      "defaultReps": 1,
-      "defaultDurationSec": 600,
-      "defaultRestBetweenSetsSec": 120
+      "id": "ex-repeaters",
+      "name": "Repeaters (Hangboard)",
+      "category": "POWER_ENDURANCE",
+      "description": "Hangboard repeater protocol: 7 seconds on / 3 seconds off for 6-8 reps per set. Use an edge size and load that produces significant pump by the final rep but allows controlled grip throughout. Trains the forearm's ability to sustain force output under fatigue — a key capacity for sustained hard route climbing.",
+      "defaultSets": 4,
+      "defaultReps": 7,
+      "defaultDurationSec": 7,
+      "defaultRestSec": 3,
+      "defaultRestBetweenSetsSec": 300
     },
     {
       "id": "ex-power-endurance-rope-laps",
@@ -223,7 +224,7 @@
         {
           "id": "day-7c-wed",
           "dayOfWeek": 3,
-          "dayTitle": "Power Endurance & Technique",
+          "dayTitle": "Strength Endurance & Power Endurance",
           "exercises": [
             {
               "id": "pe-7c-wed-1",
@@ -233,10 +234,10 @@
             },
             {
               "id": "pe-7c-wed-2",
-              "exerciseId": "ex-technique-drills",
+              "exerciseId": "ex-repeaters",
               "section": "MAIN",
               "orderIndex": 1,
-              "description": "20-30 min of deliberate practice on easy terrain: silent feet, hip positioning."
+              "description": "4 sets of 7on/3off repeaters. Use an edge that produces solid pump by rep 6-7. 5 min rest between sets. Half-crimp position."
             },
             {
               "id": "pe-7c-wed-3",

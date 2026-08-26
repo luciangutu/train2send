@@ -181,6 +181,52 @@
       "defaultReps": 4,
       "defaultDurationSec": 480,
       "defaultRestSec": 600
+    },
+    {
+      "id": "ex-fryer-on-routes",
+      "name": "Fryer on Routes (Linked Laps)",
+      "category": "ENDURANCE",
+      "climbingType": "ROPE",
+      "description": "Fryer-style aerobic endurance on routes: climb up, lower, immediately back on for 2-3 consecutive laps on easy terrain (50-60% intensity, never approaching pump). 2 sets, each set is 8-12 minutes of continuous climbing. Rest 5 min between sets. Focus on breathing, pace, and relaxed movement throughout.",
+      "defaultSets": 2,
+      "defaultReps": 1,
+      "defaultDurationSec": 600,
+      "defaultRestSec": 0,
+      "defaultRestBetweenSetsSec": 300
+    },
+    {
+      "id": "ex-easy-routes-shakeout",
+      "name": "Easy Routes with Shake-out Practice",
+      "category": "ENDURANCE",
+      "climbingType": "ROPE",
+      "description": "5 routes with 3 min rest between at 2-3 grades below redpoint level. On each route, deliberately stop at every good rest to practice shake-outs (30-60 seconds per arm). Focus on finding efficient rest positions, controlled breathing, and full forearm recovery before continuing. Never approach pump — the goal is building the skill of mid-route recovery on easy terrain.",
+      "defaultSets": 1,
+      "defaultReps": 5,
+      "defaultDurationSec": 300,
+      "defaultRestSec": 180
+    },
+    {
+      "id": "ex-power-endurance-rope-laps",
+      "name": "Rope Power Endurance Laps",
+      "category": "POWER_ENDURANCE",
+      "climbingType": "ROPE",
+      "description": "Climb 2-3 consecutive laps on a routes climbing wall near flash level without resting (lowered quickly or pulled back up immediately), then rest 8-10 minutes between sets. Trains fatigue resistance and sustained hard execution under severe pump.",
+      "defaultSets": 3,
+      "defaultReps": 2,
+      "defaultDurationSec": 240,
+      "defaultRestBetweenSetsSec": 540
+    },
+    {
+      "id": "ex-easy-routes-autobelay",
+      "name": "Easy Routes Autobelay",
+      "category": "ENDURANCE",
+      "climbingType": "ROPE",
+      "description": "Easy routes on autobelay for aerobic endurance.",
+      "defaultSets": 3,
+      "defaultReps": 5,
+      "defaultDurationSec": 180,
+      "defaultRestSec": 0,
+      "defaultRestBetweenSetsSec": 300
     }
   ],
   "plans": [
@@ -273,20 +319,38 @@
               "id": "pe-p1-wed-2",
               "exerciseId": "ex-arc-training",
               "section": "MAIN",
-              "alternativeGroupId": null,
+              "alternativeGroupId": "alt-p1-wed-arc",
               "isSelected": true,
               "orderIndex": 1,
               "customDurationSec": 1500,
               "description": "25 min continuous easy climbing. Stay well below pump threshold. Build capillarity."
             },
             {
+              "id": "pe-p1-wed-2-rope",
+              "exerciseId": "ex-easy-routes-autobelay",
+              "section": "MAIN",
+              "alternativeGroupId": "alt-p1-wed-arc",
+              "isSelected": false,
+              "orderIndex": 1,
+              "description": "Easy routes on autobelay for aerobic endurance."
+            },
+            {
               "id": "pe-p1-wed-3",
               "exerciseId": "ex-fryer-endurance",
               "section": "MAIN",
-              "alternativeGroupId": null,
+              "alternativeGroupId": "alt-p1-wed-fryer",
               "isSelected": true,
               "orderIndex": 2,
               "description": "3 x 5min at 50-60% intensity. No hard pump."
+            },
+            {
+              "id": "pe-p1-wed-3-rope",
+              "exerciseId": "ex-fryer-on-routes",
+              "section": "MAIN",
+              "alternativeGroupId": "alt-p1-wed-fryer",
+              "isSelected": false,
+              "orderIndex": 2,
+              "description": "Linked route laps on easy terrain. Continuous movement for 8-12 minutes per set."
             },
             {
               "id": "pe-p1-wed-4",
@@ -328,10 +392,19 @@
               "id": "pe-p1-thu-3",
               "exerciseId": "ex-2on2off",
               "section": "MAIN",
-              "alternativeGroupId": null,
+              "alternativeGroupId": "alt-p1-thu-volume",
               "isSelected": true,
               "orderIndex": 2,
               "description": "6 rounds 2on/2off. Easy climbing for aerobic base after hangboard."
+            },
+            {
+              "id": "pe-p1-thu-3-rope",
+              "exerciseId": "ex-easy-routes-shakeout",
+              "section": "MAIN",
+              "alternativeGroupId": "alt-p1-thu-volume",
+              "isSelected": false,
+              "orderIndex": 2,
+              "description": "4-5 easy routes with deliberate shake-out practice on moderate sections."
             },
             {
               "id": "pe-p1-thu-4",
@@ -502,11 +575,20 @@
               "id": "pe-p2-wed-3",
               "exerciseId": "ex-arc-training",
               "section": "MAIN",
-              "alternativeGroupId": null,
+              "alternativeGroupId": "alt-p2-wed-arc",
               "isSelected": true,
               "orderIndex": 2,
               "customDurationSec": 1200,
               "description": "20 min ARC for endurance maintenance. Don't let base erode during strength phase."
+            },
+            {
+              "id": "pe-p2-wed-3-rope",
+              "exerciseId": "ex-easy-routes-autobelay",
+              "section": "MAIN",
+              "alternativeGroupId": "alt-p2-wed-arc",
+              "isSelected": false,
+              "orderIndex": 2,
+              "description": "Easy routes on autobelay for aerobic endurance."
             },
             {
               "id": "pe-p2-wed-4",
@@ -649,10 +731,19 @@
               "id": "pe-p3-mon-3",
               "exerciseId": "ex-power-endurance-circuits",
               "section": "MAIN",
-              "alternativeGroupId": null,
+              "alternativeGroupId": "alt-p3-mon-pe",
               "isSelected": true,
               "orderIndex": 2,
               "description": "3 rounds x 4 problems linked. Flash-level difficulty. 5 min rest between rounds."
+            },
+            {
+              "id": "pe-p3-mon-3-rope",
+              "exerciseId": "ex-power-endurance-rope-laps",
+              "section": "MAIN",
+              "alternativeGroupId": "alt-p3-mon-pe",
+              "isSelected": false,
+              "orderIndex": 2,
+              "description": "Linked route laps on near flash level wall for power endurance."
             },
             {
               "id": "pe-p3-mon-4",
@@ -706,7 +797,7 @@
               "id": "pe-p3-wed-2",
               "exerciseId": "ex-fryer-endurance",
               "section": "MAIN",
-              "alternativeGroupId": null,
+              "alternativeGroupId": "alt-p3-wed-fryer",
               "isSelected": true,
               "orderIndex": 1,
               "customReps": 4,
@@ -714,14 +805,32 @@
               "description": "4 x 4min at 65-75% — slightly harder than Phase 1. Push closer to pump threshold."
             },
             {
+              "id": "pe-p3-wed-2-rope",
+              "exerciseId": "ex-fryer-on-routes",
+              "section": "MAIN",
+              "alternativeGroupId": "alt-p3-wed-fryer",
+              "isSelected": false,
+              "orderIndex": 1,
+              "description": "Linked route laps on easy terrain. Continuous movement for 8-12 minutes per set."
+            },
+            {
               "id": "pe-p3-wed-3",
               "exerciseId": "ex-2on2off",
               "section": "MAIN",
-              "alternativeGroupId": null,
+              "alternativeGroupId": "alt-p3-wed-volume",
               "isSelected": true,
               "orderIndex": 2,
               "customReps": 8,
               "description": "8 rounds 2on/2off at slightly higher intensity than Phase 1. Manage pump, don't blow up."
+            },
+            {
+              "id": "pe-p3-wed-3-rope",
+              "exerciseId": "ex-easy-routes-shakeout",
+              "section": "MAIN",
+              "alternativeGroupId": "alt-p3-wed-volume",
+              "isSelected": false,
+              "orderIndex": 2,
+              "description": "4-5 easy routes with deliberate shake-out practice on moderate sections."
             },
             {
               "id": "pe-p3-wed-4",

@@ -30,6 +30,7 @@ import com.train2send.data.model.PlanDayEntity
 import com.train2send.data.model.PlannedExerciseEntity
 import com.train2send.data.model.TrainingPlanEntity
 import com.train2send.ui.navigation.Screen
+import com.train2send.ui.screens.plan.TrainingGuideScreen
 import com.train2send.utils.calculateExerciseDuration
 import com.train2send.utils.formatDuration
 import com.train2send.utils.formatDurationRounded
@@ -46,7 +47,7 @@ fun WeeklyPlanScreen(navController: NavController) {
         .collectAsStateWithLifecycle(initialValue = null)
 
     var selectedTab by remember { mutableIntStateOf(0) }
-    val tabs = listOf("Schedule", "Breakdown")
+    val tabs = listOf("Schedule", "Breakdown", "Guide")
 
     Scaffold(
         topBar = {
@@ -114,6 +115,11 @@ fun WeeklyPlanScreen(navController: NavController) {
                 )
                 1 -> PlanBreakdownScreen(
                     plan = activePlan!!,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(padding)
+                )
+                2 -> TrainingGuideScreen(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(padding)

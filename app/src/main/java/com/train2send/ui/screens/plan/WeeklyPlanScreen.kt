@@ -75,7 +75,7 @@ fun WeeklyPlanScreen(navController: NavController) {
                     }
                 )
                 if (activePlan != null) {
-                    TabRow(selectedTabIndex = selectedTab) {
+                    PrimaryTabRow(selectedTabIndex = selectedTab) {
                         tabs.forEachIndexed { index, title ->
                             Tab(
                                 selected = selectedTab == index,

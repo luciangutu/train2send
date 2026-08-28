@@ -74,7 +74,7 @@ fun TrainingGuideScreen(modifier: Modifier = Modifier) {
                 Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = null, modifier = Modifier.size(20.dp))
             }
             
-            ActionBox(text = "5\nHTFU", modifier = Modifier.weight(1f))
+            ActionBox(text = "5\nDANGER ASSESSMENT &\nFALL EXERCISES", modifier = Modifier.weight(1f))
         }
 
         Spacer(modifier = Modifier.height(16.dp))

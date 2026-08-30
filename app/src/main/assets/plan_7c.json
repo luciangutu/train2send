@@ -139,11 +139,15 @@
     },
     {
       "id": "ex-carcing",
-      "name": "CARCing",
+      "name": "On-Wall ARC Intervals",
       "category": "ENDURANCE",
       "climbingType": "BOULDERING",
-      "description": "Continuous Aerobic Regenerative Climbing - easy climbing for recovery and capillarity.",
-      "defaultDurationSec": 1200
+      "description": "Aerobic Restitution and Capillarity (ARC) training for continuous climbing capacity. Move continuously on very easy holds at ~40% MVC. Forearms should feel light heat or a mild warm feeling, but never a full pump. Progress weekly by extending set duration rather than increasing wall difficulty.",
+      "defaultSets": 3,
+      "defaultReps": 1,
+      "defaultDurationSec": 900,
+      "defaultRestSec": 0,
+      "defaultRestBetweenSetsSec": 720
     },
     {
       "id": "ex-warmup-paradigm-climbing",
@@ -344,8 +348,7 @@
               "section": "MAIN",
               "alternativeGroupId": "alt-7c-thu-fryer",
               "isSelected": true,
-              "orderIndex": 1,
-              "description": "3 x 5min on the wall at 50-60% intensity with 2 min rest between. Stay below pump threshold."
+              "orderIndex": 1
             },
             {
               "id": "pe-7c-thu-2-rope",

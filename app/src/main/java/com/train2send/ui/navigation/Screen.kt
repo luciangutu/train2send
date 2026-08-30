@@ -22,13 +22,14 @@ sealed class Screen(val route: String) {
     data object PlanDayDetail : Screen("plan-day/{planDayId}") {
         fun createRoute(planDayId: String) = "plan-day/$planDayId"
     }
-    data object Timer : Screen("timer?work={work}&restRep={restRep}&reps={reps}&sets={sets}&restSet={restSet}") {
+    data object Timer : Screen("timer?work={work}&restRep={restRep}&reps={reps}&sets={sets}&restSet={restSet}&description={description}") {
         fun createRoute(
             work: Int? = null,
             restRep: Int? = null,
             reps: Int? = null,
             sets: Int? = null,
-            restSet: Int? = null
+            restSet: Int? = null,
+            description: String? = null
         ): String {
             val params = mutableListOf<String>()
             work?.let { params.add("work=$it") }
@@ -36,6 +37,7 @@ sealed class Screen(val route: String) {
             reps?.let { params.add("reps=$it") }
             sets?.let { params.add("sets=$it") }
             restSet?.let { params.add("restSet=$it") }
+            description?.let { params.add("description=$it") }
             return if (params.isEmpty()) "timer" else "timer?${params.joinToString("&")}"
         }
     }

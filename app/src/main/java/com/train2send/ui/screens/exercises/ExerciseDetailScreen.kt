@@ -68,13 +68,15 @@ fun ExerciseDetailScreen(
                         val reps = planned?.customReps ?: exercise?.defaultReps
                         val sets = planned?.customSets ?: exercise?.defaultSets
                         val restSet = planned?.customRestBetweenSetsSec ?: exercise?.defaultRestBetweenSetsSec
+                        val description = exercise?.description
                         
                         navController.navigate(Screen.Timer.createRoute(
                             work = work,
                             restRep = restRep,
                             reps = reps,
                             sets = sets,
-                            restSet = restSet
+                            restSet = restSet,
+                            description = description
                         ))
                     }) {
                         Icon(Icons.Default.Timer, contentDescription = "Start Timer")

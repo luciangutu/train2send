@@ -10,6 +10,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.SkipNext
 import androidx.compose.material.icons.filled.Stop
@@ -17,6 +18,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.text.font.FontWeight
@@ -138,7 +140,8 @@ fun TimerScreen(
     restRep: Int? = null,
     reps: Int? = null,
     sets: Int? = null,
-    restSet: Int? = null
+    restSet: Int? = null,
+    description: String? = null
 ) {
     val timerEngine = remember { FlexibleTimerEngine() }
     val timerState by timerEngine.state.collectAsStateWithLifecycle()
@@ -294,9 +297,14 @@ fun TimerScreen(
                         }
                         is TimerState.Running -> {
                             Text(
-                                text = if (state.isWorkPhase) "WORK" else "REST",
+                                text = when {
+                                    state.isPaused -> "PAUSED"
+                                    state.isWorkPhase -> "WORK"
+                                    else -> "REST"
+                                },
                                 style = MaterialTheme.typography.titleLarge,
-                                fontWeight = FontWeight.Bold
+                                fontWeight = FontWeight.Bold,
+                                color = if (state.isPaused) MaterialTheme.colorScheme.error else Color.Unspecified
                             )
                             Spacer(modifier = Modifier.height(8.dp))
                             Text(
@@ -310,12 +318,14 @@ fun TimerScreen(
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 Text(
                                     text = "Set ${state.currentSet} / ${state.totalSets}",
-                                    style = MaterialTheme.typography.bodyLarge
+                                    style = MaterialTheme.typography.headlineSmall,
+                                    fontWeight = FontWeight.Bold
                                 )
                                 if (state.currentRep != null && state.totalReps != null && state.totalReps > 1) {
                                     Text(
                                         text = "  •  Rep ${state.currentRep} / ${state.totalReps}",
-                                        style = MaterialTheme.typography.bodyLarge
+                                        style = MaterialTheme.typography.headlineSmall,
+                                        fontWeight = FontWeight.Bold
                                     )
                                 }
                             }
@@ -327,12 +337,31 @@ fun TimerScreen(
                                 fontWeight = FontWeight.Bold
                             )
                         }
-                        is TimerState.Paused -> {
-                            Text(
-                                text = "Paused",
-                                style = MaterialTheme.typography.headlineMedium
-                            )
-                        }
+                    }
+                }
+            }
+
+            if (!description.isNullOrBlank()) {
+                Spacer(modifier = Modifier.height(24.dp))
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(16.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+                    )
+                ) {
+                    Column(modifier = Modifier.padding(16.dp)) {
+                        Text(
+                            text = "Description",
+                            style = MaterialTheme.typography.titleSmall,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = description,
+                            style = MaterialTheme.typography.bodyMedium
+                        )
                     }
                 }
             }
@@ -416,10 +445,14 @@ fun TimerScreen(
                     Text("Start", style = MaterialTheme.typography.titleMedium)
                 }
             } else if (timerState is TimerState.Running || timerState is TimerState.Preparing) {
+                val isPaused = (timerState as? TimerState.Running)?.isPaused == true || 
+                              (timerState as? TimerState.Preparing)?.isPaused == true
+                
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
+                    // Stop Button
                     Button(
                         onClick = { timerEngine.stop() },
                         modifier = Modifier
@@ -430,11 +463,30 @@ fun TimerScreen(
                             containerColor = MaterialTheme.colorScheme.error
                         )
                     ) {
-                        Icon(Icons.Default.Stop, contentDescription = null)
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text("Stop", style = MaterialTheme.typography.titleMedium)
+                        Icon(Icons.Default.Stop, contentDescription = "Stop")
+                    }
+
+                    // Pause/Resume Button
+                    Button(
+                        onClick = { 
+                            if (isPaused) timerEngine.resume() else timerEngine.pause()
+                        },
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(56.dp),
+                        shape = RoundedCornerShape(16.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                            contentColor = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    ) {
+                        Icon(
+                            if (isPaused) Icons.Default.PlayArrow else Icons.Default.Pause, 
+                            contentDescription = if (isPaused) "Resume" else "Pause"
+                        )
                     }
                     
+                    // Next Button
                     Button(
                         onClick = { timerEngine.next() },
                         modifier = Modifier
@@ -442,12 +494,11 @@ fun TimerScreen(
                             .height(56.dp),
                         shape = RoundedCornerShape(16.dp),
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.secondary
+                            containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                            contentColor = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     ) {
-                        Icon(Icons.Default.SkipNext, contentDescription = null)
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text("Next", style = MaterialTheme.typography.titleMedium)
+                        Icon(Icons.Default.SkipNext, contentDescription = "Next")
                     }
                 }
             }

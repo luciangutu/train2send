@@ -23,6 +23,9 @@ class FlexibleTimerEngine {
     private val _state = MutableStateFlow<TimerState>(TimerState.Idle)
     val state: StateFlow<TimerState> = _state.asStateFlow()
 
+    private val _isPaused = MutableStateFlow(false)
+    val isPaused: StateFlow<Boolean> = _isPaused.asStateFlow()
+
     private val _soundEvents = MutableSharedFlow<SoundEvent>(extraBufferCapacity = 10)
     val soundEvents: SharedFlow<SoundEvent> = _soundEvents.asSharedFlow()
 
@@ -37,6 +40,7 @@ class FlexibleTimerEngine {
         restSetSec: Int
     ) {
         job?.cancel()
+        _isPaused.value = false
         job = scope.launch {
             // Prepare Phase
             runPrepare(3)
@@ -81,14 +85,23 @@ class FlexibleTimerEngine {
     }
 
     private suspend fun runPrepare(seconds: Int) {
-        for (sec in seconds downTo 1) {
-            _state.value = TimerState.Preparing(sec)
+        var sec = seconds
+        while (sec >= 1) {
+            if (_isPaused.value) {
+                _state.value = (_state.value as? TimerState.Preparing)?.copy(isPaused = true) 
+                    ?: TimerState.Preparing(sec, isPaused = true)
+                _isPaused.first { !it }
+                continue
+            }
+
+            _state.value = TimerState.Preparing(sec, isPaused = false)
             _soundEvents.emit(SoundEvent.BEEP)
             val skipped = withTimeoutOrNull(1000L) {
                 skipTrigger.first()
                 true
             } ?: false
             if (skipped) break
+            sec--
         }
     }
 
@@ -101,8 +114,16 @@ class FlexibleTimerEngine {
         totalReps: Int? = null
     ) {
         if (seconds <= 0) return
-        for (sec in seconds downTo 1) {
-            _state.value = TimerState.Running(sec, currentSet, totalSets, isWork, currentRep, totalReps)
+        var sec = seconds
+        while (sec >= 1) {
+            if (_isPaused.value) {
+                _state.value = (_state.value as? TimerState.Running)?.copy(isPaused = true)
+                    ?: TimerState.Running(sec, currentSet, totalSets, isWork, currentRep, totalReps, isPaused = true)
+                _isPaused.first { !it }
+                continue
+            }
+
+            _state.value = TimerState.Running(sec, currentSet, totalSets, isWork, currentRep, totalReps, isPaused = false)
             if (sec <= 3) {
                 _soundEvents.emit(SoundEvent.BEEP)
             }
@@ -111,20 +132,32 @@ class FlexibleTimerEngine {
                 true
             } ?: false
             if (skipped) break
+            sec--
         }
     }
 
+    fun pause() {
+        _isPaused.value = true
+    }
+
+    fun resume() {
+        _isPaused.value = false
+    }
+
     fun next() {
+        if (_isPaused.value) resume()
         skipTrigger.tryEmit(Unit)
     }
 
     fun stop() {
         job?.cancel()
+        _isPaused.value = false
         _state.value = TimerState.Idle
     }
 
     fun reset() {
         job?.cancel()
+        _isPaused.value = false
         _state.value = TimerState.Idle
     }
 }

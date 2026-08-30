@@ -96,7 +96,8 @@ fun AppNavigation(navController: NavHostController) {
                 navArgument("restRep") { type = NavType.IntType; defaultValue = -1 },
                 navArgument("reps") { type = NavType.IntType; defaultValue = -1 },
                 navArgument("sets") { type = NavType.IntType; defaultValue = -1 },
-                navArgument("restSet") { type = NavType.IntType; defaultValue = -1 }
+                navArgument("restSet") { type = NavType.IntType; defaultValue = -1 },
+                navArgument("description") { type = NavType.StringType; nullable = true; defaultValue = null }
             )
         ) { backStackEntry ->
             val work = backStackEntry.arguments?.getInt("work").takeIf { it != -1 }
@@ -104,6 +105,7 @@ fun AppNavigation(navController: NavHostController) {
             val reps = backStackEntry.arguments?.getInt("reps").takeIf { it != -1 }
             val sets = backStackEntry.arguments?.getInt("sets").takeIf { it != -1 }
             val restSet = backStackEntry.arguments?.getInt("restSet").takeIf { it != -1 }
+            val description = backStackEntry.arguments?.getString("description")
 
             TimerScreen(
                 navController = navController,
@@ -111,7 +113,8 @@ fun AppNavigation(navController: NavHostController) {
                 restRep = restRep,
                 reps = reps,
                 sets = sets,
-                restSet = restSet
+                restSet = restSet,
+                description = description
             )
         }
         composable(Screen.Backup.route) {

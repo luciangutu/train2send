@@ -1,7 +1,8 @@
 package com.train2send.ui.screens.timer
 
-import android.media.AudioManager
-import android.media.ToneGenerator
+import android.content.Context
+import android.media.AudioAttributes
+import android.media.SoundPool
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -16,6 +17,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -31,6 +33,102 @@ import com.train2send.utils.formatDuration
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import java.io.File
+import java.io.FileOutputStream
+import java.nio.ByteBuffer
+import java.nio.ByteOrder
+
+fun generate880HzWav(context: Context): File {
+    val sampleRate = 44100
+    val duration = 0.15
+    val numSamples = (sampleRate * duration).toInt()
+    val volume = 0.6
+    val frequency = 880.0
+    
+    // Use a new version name to force re-generation
+    val file = File(context.cacheDir, "beep_880_v3.wav")
+    if (file.exists()) file.delete()
+
+    val outputStream = FileOutputStream(file)
+    
+    // WAV Header
+    val totalAudioLen = numSamples * 2L
+    val totalDataLen = totalAudioLen + 36
+    val byteRate = sampleRate * 2L
+    
+    val header = ByteArray(44)
+    header[0] = 'R'.code.toByte()
+    header[1] = 'I'.code.toByte()
+    header[2] = 'F'.code.toByte()
+    header[3] = 'F'.code.toByte()
+    header[4] = (totalDataLen and 0xff).toByte()
+    header[5] = ((totalDataLen shr 8) and 0xff).toByte()
+    header[6] = ((totalDataLen shr 16) and 0xff).toByte()
+    header[7] = ((totalDataLen shr 24) and 0xff).toByte()
+    header[8] = 'W'.code.toByte()
+    header[9] = 'A'.code.toByte()
+    header[10] = 'V'.code.toByte()
+    header[11] = 'E'.code.toByte()
+    header[12] = 'f'.code.toByte()
+    header[13] = 'm'.code.toByte()
+    header[14] = 't'.code.toByte()
+    header[15] = ' '.code.toByte()
+    header[16] = 16 // Subchunk1Size
+    header[17] = 0
+    header[18] = 0
+    header[19] = 0
+    header[20] = 1 // PCM
+    header[21] = 0
+    header[22] = 1 // Mono
+    header[23] = 0
+    header[24] = (sampleRate and 0xff).toByte()
+    header[25] = ((sampleRate shr 8) and 0xff).toByte()
+    header[26] = ((sampleRate shr 16) and 0xff).toByte()
+    header[27] = ((sampleRate shr 24) and 0xff).toByte()
+    header[28] = (byteRate and 0xff).toByte()
+    header[29] = ((byteRate shr 8) and 0xff).toByte()
+    header[30] = ((byteRate shr 16) and 0xff).toByte()
+    header[31] = ((byteRate shr 24) and 0xff).toByte()
+    header[32] = 2 // BlockAlign
+    header[33] = 0
+    header[34] = 16 // BitsPerSample
+    header[35] = 0
+    header[36] = 'd'.code.toByte()
+    header[37] = 'a'.code.toByte()
+    header[38] = 't'.code.toByte()
+    header[39] = 'a'.code.toByte()
+    header[40] = (totalAudioLen and 0xff).toByte()
+    header[41] = ((totalAudioLen shr 8) and 0xff).toByte()
+    header[42] = ((totalAudioLen shr 16) and 0xff).toByte()
+    header[43] = ((totalAudioLen shr 24) and 0xff).toByte()
+    
+    outputStream.write(header)
+    
+    // Apply a small fade-in and fade-out to prevent "clicking" sounds at the end
+    val buffer = ByteBuffer.allocate(numSamples * 2).order(ByteOrder.LITTLE_ENDIAN)
+    val fadeSamples = (sampleRate * 0.01).toInt() // 10ms fade
+    
+    for (i in 0 until numSamples) {
+        val angle = 2.0 * Math.PI * i * frequency / sampleRate
+        var currentVolume = volume
+        
+        // Fade in
+        if (i < fadeSamples) {
+            currentVolume *= i.toDouble() / fadeSamples
+        } 
+        // Fade out
+        else if (i > numSamples - fadeSamples) {
+            currentVolume *= (numSamples - i).toDouble() / fadeSamples
+        }
+        
+        val sample = (Math.sin(angle) * Short.MAX_VALUE * currentVolume).toInt().toShort()
+        buffer.putShort(sample)
+    }
+    outputStream.write(buffer.array())
+    outputStream.close()
+    
+    return file
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -52,6 +150,8 @@ fun TimerScreen(
     var setsInput by remember { mutableStateOf(sets?.toString() ?: "6") }
     var restSetSecInput by remember { mutableStateOf(restSet?.toString() ?: "60") }
 
+    val context = LocalContext.current
+
     // Keep screen on during timer
     val view = LocalView.current
     val isTimerActive = timerState is TimerState.Running || timerState is TimerState.Preparing
@@ -65,25 +165,48 @@ fun TimerScreen(
     }
 
     // Sound handling
-    val toneGenerator = remember { ToneGenerator(AudioManager.STREAM_ALARM, 100) }
-    LaunchedEffect(timerEngine) {
-        timerEngine.soundEvents.collect { event ->
-            when (event) {
-                SoundEvent.BEEP -> {
-                    toneGenerator.startTone(ToneGenerator.TONE_CDMA_PIP, 150)
-                }
-                SoundEvent.DOUBLE_BEEP -> {
-                    toneGenerator.startTone(ToneGenerator.TONE_CDMA_PIP, 150)
-                    delay(300)
-                    toneGenerator.startTone(ToneGenerator.TONE_CDMA_PIP, 150)
-                }
-            }
-        }
+    val soundPool = remember {
+        SoundPool.Builder()
+            .setMaxStreams(5)
+            .setAudioAttributes(AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_MEDIA)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .build())
+            .build()
     }
     
-    DisposableEffect(Unit) {
+    var defaultSoundId by remember { mutableIntStateOf(-1) }
+    var isSoundLoaded by remember { mutableStateOf(false) }
+    
+    LaunchedEffect(soundPool) {
+        soundPool.setOnLoadCompleteListener { _, _, status ->
+            if (status == 0) isSoundLoaded = true
+        }
+        val file = generate880HzWav(context)
+        defaultSoundId = soundPool.load(file.absolutePath, 1)
+    }
+
+    DisposableEffect(soundPool) {
         onDispose {
-            toneGenerator.release()
+            soundPool.release()
+        }
+    }
+
+    LaunchedEffect(timerEngine, isSoundLoaded, defaultSoundId) {
+        timerEngine.soundEvents.collect { event ->
+            // Play synthesized 880Hz sound exclusively
+            if (isSoundLoaded && defaultSoundId != -1) {
+                when (event) {
+                    SoundEvent.BEEP -> {
+                        soundPool.play(defaultSoundId, 1f, 1f, 1, 0, 1f)
+                    }
+                    SoundEvent.DOUBLE_BEEP -> {
+                        soundPool.play(defaultSoundId, 1f, 1f, 1, 0, 1f)
+                        delay(500)
+                        soundPool.play(defaultSoundId, 1f, 1f, 1, 0, 1f)
+                    }
+                }
+            }
         }
     }
 

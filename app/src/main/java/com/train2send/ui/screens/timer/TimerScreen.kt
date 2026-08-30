@@ -31,6 +31,7 @@ import androidx.navigation.NavController
 import com.train2send.domain.timer.FlexibleTimerEngine
 import com.train2send.domain.timer.SoundEvent
 import com.train2send.domain.timer.TimerState
+import com.train2send.utils.formatCountdown
 import com.train2send.utils.formatDuration
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -308,10 +309,11 @@ fun TimerScreen(
                             )
                             Spacer(modifier = Modifier.height(8.dp))
                             Text(
-                                text = formatDuration(state.remainingSeconds),
+                                text = formatCountdown(state.remainingSeconds),
                                 fontSize = 72.sp,
                                 fontWeight = FontWeight.Bold,
-                                textAlign = TextAlign.Center
+                                textAlign = TextAlign.Center,
+                                maxLines = 1
                             )
                             Spacer(modifier = Modifier.height(8.dp))
                             

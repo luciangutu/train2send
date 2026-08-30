@@ -15,6 +15,24 @@ fun formatDuration(totalSeconds: Int): String {
     return parts.joinToString(" ")
 }
 
+/**
+ * Formats seconds as a compact countdown timer string: "45", "1:05", "14:40", "1:02:30".
+ * Designed for large font timer displays where space is limited.
+ */
+fun formatCountdown(totalSeconds: Int): String {
+    if (totalSeconds <= 0) return "0"
+
+    val hours = totalSeconds / 3600
+    val minutes = (totalSeconds % 3600) / 60
+    val seconds = totalSeconds % 60
+
+    return when {
+        hours > 0 -> "%d:%02d:%02d".format(hours, minutes, seconds)
+        minutes > 0 -> "%d:%02d".format(minutes, seconds)
+        else -> "$seconds"
+    }
+}
+
 fun formatDurationRounded(totalSeconds: Int): String {
     if (totalSeconds <= 0) return "0m"
     

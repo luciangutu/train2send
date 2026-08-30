@@ -72,14 +72,15 @@
     },
     {
       "id": "ex-fryer-endurance",
-      "name": "Fryer 2016 Endurance Program",
+      "name": "Simon Fryer 2016 Endurance Protocol",
       "category": "ENDURANCE",
-      "climbingType": "BOULDERING",
-      "description": "Tom Fryer's endurance protocol (2016) for sustained climbing capacity (50-60%). No hard pump.",
-      "defaultReps": 3,
-      "defaultSets": 1,
-      "defaultDurationSec": 300,
-      "defaultRestSec": 120
+      "climbingType": "ANY",
+      "description": "Simon Fryer's endurance protocol (2016) for sustained climbing capacity (50-60%).  Use a comfortable, deep edge (typically 20mm–30mm) in a half-crimp or open-hand position.  Remove weight using a pulley system or keep your feet on the floor so you are only taking 30% to 40% of your maximum capacity. It should feel exceptionally light.",
+      "defaultReps": 18,
+      "defaultSets": 3,
+      "defaultDurationSec": 7,
+      "defaultRestSec": 3,
+      "defaultRestBetweenSetsSec": 180
     },
     {
       "id": "ex-fryer-on-routes",

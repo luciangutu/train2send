@@ -46,9 +46,6 @@ interface TrainingPlanDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPlanDay(day: PlanDayEntity)
 
-    @Update
-    suspend fun updatePlanDay(day: PlanDayEntity)
-
     @Delete
     suspend fun deletePlanDay(day: PlanDayEntity)
 

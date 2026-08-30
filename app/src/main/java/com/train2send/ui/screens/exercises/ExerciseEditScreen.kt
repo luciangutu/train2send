@@ -26,6 +26,7 @@ import com.train2send.data.model.ClimbingType
 import com.train2send.data.model.ExerciseCategory
 import com.train2send.data.model.ExerciseEntity
 import com.train2send.utils.calculateExerciseDuration
+import com.train2send.utils.color
 import com.train2send.utils.formatDuration
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -155,7 +156,7 @@ fun ExerciseEditScreen(navController: NavController, exerciseId: String? = null)
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     ExerciseCategory.entries.forEach { category ->
-                        val color = Color(android.graphics.Color.parseColor(category.colorHex))
+                        val color = category.color
                         val isSelected = category == selectedCategory
 
                         Box(
@@ -180,7 +181,7 @@ fun ExerciseEditScreen(navController: NavController, exerciseId: String? = null)
                 Text(
                     text = selectedCategory.label,
                     style = MaterialTheme.typography.bodySmall,
-                    color = Color(android.graphics.Color.parseColor(selectedCategory.colorHex))
+                    color = selectedCategory.color
                 )
 
                 // Climbing Type selector

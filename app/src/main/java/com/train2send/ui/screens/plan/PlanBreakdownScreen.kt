@@ -1,17 +1,14 @@
 package com.train2send.ui.screens.plan
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -23,12 +20,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.train2send.Train2SendApp
 import com.train2send.data.model.*
 import com.train2send.utils.calculateExerciseDuration
-import java.time.DayOfWeek
-import java.time.Instant
-import java.time.LocalDate
-import java.time.LocalTime
-import java.time.ZoneId
-import kotlin.math.max
 
 @Composable
 fun PlanBreakdownScreen(
@@ -38,27 +29,16 @@ fun PlanBreakdownScreen(
     val app = LocalContext.current.applicationContext as Train2SendApp
     
     var selectedType by remember { mutableStateOf(BreakdownType.TOTAL) }
-    
-    // Time range for current week
-    val today = LocalDate.now()
-    val startOfWeek = today.with(DayOfWeek.MONDAY)
-    val endOfWeek = today.with(DayOfWeek.SUNDAY)
-    
-    val startTimestamp = startOfWeek.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli()
-    val endTimestamp = endOfWeek.atTime(LocalTime.MAX).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
 
     val plannedExercises by app.trainingPlanRepository.getExercisesForPlan(plan.id)
-        .collectAsStateWithLifecycle(initialValue = emptyList())
-    
-    val workoutLogs by app.workoutLogRepository.getLogsBetween(startTimestamp, endTimestamp)
         .collectAsStateWithLifecycle(initialValue = emptyList())
 
     val allExercises by app.exerciseRepository.getAllExercises()
         .collectAsStateWithLifecycle(initialValue = emptyList())
     val exerciseMap = allExercises.associateBy { it.id }
 
-    val categoryData = remember(plannedExercises, workoutLogs, exerciseMap, selectedType) {
-        calculateBreakdown(plannedExercises, workoutLogs, exerciseMap, selectedType)
+    val categoryData = remember(plannedExercises, exerciseMap, selectedType) {
+        calculateBreakdown(plannedExercises, exerciseMap, selectedType)
     }
 
     Column(
@@ -98,7 +78,7 @@ fun PlanBreakdownScreen(
             Spacer(modifier = Modifier.height(24.dp))
 
             SessionBreakdownChart(
-                data = categoryData.filter { it.total > 0 || it.completed > 0 },
+                data = categoryData.filter { it.total > 0 },
                 unitLabel = if (selectedType == BreakdownType.TIME) "Hours" else "Sessions"
             )
         }
@@ -159,22 +139,12 @@ private fun SessionBreakdownChart(
                         val width = size.width
                         val barHeight = size.height
                         
-                        // Total bar (light)
+                        // Total bar
                         val totalWidth = (item.total / axisMax) * width
                         if (totalWidth > 0) {
                             drawRoundRect(
                                 color = item.color.copy(alpha = 0.6f),
                                 size = Size(totalWidth, barHeight),
-                                cornerRadius = CornerRadius(4.dp.toPx())
-                            )
-                        }
-                        
-                        // Completed bar (solid)
-                        val completedWidth = (item.completed / axisMax) * width
-                        if (completedWidth > 0) {
-                            drawRoundRect(
-                                color = item.color,
-                                size = Size(completedWidth, barHeight),
                                 cornerRadius = CornerRadius(4.dp.toPx())
                             )
                         }
@@ -219,7 +189,6 @@ private fun SessionBreakdownChart(
 
 private fun calculateBreakdown(
     planned: List<PlannedExerciseEntity>,
-    logs: List<WorkoutLogEntity>,
     exerciseMap: Map<String, ExerciseEntity>,
     type: BreakdownType
 ): List<CategoryBreakdown> {
@@ -228,19 +197,13 @@ private fun calculateBreakdown(
             val exercise = exerciseMap[pe.exerciseId]
             exercise?.category == cat && (pe.isSelected || pe.alternativeGroupId.isNullOrBlank())
         }
-        
-        val logsForCat = logs.filter { log ->
-            val exercise = exerciseMap[log.exerciseId]
-            exercise?.category == cat
-        }
 
         val color = try {
             val baseColor = android.graphics.Color.parseColor(cat.colorHex)
             val hsv = FloatArray(3)
             android.graphics.Color.colorToHSV(baseColor, hsv)
-            // Force maximum brightness and saturation for visibility in dark mode
-            hsv[1] = 1.0f // Saturation
-            hsv[2] = 1.0f // Value/Brightness
+            hsv[1] = 1.0f
+            hsv[2] = 1.0f
             Color(android.graphics.Color.HSVToColor(hsv))
         } catch (e: Exception) {
             Color.Gray
@@ -257,28 +220,21 @@ private fun calculateBreakdown(
                     restSetSec = pe.customRestBetweenSetsSec ?: exercise?.defaultRestBetweenSetsSec
                 )
             }
-            val completedSeconds = logsForCat.sumOf { it.durationSeconds ?: 0 }
             
             CategoryBreakdown(
                 label = cat.label,
                 color = color,
-                completed = completedSeconds / 3600f,
-                total = max(plannedSeconds / 3600f, completedSeconds / 3600f)
+                completed = 0f,
+                total = plannedSeconds / 3600f
             )
         } else {
-            // Sessions (Days)
             val plannedDays = plannedForCat.map { it.planDayId }.distinct().size.toFloat()
-            
-            // For logs, we group by date
-            val completedDays = logsForCat.map { log ->
-                Instant.ofEpochMilli(log.timestamp).atZone(ZoneId.systemDefault()).toLocalDate()
-            }.distinct().size.toFloat()
 
             CategoryBreakdown(
                 label = cat.label,
                 color = color,
-                completed = completedDays,
-                total = max(plannedDays, completedDays)
+                completed = 0f,
+                total = plannedDays
             )
         }
     }

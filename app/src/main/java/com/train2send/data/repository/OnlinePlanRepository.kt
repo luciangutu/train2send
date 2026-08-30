@@ -16,8 +16,8 @@ import io.ktor.client.request.*
 import io.ktor.client.plugins.logging.*
 import io.ktor.serialization.kotlinx.json.*
 import android.util.Log
+import java.io.Closeable
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -27,7 +27,7 @@ private val Context.onlinePlansDataStore: DataStore<Preferences> by preferencesD
 class OnlinePlanRepository(
     private val context: Context,
     private val backupManager: BackupManager
-) {
+) : Closeable {
     private val client = HttpClient(Android) {
         install(ContentNegotiation) {
             json(Json {
@@ -108,5 +108,9 @@ class OnlinePlanRepository(
             currentMap[fileName] = sha
             preferences[PreferencesKeys.PLAN_SHAS] = json.encodeToString(currentMap as Map<String, String>)
         }
+    }
+
+    override fun close() {
+        client.close()
     }
 }

@@ -3,6 +3,7 @@ package com.train2send.ui.screens.timer
 import android.content.Context
 import android.media.AudioAttributes
 import android.media.SoundPool
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -24,6 +25,7 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -33,15 +35,13 @@ import com.train2send.domain.timer.SoundEvent
 import com.train2send.domain.timer.TimerState
 import com.train2send.utils.formatCountdown
 import com.train2send.utils.formatDuration
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import java.io.File
 import java.io.FileOutputStream
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 
-fun generate880HzWav(context: Context): File {
+private fun generate880HzWav(context: Context): File {
     val sampleRate = 44100
     val duration = 0.15
     val numSamples = (sampleRate * duration).toInt()
@@ -146,7 +146,7 @@ fun TimerScreen(
 ) {
     val timerEngine = remember { FlexibleTimerEngine() }
     val timerState by timerEngine.state.collectAsStateWithLifecycle()
-    val timerScope = remember { CoroutineScope(Dispatchers.Default) }
+    val timerScope = rememberCoroutineScope()
 
     var workSecInput by remember { mutableStateOf(work?.toString() ?: "10") }
     var restRepSecInput by remember { mutableStateOf(restRep?.toString() ?: "0") }
@@ -165,6 +165,7 @@ fun TimerScreen(
     DisposableEffect(Unit) {
         onDispose {
             view.keepScreenOn = false
+            timerEngine.stop()
         }
     }
 
@@ -345,8 +346,13 @@ fun TimerScreen(
 
             if (!description.isNullOrBlank()) {
                 Spacer(modifier = Modifier.height(24.dp))
+                var isExpanded by remember { mutableStateOf(false) }
+                var hasOverflow by remember { mutableStateOf(false) }
+
                 Card(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable { if (hasOverflow) isExpanded = !isExpanded },
                     shape = RoundedCornerShape(16.dp),
                     colors = CardDefaults.cardColors(
                         containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
@@ -362,8 +368,23 @@ fun TimerScreen(
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
                             text = description,
-                            style = MaterialTheme.typography.bodyMedium
+                            style = MaterialTheme.typography.bodyMedium,
+                            maxLines = if (isExpanded) Int.MAX_VALUE else 3,
+                            overflow = TextOverflow.Ellipsis,
+                            onTextLayout = { result ->
+                                if (!isExpanded) {
+                                    hasOverflow = result.hasVisualOverflow
+                                }
+                            }
                         )
+                        if (hasOverflow || isExpanded) {
+                            Text(
+                                text = if (isExpanded) "Show less" else "Show more",
+                                style = MaterialTheme.typography.labelSmall,
+                                color = MaterialTheme.colorScheme.primary,
+                                modifier = Modifier.padding(top = 4.dp)
+                            )
+                        }
                     }
                 }
             }

@@ -27,7 +27,9 @@ import com.train2send.data.model.ExerciseEntity
 import com.train2send.data.model.PlannedExerciseEntity
 import com.train2send.ui.navigation.Screen
 import com.train2send.utils.calculateExerciseDuration
+import com.train2send.utils.color
 import com.train2send.utils.formatDuration
+import com.train2send.utils.resolveExerciseParams
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -63,20 +65,13 @@ fun ExerciseDetailScreen(
                 },
                 actions = {
                     IconButton(onClick = {
-                        val work = planned?.customDurationSec ?: exercise?.defaultDurationSec
-                        val restRep = planned?.customRestSec ?: exercise?.defaultRestSec
-                        val reps = planned?.customReps ?: exercise?.defaultReps
-                        val sets = planned?.customSets ?: exercise?.defaultSets
-                        val restSet = planned?.customRestBetweenSetsSec ?: exercise?.defaultRestBetweenSetsSec
-                        val description = exercise?.description
-                        
                         navController.navigate(Screen.Timer.createRoute(
-                            work = work,
-                            restRep = restRep,
-                            reps = reps,
-                            sets = sets,
-                            restSet = restSet,
-                            description = description
+                            work = planned?.customDurationSec ?: exercise?.defaultDurationSec,
+                            restRep = planned?.customRestSec ?: exercise?.defaultRestSec,
+                            reps = planned?.customReps ?: exercise?.defaultReps,
+                            sets = planned?.customSets ?: exercise?.defaultSets,
+                            restSet = planned?.customRestBetweenSetsSec ?: exercise?.defaultRestBetweenSetsSec,
+                            description = exercise?.description
                         ))
                     }) {
                         Icon(Icons.Default.Timer, contentDescription = "Start Timer")
@@ -145,7 +140,7 @@ private fun ExerciseDetailContent(
     planned: PlannedExerciseEntity?,
     modifier: Modifier = Modifier
 ) {
-    val categoryColor = Color(android.graphics.Color.parseColor(exercise.category.colorHex))
+    val categoryColor = exercise.category.color
 
     Column(
         modifier = modifier
@@ -280,6 +275,8 @@ private fun ExerciseDetailContent(
 
 @Composable
 private fun PlannedValuesSection(planned: PlannedExerciseEntity, exercise: ExerciseEntity) {
+    val params = resolveExerciseParams(planned, exercise)
+    
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
@@ -291,14 +288,14 @@ private fun PlannedValuesSection(planned: PlannedExerciseEntity, exercise: Exerc
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 DetailBox(
                     label = "Sets",
-                    value = (planned.customSets ?: exercise.defaultSets)?.toString() ?: "--",
+                    value = params.sets?.toString() ?: "--",
                     icon = Icons.Default.FitnessCenter,
                     modifier = Modifier.weight(1f),
                     compact = true
                 )
                 DetailBox(
                     label = "Reps",
-                    value = (planned.customReps ?: exercise.defaultReps)?.toString() ?: "--",
+                    value = params.reps?.toString() ?: "--",
                     icon = Icons.Default.FitnessCenter,
                     modifier = Modifier.weight(1f),
                     compact = true
@@ -308,24 +305,24 @@ private fun PlannedValuesSection(planned: PlannedExerciseEntity, exercise: Exerc
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 DetailBox(
                     label = "Work",
-                    value = (planned.customDurationSec ?: exercise.defaultDurationSec)?.let { formatDuration(it) } ?: "--",
+                    value = params.durationSec?.let { formatDuration(it) } ?: "--",
                     icon = Icons.Default.Timer,
                     modifier = Modifier.weight(1f),
                     compact = true
                 )
                 DetailBox(
                     label = "Rest (Set)",
-                    value = (planned.customRestBetweenSetsSec ?: exercise.defaultRestBetweenSetsSec)?.let { formatDuration(it) } ?: "--",
+                    value = params.restBetweenSetsSec?.let { formatDuration(it) } ?: "--",
                     icon = Icons.Default.Timer,
                     modifier = Modifier.weight(1f),
                     compact = true
                 )
             }
-            if (planned.customRestSec != null || exercise.defaultRestSec != null) {
+            if (params.restSec != null) {
                 Spacer(modifier = Modifier.height(12.dp))
                 DetailBox(
                     label = "Rest (Rep)",
-                    value = (planned.customRestSec ?: exercise.defaultRestSec)?.let { formatDuration(it) } ?: "--",
+                    value = params.restSec.let { formatDuration(it) },
                     icon = Icons.Default.Timer,
                     modifier = Modifier.fillMaxWidth(),
                     compact = true
@@ -333,11 +330,11 @@ private fun PlannedValuesSection(planned: PlannedExerciseEntity, exercise: Exerc
             }
             Spacer(modifier = Modifier.height(12.dp))
             val totalSec = calculateExerciseDuration(
-                sets = planned.customSets ?: exercise.defaultSets,
-                reps = planned.customReps ?: exercise.defaultReps,
-                workRepSec = planned.customDurationSec ?: exercise.defaultDurationSec,
-                restRepSec = planned.customRestSec ?: exercise.defaultRestSec,
-                restSetSec = planned.customRestBetweenSetsSec ?: exercise.defaultRestBetweenSetsSec
+                sets = params.sets,
+                reps = params.reps,
+                workRepSec = params.durationSec,
+                restRepSec = params.restSec,
+                restSetSec = params.restBetweenSetsSec
             )
             DetailBox(
                 label = "Total Duration",

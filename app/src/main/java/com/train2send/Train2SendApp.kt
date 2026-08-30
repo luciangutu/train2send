@@ -7,7 +7,6 @@ import com.train2send.data.repository.ExerciseRepository
 import com.train2send.data.repository.OnlinePlanRepository
 import com.train2send.data.repository.TrainingPlanRepository
 import com.train2send.data.repository.UserPreferencesRepository
-import com.train2send.data.repository.WorkoutLogRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.first
@@ -24,10 +23,10 @@ class Train2SendApp : Application() {
     lateinit var trainingPlanRepository: TrainingPlanRepository
         private set
 
-    lateinit var workoutLogRepository: WorkoutLogRepository
+    lateinit var onlinePlanRepository: OnlinePlanRepository
         private set
 
-    lateinit var onlinePlanRepository: OnlinePlanRepository
+    lateinit var backupManager: BackupManager
         private set
 
     lateinit var userPreferencesRepository: UserPreferencesRepository
@@ -38,9 +37,9 @@ class Train2SendApp : Application() {
         database = AppDatabase.getInstance(this)
         exerciseRepository = ExerciseRepository(database.exerciseDao())
         trainingPlanRepository = TrainingPlanRepository(database.trainingPlanDao())
-        workoutLogRepository = WorkoutLogRepository(database.workoutLogDao())
         userPreferencesRepository = UserPreferencesRepository(this)
-        onlinePlanRepository = OnlinePlanRepository(this, BackupManager(this))
+        backupManager = BackupManager(this)
+        onlinePlanRepository = OnlinePlanRepository(this, backupManager)
 
         prepopulateDataIfNeeded()
     }
@@ -51,7 +50,7 @@ class Train2SendApp : Application() {
             if (exercises.isEmpty()) {
                 try {
                     val jsonString = assets.open("demo_climbing_plans.json").bufferedReader().use { it.readText() }
-                    BackupManager(this@Train2SendApp).importFromJson(jsonString)
+                    backupManager.importFromJson(jsonString)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

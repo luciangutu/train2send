@@ -34,8 +34,11 @@ import com.train2send.data.model.PlannedExerciseEntity
 import com.train2send.data.repository.ThemePreference
 import com.train2send.ui.navigation.Screen
 import com.train2send.utils.calculateExerciseDuration
+import com.train2send.utils.color
+import com.train2send.utils.estimateDuration
 import com.train2send.utils.formatDuration
 import com.train2send.utils.formatDurationRounded
+import com.train2send.utils.resolveExerciseParams
 import kotlinx.coroutines.launch
 import java.time.DayOfWeek
 import java.time.LocalDate
@@ -351,18 +354,7 @@ private fun TodaySessionCard(
                            else MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 
-                val estimatedSec = if (exercises.isEmpty()) 0 else {
-                    exercises.sumOf { planned ->
-                        val exercise = exerciseMap[planned.exerciseId]
-                        calculateExerciseDuration(
-                            sets = planned.customSets ?: exercise?.defaultSets,
-                            reps = planned.customReps ?: exercise?.defaultReps,
-                            workRepSec = planned.customDurationSec ?: exercise?.defaultDurationSec,
-                            restRepSec = planned.customRestSec ?: exercise?.defaultRestSec,
-                            restSetSec = planned.customRestBetweenSetsSec ?: exercise?.defaultRestBetweenSetsSec
-                        )
-                    }
-                }
+                val estimatedSec = estimateDuration(exercises, exerciseMap)
                 Text(
                     text = "${exercises.size} exercises · ~${formatDurationRounded(estimatedSec)}",
                     style = MaterialTheme.typography.bodySmall,
@@ -483,13 +475,7 @@ private fun ExerciseTile(
         MaterialTheme.colorScheme.onSurfaceVariant
     }
 
-    val categoryColor = exercise?.let {
-        try {
-            Color(android.graphics.Color.parseColor(it.category.colorHex))
-        } catch (e: Exception) {
-            contentColor
-        }
-    } ?: contentColor
+    val categoryColor = exercise?.category?.color ?: contentColor
 
     val indicatorColor = when (planned.section) {
         ExerciseSection.MAIN -> categoryColor
@@ -535,9 +521,10 @@ private fun ExerciseTile(
                     color = contentColor
                 )
                 
-                val sets = planned.customSets ?: exercise?.defaultSets
-                val reps = planned.customReps ?: exercise?.defaultReps
-                val duration = planned.customDurationSec ?: exercise?.defaultDurationSec
+                val params = resolveExerciseParams(planned, exercise)
+                val sets = params.sets
+                val reps = params.reps
+                val duration = params.durationSec
 
                 val detailText = buildString {
                     if (sets != null) append("${sets}x")
@@ -552,8 +539,8 @@ private fun ExerciseTile(
                         sets = sets,
                         reps = reps,
                         workRepSec = duration,
-                        restRepSec = planned.customRestSec ?: exercise?.defaultRestSec,
-                        restSetSec = planned.customRestBetweenSetsSec ?: exercise?.defaultRestBetweenSetsSec
+                        restRepSec = params.restSec,
+                        restSetSec = params.restBetweenSetsSec
                     )
                     if (totalSec > 0) {
                         append(" · ${formatDuration(totalSec)}")

@@ -24,7 +24,6 @@ class FlexibleTimerEngine {
     val state: StateFlow<TimerState> = _state.asStateFlow()
 
     private val _isPaused = MutableStateFlow(false)
-    val isPaused: StateFlow<Boolean> = _isPaused.asStateFlow()
 
     private val _soundEvents = MutableSharedFlow<SoundEvent>(extraBufferCapacity = 10)
     val soundEvents: SharedFlow<SoundEvent> = _soundEvents.asSharedFlow()
@@ -150,12 +149,6 @@ class FlexibleTimerEngine {
     }
 
     fun stop() {
-        job?.cancel()
-        _isPaused.value = false
-        _state.value = TimerState.Idle
-    }
-
-    fun reset() {
         job?.cancel()
         _isPaused.value = false
         _state.value = TimerState.Idle

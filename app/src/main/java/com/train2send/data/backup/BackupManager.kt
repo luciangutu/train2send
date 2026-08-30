@@ -1,6 +1,7 @@
 package com.train2send.data.backup
 
 import android.util.Log
+import androidx.room.withTransaction
 import com.train2send.Train2SendApp
 import com.train2send.data.model.*
 import kotlinx.coroutines.flow.first
@@ -86,98 +87,100 @@ class BackupManager(private val app: Train2SendApp) {
         val backup = json.decodeFromString(BackupData.serializer(), jsonString)
         Log.d("BackupManager", "Decoded ${backup.exercises.size} exercises and ${backup.plans.size} plans")
 
-        var exercisesImported = 0
-        var plansImported = 0
-        var lastActivePlanId: String? = null
+        return app.database.withTransaction {
+            var exercisesImported = 0
+            var plansImported = 0
+            var lastActivePlanId: String? = null
 
-        // Import exercises
-        backup.exercises.forEach { exBackup ->
-            val category = try {
-                ExerciseCategory.valueOf(exBackup.category)
-            } catch (_: Exception) {
-                ExerciseCategory.STRENGTH // fallback
+            // Import exercises
+            backup.exercises.forEach { exBackup ->
+                val category = try {
+                    ExerciseCategory.valueOf(exBackup.category)
+                } catch (_: Exception) {
+                    ExerciseCategory.STRENGTH // fallback
+                }
+
+                app.exerciseRepository.insertExercise(
+                    ExerciseEntity(
+                        id = exBackup.id,
+                        name = exBackup.name,
+                        category = category,
+                        climbingType = try { ClimbingType.valueOf(exBackup.climbingType) } catch (_: Exception) { ClimbingType.ANY },
+                        description = exBackup.description,
+                        defaultSets = exBackup.defaultSets,
+                        defaultReps = exBackup.defaultReps,
+                        defaultDurationSec = exBackup.defaultDurationSec,
+                        defaultRestSec = exBackup.defaultRestSec,
+                        defaultRestBetweenSetsSec = exBackup.defaultRestBetweenSetsSec
+                    )
+                )
+                exercisesImported++
             }
 
-            app.exerciseRepository.insertExercise(
-                ExerciseEntity(
-                    id = exBackup.id,
-                    name = exBackup.name,
-                    category = category,
-                    climbingType = try { ClimbingType.valueOf(exBackup.climbingType) } catch (_: Exception) { ClimbingType.ANY },
-                    description = exBackup.description,
-                    defaultSets = exBackup.defaultSets,
-                    defaultReps = exBackup.defaultReps,
-                    defaultDurationSec = exBackup.defaultDurationSec,
-                    defaultRestSec = exBackup.defaultRestSec,
-                    defaultRestBetweenSetsSec = exBackup.defaultRestBetweenSetsSec
-                )
-            )
-            exercisesImported++
-        }
-
-        // Import plans
-        backup.plans.forEach { planBackup ->
-            app.trainingPlanRepository.insertPlan(
-                TrainingPlanEntity(
-                    id = planBackup.id,
-                    title = planBackup.title,
-                    isActive = planBackup.isActive,
-                    createdAt = planBackup.createdAt
-                )
-            )
-            
-            if (planBackup.isActive) {
-                lastActivePlanId = planBackup.id
-            }
-
-            planBackup.days.forEach { dayBackup ->
-                app.trainingPlanRepository.insertPlanDay(
-                    PlanDayEntity(
-                        id = dayBackup.id,
-                        planId = planBackup.id,
-                        dayOfWeek = dayBackup.dayOfWeek,
-                        dayTitle = dayBackup.dayTitle
+            // Import plans
+            backup.plans.forEach { planBackup ->
+                app.trainingPlanRepository.insertPlan(
+                    TrainingPlanEntity(
+                        id = planBackup.id,
+                        title = planBackup.title,
+                        isActive = planBackup.isActive,
+                        createdAt = planBackup.createdAt
                     )
                 )
 
-                app.trainingPlanRepository.deleteExercisesForDay(dayBackup.id)
+                if (planBackup.isActive) {
+                    lastActivePlanId = planBackup.id
+                }
 
-                dayBackup.exercises.forEach { peBackup ->
-                    val section = try {
-                        ExerciseSection.valueOf(peBackup.section)
-                    } catch (_: Exception) {
-                        ExerciseSection.MAIN
-                    }
-
-                    app.trainingPlanRepository.insertPlannedExercise(
-                        PlannedExerciseEntity(
-                            id = peBackup.id,
-                            planDayId = dayBackup.id,
-                            exerciseId = peBackup.exerciseId,
-                            section = section,
-                            alternativeGroupId = peBackup.alternativeGroupId,
-                            isSelected = peBackup.isSelected,
-                            orderIndex = peBackup.orderIndex,
-                            notes = peBackup.notes,
-                            customSets = peBackup.customSets,
-                            customReps = peBackup.customReps,
-                            customDurationSec = peBackup.customDurationSec,
-                            customRestSec = peBackup.customRestSec,
-                            customRestBetweenSetsSec = peBackup.customRestBetweenSetsSec
+                planBackup.days.forEach { dayBackup ->
+                    app.trainingPlanRepository.insertPlanDay(
+                        PlanDayEntity(
+                            id = dayBackup.id,
+                            planId = planBackup.id,
+                            dayOfWeek = dayBackup.dayOfWeek,
+                            dayTitle = dayBackup.dayTitle
                         )
                     )
-                }
-            }
-            plansImported++
-            Log.d("BackupManager", "Imported plan: ${planBackup.title} with ${planBackup.days.size} days")
-        }
-        
-        // Ensure only one plan is active if any active plans were imported
-        lastActivePlanId?.let { id ->
-            app.trainingPlanRepository.activatePlan(id)
-        }
 
-        return ImportResult(exercisesImported, plansImported)
+                    app.trainingPlanRepository.deleteExercisesForDay(dayBackup.id)
+
+                    dayBackup.exercises.forEach { peBackup ->
+                        val section = try {
+                            ExerciseSection.valueOf(peBackup.section)
+                        } catch (_: Exception) {
+                            ExerciseSection.MAIN
+                        }
+
+                        app.trainingPlanRepository.insertPlannedExercise(
+                            PlannedExerciseEntity(
+                                id = peBackup.id,
+                                planDayId = dayBackup.id,
+                                exerciseId = peBackup.exerciseId,
+                                section = section,
+                                alternativeGroupId = peBackup.alternativeGroupId,
+                                isSelected = peBackup.isSelected,
+                                orderIndex = peBackup.orderIndex,
+                                notes = peBackup.notes,
+                                customSets = peBackup.customSets,
+                                customReps = peBackup.customReps,
+                                customDurationSec = peBackup.customDurationSec,
+                                customRestSec = peBackup.customRestSec,
+                                customRestBetweenSetsSec = peBackup.customRestBetweenSetsSec
+                            )
+                        )
+                    }
+                }
+                plansImported++
+                Log.d("BackupManager", "Imported plan: ${planBackup.title} with ${planBackup.days.size} days")
+            }
+
+            // Ensure only one plan is active if any active plans were imported
+            lastActivePlanId?.let { id ->
+                app.trainingPlanRepository.activatePlan(id)
+            }
+
+            ImportResult(exercisesImported, plansImported)
+        }
     }
 
     data class ImportResult(

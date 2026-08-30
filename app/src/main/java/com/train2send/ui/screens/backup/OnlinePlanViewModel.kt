@@ -105,10 +105,6 @@ class OnlinePlanViewModel(
     fun clearDownloadSuccess() {
         _downloadSuccess.value = null
     }
-    
-    fun clearError() {
-        _errorMessage.value = null
-    }
 
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {

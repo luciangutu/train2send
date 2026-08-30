@@ -14,7 +14,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -24,8 +23,11 @@ import com.train2send.Train2SendApp
 import com.train2send.data.model.*
 import com.train2send.ui.navigation.Screen
 import com.train2send.utils.calculateExerciseDuration
+import com.train2send.utils.color
+import com.train2send.utils.estimateDuration
 import com.train2send.utils.formatDuration
 import com.train2send.utils.formatDurationRounded
+import com.train2send.utils.resolveExerciseParams
 import kotlinx.coroutines.launch
 import java.time.DayOfWeek
 import java.time.format.TextStyle
@@ -432,7 +434,7 @@ private fun ExercisePickerItem(
     exercise: ExerciseEntity,
     onClick: () -> Unit
 ) {
-    val categoryColor = Color(android.graphics.Color.parseColor(exercise.category.colorHex))
+    val categoryColor = exercise.category.color
 
     Card(
         modifier = Modifier
@@ -492,9 +494,8 @@ private fun PlannedExerciseCard(
     onToggleVariant: (() -> Unit)? = null,
     onClick: () -> Unit
 ) {
-    val categoryColor = exercise?.let {
-        Color(android.graphics.Color.parseColor(it.category.colorHex))
-    } ?: MaterialTheme.colorScheme.outline
+    val categoryColor = exercise?.category?.color
+        ?: MaterialTheme.colorScheme.outline
 
     var showRemoveConfirm by remember { mutableStateOf(false) }
 
@@ -539,11 +540,12 @@ private fun PlannedExerciseCard(
                 }
             }
             Column(horizontalAlignment = Alignment.End) {
-                val sets = planned.customSets ?: exercise?.defaultSets
-                val reps = planned.customReps ?: exercise?.defaultReps
-                val duration = planned.customDurationSec ?: exercise?.defaultDurationSec
-                val rest = planned.customRestSec ?: exercise?.defaultRestSec
-                val restSet = planned.customRestBetweenSetsSec ?: exercise?.defaultRestBetweenSetsSec
+                val params = resolveExerciseParams(planned, exercise)
+                val sets = params.sets
+                val reps = params.reps
+                val duration = params.durationSec
+                val rest = params.restSec
+                val restSet = params.restBetweenSetsSec
 
                 sets?.let { Text("$it sets", style = MaterialTheme.typography.labelSmall) }
                 reps?.let { Text("$it reps", style = MaterialTheme.typography.labelSmall) }
@@ -624,23 +626,6 @@ private fun PlannedExerciseCard(
                     Text("Cancel")
                 }
             }
-        )
-    }
-}
-
-private fun estimateDuration(
-    exercises: List<PlannedExerciseEntity>,
-    exerciseMap: Map<String, ExerciseEntity>
-): Int {
-    if (exercises.isEmpty()) return 0
-    return exercises.sumOf { planned ->
-        val exercise = exerciseMap[planned.exerciseId]
-        calculateExerciseDuration(
-            sets = planned.customSets ?: exercise?.defaultSets,
-            reps = planned.customReps ?: exercise?.defaultReps,
-            workRepSec = planned.customDurationSec ?: exercise?.defaultDurationSec,
-            restRepSec = planned.customRestSec ?: exercise?.defaultRestSec,
-            restSetSec = planned.customRestBetweenSetsSec ?: exercise?.defaultRestBetweenSetsSec
         )
     }
 }

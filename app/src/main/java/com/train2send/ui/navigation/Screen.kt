@@ -1,5 +1,7 @@
 package com.train2send.ui.navigation
 
+import android.net.Uri
+
 sealed class Screen(val route: String) {
     data object Home : Screen("home")
     data object Exercises : Screen("exercises")
@@ -15,7 +17,6 @@ sealed class Screen(val route: String) {
     data object WeeklyPlan : Screen("weekly-plan")
     data object PlanList : Screen("plans")
     data object PlanSetup : Screen("plan-setup?planId={planId}") {
-        const val route_base = "plan-setup"
         fun createRoute(planId: String? = null): String =
             if (planId != null) "plan-setup?planId=$planId" else "plan-setup"
     }
@@ -37,7 +38,7 @@ sealed class Screen(val route: String) {
             reps?.let { params.add("reps=$it") }
             sets?.let { params.add("sets=$it") }
             restSet?.let { params.add("restSet=$it") }
-            description?.let { params.add("description=$it") }
+            description?.let { params.add("description=${Uri.encode(it)}") }
             return if (params.isEmpty()) "timer" else "timer?${params.joinToString("&")}"
         }
     }

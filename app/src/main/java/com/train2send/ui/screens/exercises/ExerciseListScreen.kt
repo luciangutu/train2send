@@ -12,7 +12,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -23,6 +22,7 @@ import com.train2send.data.model.ExerciseCategory
 import com.train2send.data.model.ExerciseEntity
 import com.train2send.ui.components.SearchTopAppBar
 import com.train2send.ui.navigation.Screen
+import com.train2send.utils.color
 import com.train2send.utils.formatDuration
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -127,7 +127,7 @@ fun ExerciseListScreen(navController: NavController) {
 
 @Composable
 private fun ExerciseCard(exercise: ExerciseEntity, onClick: () -> Unit) {
-    val categoryColor = Color(android.graphics.Color.parseColor(exercise.category.colorHex))
+    val categoryColor = exercise.category.color
 
     Card(
         modifier = Modifier

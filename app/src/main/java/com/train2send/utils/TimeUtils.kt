@@ -1,5 +1,8 @@
 package com.train2send.utils
 
+import com.train2send.data.model.ExerciseEntity
+import com.train2send.data.model.PlannedExerciseEntity
+
 fun formatDuration(totalSeconds: Int): String {
     if (totalSeconds <= 0) return "0s"
     
@@ -67,4 +70,47 @@ fun calculateExerciseDuration(
 
     val workPerSet = r * t + (if (r > 1) (r - 1) * rr else 0)
     return s * workPerSet + (s - 1) * rs
+}
+
+/**
+ * Resolves the effective exercise parameters by coalescing planned custom values
+ * with the exercise defaults.
+ */
+data class ResolvedExerciseParams(
+    val sets: Int?,
+    val reps: Int?,
+    val durationSec: Int?,
+    val restSec: Int?,
+    val restBetweenSetsSec: Int?
+)
+
+fun resolveExerciseParams(
+    planned: PlannedExerciseEntity,
+    exercise: ExerciseEntity?
+): ResolvedExerciseParams = ResolvedExerciseParams(
+    sets = planned.customSets ?: exercise?.defaultSets,
+    reps = planned.customReps ?: exercise?.defaultReps,
+    durationSec = planned.customDurationSec ?: exercise?.defaultDurationSec,
+    restSec = planned.customRestSec ?: exercise?.defaultRestSec,
+    restBetweenSetsSec = planned.customRestBetweenSetsSec ?: exercise?.defaultRestBetweenSetsSec
+)
+
+/**
+ * Estimates the total duration in seconds for a list of planned exercises.
+ */
+fun estimateDuration(
+    exercises: List<PlannedExerciseEntity>,
+    exerciseMap: Map<String, ExerciseEntity>
+): Int {
+    if (exercises.isEmpty()) return 0
+    return exercises.sumOf { planned ->
+        val params = resolveExerciseParams(planned, exerciseMap[planned.exerciseId])
+        calculateExerciseDuration(
+            sets = params.sets,
+            reps = params.reps,
+            workRepSec = params.durationSec,
+            restRepSec = params.restSec,
+            restSetSec = params.restBetweenSetsSec
+        )
+    }
 }

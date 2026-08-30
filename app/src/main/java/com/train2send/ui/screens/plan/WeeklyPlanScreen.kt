@@ -16,7 +16,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -24,15 +23,11 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.train2send.Train2SendApp
-import com.train2send.data.model.ExerciseCategory
 import com.train2send.data.model.ExerciseEntity
 import com.train2send.data.model.PlanDayEntity
-import com.train2send.data.model.PlannedExerciseEntity
 import com.train2send.data.model.TrainingPlanEntity
 import com.train2send.ui.navigation.Screen
-import com.train2send.ui.screens.plan.TrainingGuideScreen
-import com.train2send.utils.calculateExerciseDuration
-import com.train2send.utils.formatDuration
+import com.train2send.utils.estimateDuration
 import com.train2send.utils.formatDurationRounded
 import java.time.DayOfWeek
 import java.time.LocalDate
@@ -90,7 +85,7 @@ fun WeeklyPlanScreen(navController: NavController) {
         floatingActionButton = {
             if (activePlan == null) {
                 FloatingActionButton(
-                    onClick = { navController.navigate(Screen.PlanSetup.route) }
+                    onClick = { navController.navigate(Screen.PlanSetup.createRoute()) }
                 ) {
                     Icon(Icons.Default.Add, contentDescription = "Create Plan")
                 }
@@ -102,7 +97,7 @@ fun WeeklyPlanScreen(navController: NavController) {
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(padding),
-                onCreatePlan = { navController.navigate(Screen.PlanSetup.route) }
+                onCreatePlan = { navController.navigate(Screen.PlanSetup.createRoute()) }
             )
         } else {
             when (selectedTab) {
@@ -483,22 +478,5 @@ private fun DaySummaryCard(
                 tint = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
-    }
-}
-
-private fun estimateDuration(
-    exercises: List<PlannedExerciseEntity>,
-    exerciseMap: Map<String, ExerciseEntity>
-): Int {
-    if (exercises.isEmpty()) return 0
-    return exercises.sumOf { planned ->
-        val exercise = exerciseMap[planned.exerciseId]
-        calculateExerciseDuration(
-            sets = planned.customSets ?: exercise?.defaultSets,
-            reps = planned.customReps ?: exercise?.defaultReps,
-            workRepSec = planned.customDurationSec ?: exercise?.defaultDurationSec,
-            restRepSec = planned.customRestSec ?: exercise?.defaultRestSec,
-            restSetSec = planned.customRestBetweenSetsSec ?: exercise?.defaultRestBetweenSetsSec
-        )
     }
 }

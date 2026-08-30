@@ -15,11 +15,3 @@ data class GitHubFile(
     @SerialName("download_url") val downloadUrl: String?,
     val type: String
 )
-
-@Serializable
-data class OnlinePlanMetadata(
-    val id: String,
-    val sha: String,
-    val name: String,
-    val lastDownloadedAt: Long = System.currentTimeMillis()
-)

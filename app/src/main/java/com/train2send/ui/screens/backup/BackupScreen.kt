@@ -23,7 +23,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.train2send.Train2SendApp
-import com.train2send.data.backup.BackupManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -45,7 +44,7 @@ fun BackupScreen(
     val context = LocalContext.current
     val app = context.applicationContext as Train2SendApp
     val scope = rememberCoroutineScope()
-    val backupManager = remember { BackupManager(app) }
+    val backupManager = app.backupManager
 
     val onlinePlansState by onlinePlanViewModel.uiState.collectAsStateWithLifecycle()
     val downloadSuccess by onlinePlanViewModel.downloadSuccess.collectAsStateWithLifecycle()

@@ -36,9 +36,6 @@ class TrainingPlanRepository(private val planDao: TrainingPlanDao) {
     suspend fun insertPlanDay(day: PlanDayEntity) =
         planDao.insertPlanDay(day)
 
-    suspend fun updatePlanDay(day: PlanDayEntity) =
-        planDao.updatePlanDay(day)
-
     suspend fun deletePlanDay(day: PlanDayEntity) =
         planDao.deletePlanDay(day)
 

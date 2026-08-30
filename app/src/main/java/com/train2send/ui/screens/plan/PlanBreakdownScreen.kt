@@ -121,8 +121,18 @@ private fun SessionBreakdownChart(
     data: List<CategoryBreakdown>,
     unitLabel: String
 ) {
-    val maxValue = data.maxOfOrNull { it.total }?.let { if (it == 0f) 6f else it } ?: 6f
-    val axisMax = if (maxValue <= 6) 6f else (kotlin.math.ceil(maxValue / 2.0) * 2).toFloat()
+    val isSessions = unitLabel == "Sessions"
+    val maxValue = data.maxOfOrNull { it.total } ?: 0f
+    
+    val axisMax = if (isSessions) {
+        7f // Always 7 days for weekly sessions
+    } else {
+        // Adaptive for hours
+        if (maxValue <= 0f) 6f 
+        else if (maxValue <= 1f) 1f
+        else if (maxValue <= 6f) kotlin.math.ceil(maxValue).toFloat()
+        else (kotlin.math.ceil(maxValue / 2.0) * 2).toFloat()
+    }
 
     Column(modifier = Modifier.fillMaxWidth()) {
         data.forEach { item ->
@@ -184,7 +194,7 @@ private fun SessionBreakdownChart(
         ) {
             val stepCount = axisMax.toInt()
             for (i in 0..stepCount) {
-                val bias = if (stepCount > 0) (i.toFloat() / stepCount) * 2 - 1 else -1f
+                val bias = if (axisMax > 0f) (i.toFloat() / axisMax) * 2 - 1 else -1f
                 Text(
                     text = (i + 1).toString(),
                     style = MaterialTheme.typography.labelSmall,

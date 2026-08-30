@@ -154,7 +154,7 @@ fun HomeScreen(navController: NavController) {
                     title = "Timer",
                     icon = Icons.Default.Timer,
                     modifier = Modifier.weight(1f),
-                    onClick = { navController.navigate(Screen.Timer.route) }
+                    onClick = { navController.navigate(Screen.Timer.createRoute()) }
                 )
                 QuickActionCard(
                     title = "Backup",

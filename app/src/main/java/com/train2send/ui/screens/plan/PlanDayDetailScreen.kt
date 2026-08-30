@@ -86,7 +86,7 @@ fun PlanDayDetailScreen(
                     }
                 },
                 actions = {
-                    IconButton(onClick = { navController.navigate(Screen.Timer.route) }) {
+                    IconButton(onClick = { navController.navigate(Screen.Timer.createRoute()) }) {
                         Icon(Icons.Default.Timer, contentDescription = "Start Timer")
                     }
                 }

@@ -176,22 +176,21 @@ private fun SessionBreakdownChart(
         Spacer(modifier = Modifier.height(4.dp))
 
         // X-Axis
-        Row(
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 116.dp)
+                .height(16.dp)
         ) {
             val stepCount = axisMax.toInt()
             for (i in 0..stepCount) {
+                val bias = if (stepCount > 0) (i.toFloat() / stepCount) * 2 - 1 else -1f
                 Text(
-                    text = i.toString(),
+                    text = (i + 1).toString(),
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.width(IntrinsicSize.Min)
+                    modifier = Modifier.align(androidx.compose.ui.BiasAlignment(bias, 0f))
                 )
-                if (i < stepCount) {
-                    Spacer(modifier = Modifier.weight(1f))
-                }
             }
         }
         

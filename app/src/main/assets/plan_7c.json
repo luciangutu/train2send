@@ -3,6 +3,18 @@
   "exportedAt": 1724500000000,
   "exercises": [
     {
+      "id": "ex-one-arm-shrug",
+      "name": "One Arm Shrug",
+      "category": "STRENGTH",
+      "climbingType": "ANY",
+      "description": "Perform a one-arm scapular shrug while lifting the opposite hand/wrist above the bar, keeping both shoulders level and holding the position.",
+      "defaultSets": 3,
+      "defaultReps": 1,
+      "defaultDurationSec": 10,
+      "defaultRestSec": 60,
+      "defaultPrepareTimeSec": 5
+    },
+    {
       "id": "ex-dead-hang-jugs",
       "name": "Dead-hang on Jugs",
       "category": "STRENGTH",
@@ -40,18 +52,6 @@
       "defaultPrepareTimeSec": 5
     },
     {
-      "id": "ex-strength-endurance-hangboard",
-      "name": "Strength Endurance Hangboard",
-      "category": "POWER_ENDURANCE",
-      "climbingType": "ANY",
-      "description": "Hangboard strength-endurance protocol using repeated 7-second hangs with 3 seconds of rest. Use a moderate-high intensity that allows all repetitions with controlled grip position.",
-      "defaultSets": 1,
-      "defaultReps": 10,
-      "defaultDurationSec": 7,
-      "defaultRestSec": 3,
-      "defaultPrepareTimeSec": 5
-    },
-    {
       "id": "ex-2on2off",
       "name": "2on 2off",
       "category": "ENDURANCE",
@@ -61,19 +61,6 @@
       "defaultReps": 6,
       "defaultDurationSec": 120,
       "defaultRestSec": 120,
-      "defaultPrepareTimeSec": 5
-    },
-    {
-      "id": "ex-easy-routes-autobelay",
-      "name": "Easy Routes Autobelay",
-      "category": "ENDURANCE",
-      "climbingType": "ROPE",
-      "description": "Easy routes on autobelay for aerobic endurance.",
-      "defaultSets": 3,
-      "defaultReps": 5,
-      "defaultDurationSec": 180,
-      "defaultRestSec": 0,
-      "defaultRestBetweenSetsSec": 300,
       "defaultPrepareTimeSec": 5
     },
     {
@@ -353,7 +340,16 @@
               "isSelected": true,
               "orderIndex": 3,
               "customPrepareTimeSec": 5
-            }
+            },
+            {
+              "id": "pe-7c-wed-5",
+              "exerciseId": "ex-one-arm-shrug",
+              "section": "COMPLEMENTARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
+              "orderIndex": 4,
+              "customPrepareTimeSec": 5
+            }   
           ]
         },
         {

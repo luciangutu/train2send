@@ -86,11 +86,6 @@ fun PlanDayDetailScreen(
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
                     }
-                },
-                actions = {
-                    IconButton(onClick = { navController.navigate(Screen.Timer.createRoute()) }) {
-                        Icon(Icons.Default.Timer, contentDescription = "Start Timer")
-                    }
                 }
             )
         },
@@ -323,10 +318,17 @@ private fun AddExerciseSheet(
 ) {
     var selectedSection by remember { mutableStateOf(ExerciseSection.MAIN) }
     var selectedCategory by remember { mutableStateOf<ExerciseCategory?>(null) }
+    var searchQuery by remember { mutableStateOf("") }
 
-    val filteredExercises = allExercises
-        .filter { it.id !in alreadyAdded }
-        .filter { selectedCategory == null || it.category == selectedCategory }
+    val availableExercises = allExercises.filter { it.id !in alreadyAdded }
+    val filteredExercises = availableExercises.filter { exercise ->
+        val matchesCategory = selectedCategory == null || exercise.category == selectedCategory
+        val matchesSearch = searchQuery.isBlank() ||
+                exercise.name.contains(searchQuery, ignoreCase = true) ||
+                exercise.description?.contains(searchQuery, ignoreCase = true) == true
+
+        matchesCategory && matchesSearch
+    }
 
     ModalBottomSheet(onDismissRequest = onDismiss) {
         Column(
@@ -341,6 +343,26 @@ private fun AddExerciseSheet(
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(bottom = 16.dp)
             )
+
+            OutlinedTextField(
+                value = searchQuery,
+                onValueChange = { searchQuery = it },
+                modifier = Modifier.fillMaxWidth(),
+                placeholder = { Text("Search exercises") },
+                leadingIcon = {
+                    Icon(Icons.Default.Search, contentDescription = null)
+                },
+                trailingIcon = {
+                    if (searchQuery.isNotEmpty()) {
+                        IconButton(onClick = { searchQuery = "" }) {
+                            Icon(Icons.Default.Clear, contentDescription = "Clear search")
+                        }
+                    }
+                },
+                singleLine = true
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
 
             // Section picker
             Text(
@@ -369,7 +391,7 @@ private fun AddExerciseSheet(
                 }
             }
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
             // Category filter
             Text(
@@ -377,21 +399,34 @@ private fun AddExerciseSheet(
                 style = MaterialTheme.typography.labelLarge,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
-            Row(
+            FlowRow(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(4.dp)
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 FilterChip(
                     selected = selectedCategory == null,
                     onClick = { selectedCategory = null },
                     label = { Text("All") }
                 )
-                // Show first few categories that fit
-                ExerciseCategory.entries.take(4).forEach { cat ->
+                ExerciseCategory.entries.forEach { cat ->
+                    val categoryColor = cat.color
                     FilterChip(
                         selected = selectedCategory == cat,
                         onClick = { selectedCategory = cat },
-                        label = { Text(cat.label.take(8)) }
+                        label = { Text(cat.label) },
+                        leadingIcon = {
+                            Box(
+                                modifier = Modifier
+                                    .size(8.dp)
+                                    .background(categoryColor, CircleShape)
+                            )
+                        },
+                        colors = FilterChipDefaults.filterChipColors(
+                            selectedContainerColor = categoryColor.copy(alpha = 0.16f),
+                            selectedLabelColor = categoryColor,
+                            selectedLeadingIconColor = categoryColor
+                        )
                     )
                 }
             }
@@ -406,8 +441,12 @@ private fun AddExerciseSheet(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = if (allExercises.isEmpty()) "No exercises created yet.\nCreate exercises first."
-                        else "All exercises already added.",
+                        text = when {
+                            allExercises.isEmpty() -> "No exercises created yet.\nCreate exercises first."
+                            availableExercises.isEmpty() -> "All exercises already added."
+                            searchQuery.isNotBlank() -> "No exercises matching \"$searchQuery\"."
+                            else -> "No exercises in this category."
+                        },
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )

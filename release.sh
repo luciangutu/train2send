@@ -6,13 +6,35 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
 
 # --- Extract versions from build.gradle.kts ---
-CURRENT_VERSION_CODE=$(grep -oP 'versionCode\s*=\s*\K\d+' "$GRADLE_FILE")
-CURRENT_VERSION_NAME=$(grep -oP 'versionName\s*=\s*"\K[^"]+' "$GRADLE_FILE")
+extract_version_code() {
+    grep -oP 'versionCode\s*=\s*\K\d+' "$1" | tail -n 1 || true
+}
+
+extract_version_name() {
+    grep -oP 'versionName\s*=\s*"\K[^"]+' "$1" | tail -n 1 || true
+}
+
+warn_if_multiple_versions() {
+    local version_code_count
+    local version_name_count
+
+    version_code_count=$(grep -cP 'versionCode\s*=' "$GRADLE_FILE" || true)
+    version_name_count=$(grep -cP 'versionName\s*=' "$GRADLE_FILE" || true)
+
+    if [[ "$version_code_count" -gt 1 || "$version_name_count" -gt 1 ]]; then
+        echo "⚠️  Multiple version declarations found in $GRADLE_FILE; using the last one Gradle applies."
+    fi
+}
+
+CURRENT_VERSION_CODE=$(extract_version_code "$GRADLE_FILE")
+CURRENT_VERSION_NAME=$(extract_version_name "$GRADLE_FILE")
 
 if [[ -z "$CURRENT_VERSION_CODE" || -z "$CURRENT_VERSION_NAME" ]]; then
     echo "❌ Could not parse versionCode or versionName from $GRADLE_FILE"
     exit 1
 fi
+
+warn_if_multiple_versions
 
 echo "📋 build.gradle.kts versions:"
 echo "   versionCode = $CURRENT_VERSION_CODE"
@@ -54,7 +76,13 @@ else
 
     # --- Compare versionCode ---
     # Try to get versionCode from the tagged commit's build.gradle.kts
-    TAGGED_VERSION_CODE=$(git show "$LATEST_TAG:$GRADLE_FILE" 2>/dev/null | grep -oP 'versionCode\s*=\s*\K\d+' || echo "")
+    TAGGED_GRADLE_FILE=$(mktemp)
+    if git show "$LATEST_TAG:$GRADLE_FILE" > "$TAGGED_GRADLE_FILE" 2>/dev/null; then
+        TAGGED_VERSION_CODE=$(extract_version_code "$TAGGED_GRADLE_FILE")
+    else
+        TAGGED_VERSION_CODE=""
+    fi
+    rm -f "$TAGGED_GRADLE_FILE"
 
     if [[ -n "$TAGGED_VERSION_CODE" ]]; then
         if [[ "$CURRENT_VERSION_CODE" -le "$TAGGED_VERSION_CODE" ]]; then

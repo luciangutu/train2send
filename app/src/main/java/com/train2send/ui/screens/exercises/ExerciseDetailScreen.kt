@@ -71,6 +71,7 @@ fun ExerciseDetailScreen(
                             reps = planned?.customReps ?: exercise?.defaultReps,
                             sets = planned?.customSets ?: exercise?.defaultSets,
                             restSet = planned?.customRestBetweenSetsSec ?: exercise?.defaultRestBetweenSetsSec,
+                            prepare = planned?.customPrepareTimeSec ?: exercise?.defaultPrepareTimeSec,
                             description = exercise?.description
                         ))
                     }) {
@@ -258,20 +259,30 @@ private fun ExerciseDetailContent(
                 icon = Icons.Default.Timer,
                 modifier = Modifier.weight(1f)
             )
-            val totalSec = calculateExerciseDuration(
-                sets = exercise.defaultSets,
-                reps = exercise.defaultReps,
-                workRepSec = exercise.defaultDurationSec,
-                restRepSec = exercise.defaultRestSec,
-                restSetSec = exercise.defaultRestBetweenSetsSec
-            )
             DetailBox(
-                label = "Total Duration",
-                value = formatDuration(totalSec),
+                label = "Prepare",
+                value = exercise.defaultPrepareTimeSec?.let { formatDuration(it) } ?: "3s (default)",
                 icon = Icons.Default.Timer,
                 modifier = Modifier.weight(1f)
             )
         }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        val totalSec = calculateExerciseDuration(
+            sets = exercise.defaultSets,
+            reps = exercise.defaultReps,
+            workRepSec = exercise.defaultDurationSec,
+            restRepSec = exercise.defaultRestSec,
+            restSetSec = exercise.defaultRestBetweenSetsSec,
+            prepareSec = exercise.defaultPrepareTimeSec
+        )
+        DetailBox(
+            label = "Total Duration",
+            value = formatDuration(totalSec),
+            icon = Icons.Default.Timer,
+            modifier = Modifier.fillMaxWidth()
+        )
     }
 }
 
@@ -320,15 +331,26 @@ private fun PlannedValuesSection(planned: PlannedExerciseEntity, exercise: Exerc
                     compact = true
                 )
             }
-            if (params.restSec != null) {
-                Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(12.dp))
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 DetailBox(
-                    label = "Rest (Rep)",
-                    value = params.restSec.let { formatDuration(it) },
+                    label = "Prepare",
+                    value = params.prepareSec?.let { formatDuration(it) } ?: "3s (default)",
                     icon = Icons.Default.Timer,
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.weight(1f),
                     compact = true
                 )
+                if (params.restSec != null) {
+                    DetailBox(
+                        label = "Rest (Rep)",
+                        value = params.restSec.let { formatDuration(it) },
+                        icon = Icons.Default.Timer,
+                        modifier = Modifier.weight(1f),
+                        compact = true
+                    )
+                } else {
+                    Box(modifier = Modifier.weight(1f))
+                }
             }
             Spacer(modifier = Modifier.height(12.dp))
             val totalSec = calculateExerciseDuration(
@@ -336,7 +358,8 @@ private fun PlannedValuesSection(planned: PlannedExerciseEntity, exercise: Exerc
                 reps = params.reps,
                 workRepSec = params.durationSec,
                 restRepSec = params.restSec,
-                restSetSec = params.restBetweenSetsSec
+                restSetSec = params.restBetweenSetsSec,
+                prepareSec = params.prepareSec
             )
             DetailBox(
                 label = "Total Duration",

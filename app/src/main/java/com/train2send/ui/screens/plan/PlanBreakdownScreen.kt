@@ -217,7 +217,8 @@ private fun calculateBreakdown(
                     reps = pe.customReps ?: exercise?.defaultReps,
                     workRepSec = pe.customDurationSec ?: exercise?.defaultDurationSec,
                     restRepSec = pe.customRestSec ?: exercise?.defaultRestSec,
-                    restSetSec = pe.customRestBetweenSetsSec ?: exercise?.defaultRestBetweenSetsSec
+                    restSetSec = pe.customRestBetweenSetsSec ?: exercise?.defaultRestBetweenSetsSec,
+                    prepareSec = pe.customPrepareTimeSec ?: exercise?.defaultPrepareTimeSec
                 )
             }
             

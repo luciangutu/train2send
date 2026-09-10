@@ -58,18 +58,20 @@ fun calculateExerciseDuration(
     reps: Int?,
     workRepSec: Int?,
     restRepSec: Int?,
-    restSetSec: Int?
+    restSetSec: Int?,
+    prepareSec: Int? = null
 ): Int {
     val s = sets ?: 1
     val r = reps ?: 1
     val t = workRepSec ?: 0
     val rr = restRepSec ?: 0
     val rs = restSetSec ?: 0
+    val p = prepareSec ?: 3
 
     if (s <= 0) return 0
 
     val workPerSet = r * t + (if (r > 1) (r - 1) * rr else 0)
-    return s * workPerSet + (s - 1) * rs
+    return p + s * workPerSet + (s - 1) * rs
 }
 
 /**
@@ -81,7 +83,8 @@ data class ResolvedExerciseParams(
     val reps: Int?,
     val durationSec: Int?,
     val restSec: Int?,
-    val restBetweenSetsSec: Int?
+    val restBetweenSetsSec: Int?,
+    val prepareSec: Int?
 )
 
 fun resolveExerciseParams(
@@ -92,7 +95,8 @@ fun resolveExerciseParams(
     reps = planned.customReps ?: exercise?.defaultReps,
     durationSec = planned.customDurationSec ?: exercise?.defaultDurationSec,
     restSec = planned.customRestSec ?: exercise?.defaultRestSec,
-    restBetweenSetsSec = planned.customRestBetweenSetsSec ?: exercise?.defaultRestBetweenSetsSec
+    restBetweenSetsSec = planned.customRestBetweenSetsSec ?: exercise?.defaultRestBetweenSetsSec,
+    prepareSec = planned.customPrepareTimeSec ?: exercise?.defaultPrepareTimeSec
 )
 
 /**
@@ -110,7 +114,8 @@ fun estimateDuration(
             reps = params.reps,
             workRepSec = params.durationSec,
             restRepSec = params.restSec,
-            restSetSec = params.restBetweenSetsSec
+            restSetSec = params.restBetweenSetsSec,
+            prepareSec = params.prepareSec
         )
     }
 }

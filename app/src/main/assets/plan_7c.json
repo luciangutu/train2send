@@ -11,7 +11,8 @@
       "defaultSets": 1,
       "defaultReps": 10,
       "defaultDurationSec": 10,
-      "defaultRestSec": 30
+      "defaultRestSec": 30,
+      "defaultPrepareTimeSec": 5
     },
     {
       "id": "ex-max-finger",
@@ -22,7 +23,8 @@
       "defaultSets": 1,
       "defaultReps": 4,
       "defaultDurationSec": 7,
-      "defaultRestSec": 180
+      "defaultRestSec": 180,
+      "defaultPrepareTimeSec": 5
     },
     {
       "id": "ex-push-ups",
@@ -34,7 +36,8 @@
       "defaultReps": 10,
       "defaultDurationSec": 3,
       "defaultRestSec": 0,
-      "defaultRestBetweenSetsSec": 120
+      "defaultRestBetweenSetsSec": 120,
+      "defaultPrepareTimeSec": 5
     },
     {
       "id": "ex-strength-endurance-hangboard",
@@ -45,7 +48,8 @@
       "defaultSets": 1,
       "defaultReps": 10,
       "defaultDurationSec": 7,
-      "defaultRestSec": 3
+      "defaultRestSec": 3,
+      "defaultPrepareTimeSec": 5
     },
     {
       "id": "ex-2on2off",
@@ -56,7 +60,8 @@
       "defaultSets": 1,
       "defaultReps": 6,
       "defaultDurationSec": 120,
-      "defaultRestSec": 120
+      "defaultRestSec": 120,
+      "defaultPrepareTimeSec": 5
     },
     {
       "id": "ex-easy-routes-autobelay",
@@ -68,7 +73,8 @@
       "defaultReps": 5,
       "defaultDurationSec": 180,
       "defaultRestSec": 0,
-      "defaultRestBetweenSetsSec": 300
+      "defaultRestBetweenSetsSec": 300,
+      "defaultPrepareTimeSec": 5
     },
     {
       "id": "ex-fryer-endurance",
@@ -80,7 +86,8 @@
       "defaultSets": 3,
       "defaultDurationSec": 7,
       "defaultRestSec": 3,
-      "defaultRestBetweenSetsSec": 180
+      "defaultRestBetweenSetsSec": 180,
+      "defaultPrepareTimeSec": 5
     },
     {
       "id": "ex-fryer-on-routes",
@@ -92,7 +99,8 @@
       "defaultReps": 1,
       "defaultDurationSec": 600,
       "defaultRestSec": 0,
-      "defaultRestBetweenSetsSec": 300
+      "defaultRestBetweenSetsSec": 300,
+      "defaultPrepareTimeSec": 5
     },
     {
       "id": "ex-easy-routes-shakeout",
@@ -103,7 +111,8 @@
       "defaultSets": 1,
       "defaultReps": 5,
       "defaultDurationSec": 300,
-      "defaultRestSec": 180
+      "defaultRestSec": 180,
+      "defaultPrepareTimeSec": 5
     },
     {
       "id": "ex-stretching",
@@ -111,7 +120,8 @@
       "category": "MOBILITY",
       "climbingType": "ANY",
       "description": "Full body stretching session focused on shoulders, hips, and forearms.",
-      "defaultDurationSec": 900
+      "defaultDurationSec": 900,
+      "defaultPrepareTimeSec": 5
     },
     {
       "id": "ex-outdoor-climbing",
@@ -119,7 +129,8 @@
       "category": "POWER",
       "climbingType": "ROPE",
       "description": "Outdoor climbing session on rock.",
-      "defaultDurationSec": 14400
+      "defaultDurationSec": 14400,
+      "defaultPrepareTimeSec": 5
     },
     {
       "id": "ex-bouldering-boards",
@@ -127,7 +138,8 @@
       "category": "POWER",
       "climbingType": "BOULDERING",
       "description": "1 hour bouldering session on boards or in gym. Focus on quality movement and trying hard problems.",
-      "defaultDurationSec": 3600
+      "defaultDurationSec": 3600,
+      "defaultPrepareTimeSec": 5
     },
     {
       "id": "ex-knee-program",
@@ -135,7 +147,8 @@
       "category": "MOBILITY",
       "climbingType": "ANY",
       "description": "Knee rehabilitation/prehab program.",
-      "defaultDurationSec": 3600
+      "defaultDurationSec": 3600,
+      "defaultPrepareTimeSec": 5
     },
     {
       "id": "ex-carcing",
@@ -147,7 +160,8 @@
       "defaultReps": 1,
       "defaultDurationSec": 900,
       "defaultRestSec": 0,
-      "defaultRestBetweenSetsSec": 720
+      "defaultRestBetweenSetsSec": 720,
+      "defaultPrepareTimeSec": 5
     },
     {
       "id": "ex-warmup-paradigm-climbing",
@@ -155,7 +169,8 @@
       "category": "MOBILITY",
       "climbingType": "ANY",
       "description": "Progressive climbing warm-up: 2 min jumping jacks (easy cardio), arm circles/leg swings/finger movement (tendon glides), scapular pull-ups/asymmetric lock-offs/progressive hangs/easy climbing, quick dead-points/explosive pull-ups.",
-      "defaultDurationSec": 900
+      "defaultDurationSec": 900,
+      "defaultPrepareTimeSec": 5
     },
     {
       "id": "ex-shoulder-iso",
@@ -166,7 +181,8 @@
       "defaultSets": 1,
       "defaultReps": 4,
       "defaultDurationSec": 30,
-      "defaultRestSec": 5
+      "defaultRestSec": 5,
+      "defaultPrepareTimeSec": 5
     },
     {
       "id": "ex-repeaters",
@@ -178,7 +194,8 @@
       "defaultReps": 7,
       "defaultDurationSec": 7,
       "defaultRestSec": 3,
-      "defaultRestBetweenSetsSec": 300
+      "defaultRestBetweenSetsSec": 300,
+      "defaultPrepareTimeSec": 5
     },
     {
       "id": "ex-power-endurance-rope-laps",
@@ -189,7 +206,8 @@
       "defaultSets": 3,
       "defaultReps": 2,
       "defaultDurationSec": 240,
-      "defaultRestBetweenSetsSec": 540
+      "defaultRestBetweenSetsSec": 540,
+      "defaultPrepareTimeSec": 5
     },
     {
       "id": "ex-power-endurance-circuits",
@@ -200,7 +218,8 @@
       "defaultSets": 3,
       "defaultReps": 4,
       "defaultDurationSec": 75,
-      "defaultRestBetweenSetsSec": 300
+      "defaultRestBetweenSetsSec": 300,
+      "defaultPrepareTimeSec": 5
     }
   ],
   "plans": [
@@ -221,7 +240,8 @@
               "section": "COMPLEMENTARY",
               "alternativeGroupId": null,
               "isSelected": true,
-              "orderIndex": 0
+              "orderIndex": 0,
+              "customPrepareTimeSec": 5
             },
             {
               "id": "pe-7c-mon-2",
@@ -230,7 +250,8 @@
               "alternativeGroupId": null,
               "isSelected": true,
               "orderIndex": 1,
-              "description": "3-4 sets of max hangs before climbing. Focus on form, half-crimp position."
+              "description": "3-4 sets of max hangs before climbing. Focus on form, half-crimp position.",
+              "customPrepareTimeSec": 5
             },
             {
               "id": "pe-7c-mon-3",
@@ -239,7 +260,8 @@
               "alternativeGroupId": null,
               "isSelected": true,
               "orderIndex": 2,
-              "description": "Work problems at your limit or 1 grade below. Focus on quality attempts with full rest."
+              "description": "Work problems at your limit or 1 grade below. Focus on quality attempts with full rest.",
+              "customPrepareTimeSec": 5
             },
             {
               "id": "pe-7c-mon-4",
@@ -250,7 +272,8 @@
               "orderIndex": 3,
               "customSets": 3,
               "customReps": 8,
-              "description": "Antagonist work at end of session."
+              "description": "Antagonist work at end of session.",
+              "customPrepareTimeSec": 5
             }
           ]
         },
@@ -265,7 +288,8 @@
               "section": "MAIN",
               "alternativeGroupId": null,
               "isSelected": true,
-              "orderIndex": 0
+              "orderIndex": 0,
+              "customPrepareTimeSec": 5
             },
             {
               "id": "pe-7c-tue-2",
@@ -273,7 +297,8 @@
               "section": "SECONDARY",
               "alternativeGroupId": null,
               "isSelected": true,
-              "orderIndex": 1
+              "orderIndex": 1,
+              "customPrepareTimeSec": 5
             }
           ]
         },
@@ -288,7 +313,8 @@
               "section": "COMPLEMENTARY",
               "alternativeGroupId": null,
               "isSelected": true,
-              "orderIndex": 0
+              "orderIndex": 0,
+              "customPrepareTimeSec": 5
             },
             {
               "id": "pe-7c-wed-2",
@@ -297,7 +323,8 @@
               "alternativeGroupId": null,
               "isSelected": true,
               "orderIndex": 1,
-              "description": "4 sets of 7on/3off repeaters. Use an edge that produces solid pump by rep 6-7. 5 min rest between sets. Half-crimp position."
+              "description": "4 sets of 7on/3off repeaters. Use an edge that produces solid pump by rep 6-7. 5 min rest between sets. Half-crimp position.",
+              "customPrepareTimeSec": 5
             },
             {
               "id": "pe-7c-wed-3-boulder",
@@ -306,7 +333,8 @@
               "alternativeGroupId": "alt-7c-wed-pe",
               "isSelected": true,
               "orderIndex": 2,
-              "description": "3 rounds of 4 boulder problems linked back-to-back. 5 min rest between rounds."
+              "description": "3 rounds of 4 boulder problems linked back-to-back. 5 min rest between rounds.",
+              "customPrepareTimeSec": 5
             },
             {
               "id": "pe-7c-wed-3-rope",
@@ -314,7 +342,8 @@
               "section": "MAIN",
               "alternativeGroupId": "alt-7c-wed-pe",
               "isSelected": false,
-              "orderIndex": 2
+              "orderIndex": 2,
+              "customPrepareTimeSec": 5
             },
             {
               "id": "pe-7c-wed-4",
@@ -322,7 +351,8 @@
               "section": "COMPLEMENTARY",
               "alternativeGroupId": null,
               "isSelected": true,
-              "orderIndex": 3
+              "orderIndex": 3,
+              "customPrepareTimeSec": 5
             }
           ]
         },
@@ -340,7 +370,8 @@
               "orderIndex": 0,
               "customReps": 6,
               "customDurationSec": 10,
-              "customRestSec": 30
+              "customRestSec": 30,
+              "customPrepareTimeSec": 5
             },
             {
               "id": "pe-7c-thu-2-boulder",
@@ -348,7 +379,8 @@
               "section": "MAIN",
               "alternativeGroupId": "alt-7c-thu-fryer",
               "isSelected": true,
-              "orderIndex": 1
+              "orderIndex": 1,
+              "customPrepareTimeSec": 5
             },
             {
               "id": "pe-7c-thu-2-rope",
@@ -357,7 +389,8 @@
               "alternativeGroupId": "alt-7c-thu-fryer",
               "isSelected": false,
               "orderIndex": 1,
-              "description": "Linked route laps on easy terrain. Continuous movement for 8-12 minutes per set."
+              "description": "Linked route laps on easy terrain. Continuous movement for 8-12 minutes per set.",
+              "customPrepareTimeSec": 5
             },
             {
               "id": "pe-7c-thu-3-boulder",
@@ -366,7 +399,8 @@
               "alternativeGroupId": "alt-7c-thu-volume",
               "isSelected": true,
               "orderIndex": 2,
-              "description": "6 rounds of 2 min on / 2 min off. Easy climbing, no hard pump."
+              "description": "6 rounds of 2 min on / 2 min off. Easy climbing, no hard pump.",
+              "customPrepareTimeSec": 5
             },
             {
               "id": "pe-7c-thu-3-rope",
@@ -375,7 +409,8 @@
               "alternativeGroupId": "alt-7c-thu-volume",
               "isSelected": false,
               "orderIndex": 2,
-              "description": "4-5 easy routes with deliberate shake-out practice on moderate sections."
+              "description": "4-5 easy routes with deliberate shake-out practice on moderate sections.",
+              "customPrepareTimeSec": 5
             },
             {
               "id": "pe-7c-thu-4",
@@ -383,7 +418,8 @@
               "section": "COMPLEMENTARY",
               "alternativeGroupId": null,
               "isSelected": true,
-              "orderIndex": 3
+              "orderIndex": 3,
+              "customPrepareTimeSec": 5
             }
           ]
         },
@@ -398,7 +434,8 @@
               "section": "COMPLEMENTARY",
               "alternativeGroupId": null,
               "isSelected": true,
-              "orderIndex": 0
+              "orderIndex": 0,
+              "customPrepareTimeSec": 5
             },
             {
               "id": "pe-7c-sat-2",
@@ -407,7 +444,8 @@
               "alternativeGroupId": null,
               "isSelected": true,
               "orderIndex": 1,
-              "description": "Project session or redpoint attempts on target-grade routes."
+              "description": "Project session or redpoint attempts on target-grade routes.",
+              "customPrepareTimeSec": 5
             }
           ]
         },
@@ -422,7 +460,8 @@
               "section": "COMPLEMENTARY",
               "alternativeGroupId": null,
               "isSelected": true,
-              "orderIndex": 0
+              "orderIndex": 0,
+              "customPrepareTimeSec": 5
             },
             {
               "id": "pe-7c-sun-2",
@@ -431,7 +470,8 @@
               "alternativeGroupId": null,
               "isSelected": true,
               "orderIndex": 1,
-              "description": "Volume day: climb many routes below your max. Build mileage and work on technique outdoors."
+              "description": "Volume day: climb many routes below your max. Build mileage and work on technique outdoors.",
+              "customPrepareTimeSec": 5
             },
             {
               "id": "pe-7c-sun-3",
@@ -440,7 +480,8 @@
               "alternativeGroupId": null,
               "isSelected": true,
               "orderIndex": 2,
-              "description": "Easy climbing at end of day for recovery and capillarity."
+              "description": "Easy climbing at end of day for recovery and capillarity.",
+              "customPrepareTimeSec": 5
             }
           ]
         }

@@ -25,7 +25,8 @@ data class ExerciseBackup(
     val defaultReps: Int? = null,
     val defaultDurationSec: Int? = null,
     val defaultRestSec: Int? = null,
-    val defaultRestBetweenSetsSec: Int? = null
+    val defaultRestBetweenSetsSec: Int? = null,
+    val defaultPrepareTimeSec: Int? = null
 )
 
 @Serializable
@@ -59,5 +60,6 @@ data class PlannedExerciseBackup(
     val customReps: Int? = null,
     val customDurationSec: Int? = null,
     val customRestSec: Int? = null,
-    val customRestBetweenSetsSec: Int? = null
+    val customRestBetweenSetsSec: Int? = null,
+    val customPrepareTimeSec: Int? = null
 )

@@ -541,7 +541,8 @@ private fun ExerciseTile(
                         reps = reps,
                         workRepSec = duration,
                         restRepSec = params.restSec,
-                        restSetSec = params.restBetweenSetsSec
+                        restSetSec = params.restBetweenSetsSec,
+                        prepareSec = params.prepareSec
                     )
                     if (totalSec > 0) {
                         append(" · ${formatDuration(totalSec)}")

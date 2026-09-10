@@ -551,6 +551,7 @@ private fun PlannedExerciseCard(
                 sets?.let { Text("$it sets", style = MaterialTheme.typography.labelSmall) }
                 reps?.let { Text("$it reps", style = MaterialTheme.typography.labelSmall) }
                 duration?.let { Text("${formatDuration(it)} work", style = MaterialTheme.typography.labelSmall) }
+                params.prepareSec?.let { Text("${formatDuration(it)} prepare", style = MaterialTheme.typography.labelSmall) }
                 rest?.let { Text("${formatDuration(it)} rest rep", style = MaterialTheme.typography.labelSmall) }
                 restSet?.let { Text("${formatDuration(it)} rest set", style = MaterialTheme.typography.labelSmall) }
                 
@@ -560,7 +561,8 @@ private fun PlannedExerciseCard(
                     reps = reps,
                     workRepSec = duration,
                     restRepSec = rest,
-                    restSetSec = restSet
+                    restSetSec = restSet,
+                    prepareSec = params.prepareSec
                 )
                 if (totalSec > 0) {
                     Text(

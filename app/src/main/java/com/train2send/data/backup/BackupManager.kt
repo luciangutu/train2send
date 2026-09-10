@@ -43,7 +43,8 @@ class BackupManager(private val app: Train2SendApp) {
                             customReps = pe.customReps,
                             customDurationSec = pe.customDurationSec,
                             customRestSec = pe.customRestSec,
-                            customRestBetweenSetsSec = pe.customRestBetweenSetsSec
+                            customRestBetweenSetsSec = pe.customRestBetweenSetsSec,
+                            customPrepareTimeSec = pe.customPrepareTimeSec
                         )
                     }
                 )
@@ -69,7 +70,8 @@ class BackupManager(private val app: Train2SendApp) {
                     defaultReps = ex.defaultReps,
                     defaultDurationSec = ex.defaultDurationSec,
                     defaultRestSec = ex.defaultRestSec,
-                    defaultRestBetweenSetsSec = ex.defaultRestBetweenSetsSec
+                    defaultRestBetweenSetsSec = ex.defaultRestBetweenSetsSec,
+                    defaultPrepareTimeSec = ex.defaultPrepareTimeSec
                 )
             },
             plans = planBackups
@@ -111,7 +113,8 @@ class BackupManager(private val app: Train2SendApp) {
                         defaultReps = exBackup.defaultReps,
                         defaultDurationSec = exBackup.defaultDurationSec,
                         defaultRestSec = exBackup.defaultRestSec,
-                        defaultRestBetweenSetsSec = exBackup.defaultRestBetweenSetsSec
+                        defaultRestBetweenSetsSec = exBackup.defaultRestBetweenSetsSec,
+                        defaultPrepareTimeSec = exBackup.defaultPrepareTimeSec
                     )
                 )
                 exercisesImported++
@@ -165,7 +168,8 @@ class BackupManager(private val app: Train2SendApp) {
                                 customReps = peBackup.customReps,
                                 customDurationSec = peBackup.customDurationSec,
                                 customRestSec = peBackup.customRestSec,
-                                customRestBetweenSetsSec = peBackup.customRestBetweenSetsSec
+                                customRestBetweenSetsSec = peBackup.customRestBetweenSetsSec,
+                                customPrepareTimeSec = peBackup.customPrepareTimeSec
                             )
                         )
                     }

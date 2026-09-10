@@ -142,6 +142,7 @@ fun TimerScreen(
     reps: Int? = null,
     sets: Int? = null,
     restSet: Int? = null,
+    prepare: Int? = null,
     description: String? = null
 ) {
     val timerEngine = remember { FlexibleTimerEngine() }
@@ -153,6 +154,7 @@ fun TimerScreen(
     var repsInput by remember { mutableStateOf(reps?.toString() ?: "1") }
     var setsInput by remember { mutableStateOf(sets?.toString() ?: "6") }
     var restSetSecInput by remember { mutableStateOf(restSet?.toString() ?: "60") }
+    var prepareSecInput by remember { mutableStateOf(prepare?.toString() ?: "3") }
 
     val context = LocalContext.current
 
@@ -224,7 +226,8 @@ fun TimerScreen(
                 restRepSec = restRep ?: 0,
                 reps = reps ?: 1,
                 sets = sets ?: 6,
-                restSetSec = restSet ?: 60
+                restSetSec = restSet ?: 60,
+                prepareSec = prepare ?: 3
             )
         }
     }
@@ -434,6 +437,18 @@ fun TimerScreen(
                         )
                     }
 
+                    Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                        OutlinedTextField(
+                            value = prepareSecInput,
+                            onValueChange = { prepareSecInput = it },
+                            label = { Text("Prepare (s)") },
+                            modifier = Modifier.weight(1f),
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                            singleLine = true
+                        )
+                        Box(modifier = Modifier.weight(1f)) // Spacer
+                    }
+
                     OutlinedTextField(
                         value = workSecInput,
                         onValueChange = { workSecInput = it },
@@ -457,7 +472,8 @@ fun TimerScreen(
                             restRepSec = restRepSecInput.toIntOrNull() ?: 0,
                             reps = repsInput.toIntOrNull() ?: 1,
                             sets = setsInput.toIntOrNull() ?: 6,
-                            restSetSec = restSetSecInput.toIntOrNull() ?: 60
+                            restSetSec = restSetSecInput.toIntOrNull() ?: 60,
+                            prepareSec = prepareSecInput.toIntOrNull() ?: 3
                         )
                     },
                     modifier = Modifier

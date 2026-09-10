@@ -36,13 +36,14 @@ class FlexibleTimerEngine {
         restRepSec: Int,
         reps: Int,
         sets: Int,
-        restSetSec: Int
+        restSetSec: Int,
+        prepareSec: Int = 3
     ) {
         job?.cancel()
         _isPaused.value = false
         job = scope.launch {
             // Prepare Phase
-            runPrepare(3)
+            runPrepare(prepareSec)
             
             for (set in 1..sets) {
                 for (rep in 1..reps) {

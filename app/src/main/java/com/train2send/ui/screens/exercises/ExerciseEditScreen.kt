@@ -47,6 +47,7 @@ fun ExerciseEditScreen(navController: NavController, exerciseId: String? = null)
     var defaultDurationSec by remember { mutableStateOf("") }
     var defaultRestSec by remember { mutableStateOf("") }
     var defaultRestBetweenSetsSec by remember { mutableStateOf("") }
+    var defaultPrepareTimeSec by remember { mutableStateOf("") }
 
     var isLoading by remember { mutableStateOf(exerciseId != null) }
 
@@ -63,6 +64,7 @@ fun ExerciseEditScreen(navController: NavController, exerciseId: String? = null)
                 defaultDurationSec = exercise.defaultDurationSec?.toString() ?: ""
                 defaultRestSec = exercise.defaultRestSec?.toString() ?: ""
                 defaultRestBetweenSetsSec = exercise.defaultRestBetweenSetsSec?.toString() ?: ""
+                defaultPrepareTimeSec = exercise.defaultPrepareTimeSec?.toString() ?: ""
             }
             isLoading = false
         }
@@ -93,7 +95,8 @@ fun ExerciseEditScreen(navController: NavController, exerciseId: String? = null)
                                             defaultReps = defaultReps.toIntOrNull(),
                                             defaultDurationSec = defaultDurationSec.toIntOrNull(),
                                             defaultRestSec = defaultRestSec.toIntOrNull(),
-                                            defaultRestBetweenSetsSec = defaultRestBetweenSetsSec.toIntOrNull()
+                                            defaultRestBetweenSetsSec = defaultRestBetweenSetsSec.toIntOrNull(),
+                                            defaultPrepareTimeSec = defaultPrepareTimeSec.toIntOrNull()
                                         )
                                         if (exerciseId == null) {
                                             app.exerciseRepository.insertExercise(exercise)
@@ -275,13 +278,28 @@ fun ExerciseEditScreen(navController: NavController, exerciseId: String? = null)
                     singleLine = true
                 )
 
+                OutlinedTextField(
+                    value = defaultPrepareTimeSec,
+                    onValueChange = { defaultPrepareTimeSec = it },
+                    label = { Text("Prepare time (sec)") },
+                    supportingText = {
+                        defaultPrepareTimeSec.toIntOrNull()?.let {
+                            Text(formatDuration(it))
+                        }
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    singleLine = true
+                )
+
                 // Total Duration display
                 val totalDuration = calculateExerciseDuration(
                     sets = defaultSets.toIntOrNull(),
                     reps = defaultReps.toIntOrNull(),
                     workRepSec = defaultDurationSec.toIntOrNull(),
                     restRepSec = defaultRestSec.toIntOrNull(),
-                    restSetSec = defaultRestBetweenSetsSec.toIntOrNull()
+                    restSetSec = defaultRestBetweenSetsSec.toIntOrNull(),
+                    prepareSec = defaultPrepareTimeSec.toIntOrNull()
                 )
 
                 if (totalDuration > 0) {

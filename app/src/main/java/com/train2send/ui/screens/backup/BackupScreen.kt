@@ -128,6 +128,7 @@ fun BackupScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
+                .consumeWindowInsets(padding)
         ) {
             SecondaryScrollableTabRow(
                 selectedTabIndex = selectedTab.ordinal,

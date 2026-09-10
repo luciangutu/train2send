@@ -67,6 +67,7 @@ fun ExerciseListScreen(navController: NavController) {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
+                .consumeWindowInsets(padding)
         ) {
             // Category filter chips
             SecondaryScrollableTabRow(

@@ -101,7 +101,9 @@ fun ExerciseDetailScreen(
             ExerciseDetailContent(
                 exercise = currentExercise,
                 planned = planned,
-                modifier = Modifier.padding(padding)
+                modifier = Modifier
+                    .padding(padding)
+                    .consumeWindowInsets(padding)
             )
         }
     }

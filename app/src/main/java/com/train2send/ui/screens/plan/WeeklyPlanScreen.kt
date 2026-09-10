@@ -96,7 +96,8 @@ fun WeeklyPlanScreen(navController: NavController) {
             NoPlanContent(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(padding),
+                    .padding(padding)
+                    .consumeWindowInsets(padding),
                 onCreatePlan = { navController.navigate(Screen.PlanSetup.createRoute()) }
             )
         } else {
@@ -107,17 +108,20 @@ fun WeeklyPlanScreen(navController: NavController) {
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(padding)
+                        .consumeWindowInsets(padding)
                 )
                 1 -> PlanBreakdownScreen(
                     plan = activePlan!!,
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(padding)
+                        .consumeWindowInsets(padding)
                 )
                 2 -> TrainingGuideScreen(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(padding)
+                        .consumeWindowInsets(padding)
                 )
             }
         }

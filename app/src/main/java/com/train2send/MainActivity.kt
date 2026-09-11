@@ -1,6 +1,5 @@
 package com.train2send
 
-import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -17,13 +16,8 @@ import com.train2send.ui.theme.Train2SendTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
-        if (Build.VERSION.SDK_INT < 35) {
-            enableEdgeToEdge()
-        }
-        if (Build.VERSION.SDK_INT in 29..34) {
-            window.isNavigationBarContrastEnforced = false
-        }
         setContent {
             val app = applicationContext as Train2SendApp
             val themePreference by app.userPreferencesRepository.themePreferenceFlow

@@ -18,8 +18,10 @@ import com.train2send.ui.theme.Train2SendTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        if (Build.VERSION.SDK_INT < 35) {
+            enableEdgeToEdge()
+        }
+        if (Build.VERSION.SDK_INT in 29..34) {
             window.isNavigationBarContrastEnforced = false
         }
         setContent {

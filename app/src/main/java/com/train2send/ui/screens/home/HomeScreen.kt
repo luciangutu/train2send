@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLocale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -43,7 +44,6 @@ import kotlinx.coroutines.launch
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.format.TextStyle
-import java.util.Locale
 import kotlin.math.absoluteValue
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
@@ -281,8 +281,9 @@ private fun TodaySessionCard(
     val allExercises by app.exerciseRepository.getAllExercises()
         .collectAsStateWithLifecycle(initialValue = emptyList())
     val exerciseMap = allExercises.associateBy { it.id }
+    val locale = LocalLocale.current.platformLocale
 
-    val dayName = DayOfWeek.of(dayOfWeek).getDisplayName(TextStyle.FULL, Locale.getDefault())
+    val dayName = DayOfWeek.of(dayOfWeek).getDisplayName(TextStyle.FULL, locale)
 
     Card(
         modifier = modifier

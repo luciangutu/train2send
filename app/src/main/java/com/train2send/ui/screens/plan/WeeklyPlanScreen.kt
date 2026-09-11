@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLocale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -32,7 +33,6 @@ import com.train2send.utils.formatDurationRounded
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.format.TextStyle
-import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -327,6 +327,7 @@ private fun WeekCalendarRow(
     onDayClick: (PlanDayEntity) -> Unit
 ) {
     val startOfWeek = today.with(DayOfWeek.MONDAY)
+    val locale = LocalLocale.current.platformLocale
 
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -339,7 +340,7 @@ private fun WeekCalendarRow(
             val isToday = date == today
 
             DayChip(
-                dayLabel = date.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.getDefault()),
+                dayLabel = date.dayOfWeek.getDisplayName(TextStyle.SHORT, locale),
                 dayNumber = date.dayOfMonth.toString(),
                 isToday = isToday,
                 hasSession = planDay != null,
@@ -418,9 +419,10 @@ private fun DaySummaryCard(
     val exercises = allPlannedExercises.filter { 
         it.isSelected || it.alternativeGroupId.isNullOrBlank() 
     }
+    val locale = LocalLocale.current.platformLocale
 
     val dayName = DayOfWeek.of(planDay.dayOfWeek)
-        .getDisplayName(TextStyle.FULL, Locale.getDefault())
+        .getDisplayName(TextStyle.FULL, locale)
 
     Card(
         modifier = Modifier

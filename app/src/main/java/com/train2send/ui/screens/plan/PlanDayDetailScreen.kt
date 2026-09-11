@@ -15,6 +15,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLocale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -31,7 +32,6 @@ import com.train2send.utils.resolveExerciseParams
 import kotlinx.coroutines.launch
 import java.time.DayOfWeek
 import java.time.format.TextStyle
-import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -60,9 +60,10 @@ fun PlanDayDetailScreen(
         .collectAsStateWithLifecycle(initialValue = emptyList())
 
     val exerciseMap = allExercises.associateBy { it.id }
+    val locale = LocalLocale.current.platformLocale
 
     val dayName = planDay?.let {
-        DayOfWeek.of(it.dayOfWeek).getDisplayName(TextStyle.FULL, Locale.getDefault())
+        DayOfWeek.of(it.dayOfWeek).getDisplayName(TextStyle.FULL, locale)
     } ?: ""
 
     var showAddExerciseSheet by remember { mutableStateOf(false) }

@@ -13,6 +13,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLocale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -22,7 +23,6 @@ import com.train2send.data.model.*
 import kotlinx.coroutines.launch
 import java.time.DayOfWeek
 import java.time.format.TextStyle
-import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -257,8 +257,9 @@ private fun DayConfigCard(
     onToggle: (Boolean) -> Unit,
     onTitleChange: (String) -> Unit
 ) {
+    val locale = LocalLocale.current.platformLocale
     val dayName = DayOfWeek.of(config.dayOfWeek)
-        .getDisplayName(TextStyle.FULL, Locale.getDefault())
+        .getDisplayName(TextStyle.FULL, locale)
 
     Card(
         modifier = Modifier.fillMaxWidth(),

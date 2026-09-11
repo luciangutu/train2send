@@ -149,6 +149,8 @@ fun TimerScreen(
     val timerState by timerEngine.state.collectAsStateWithLifecycle()
     val timerScope = rememberCoroutineScope()
 
+    var showElapsed by remember { mutableStateOf(true) }
+
     var workSecInput by remember { mutableStateOf(work?.toString() ?: "10") }
     var restRepSecInput by remember { mutableStateOf(restRep?.toString() ?: "0") }
     var repsInput by remember { mutableStateOf(reps?.toString() ?: "1") }
@@ -301,6 +303,16 @@ fun TimerScreen(
                                 fontWeight = FontWeight.Bold,
                                 textAlign = TextAlign.Center
                             )
+                            Spacer(modifier = Modifier.height(8.dp))
+                            Text(
+                                text = if (showElapsed)
+                                    "⏱ ${formatCountdown(state.totalElapsedSeconds)} elapsed"
+                                else
+                                    "⏱ ${formatCountdown(state.totalDurationSeconds - state.totalElapsedSeconds)} remaining",
+                                style = MaterialTheme.typography.titleMedium,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                modifier = Modifier.clickable { showElapsed = !showElapsed }
+                            )
                         }
                         is TimerState.Running -> {
                             Text(
@@ -337,6 +349,16 @@ fun TimerScreen(
                                     )
                                 }
                             }
+                            Spacer(modifier = Modifier.height(8.dp))
+                            Text(
+                                text = if (showElapsed)
+                                    "⏱ ${formatCountdown(state.totalElapsedSeconds)} elapsed"
+                                else
+                                    "⏱ ${formatCountdown(state.totalDurationSeconds - state.totalElapsedSeconds)} remaining",
+                                style = MaterialTheme.typography.titleMedium,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                modifier = Modifier.clickable { showElapsed = !showElapsed }
+                            )
                         }
                         is TimerState.Finished -> {
                             Text(

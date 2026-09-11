@@ -4,7 +4,9 @@ sealed class TimerState {
     data object Idle : TimerState()
     data class Preparing(
         val remainingSeconds: Int,
-        val isPaused: Boolean = false
+        val isPaused: Boolean = false,
+        val totalElapsedSeconds: Int = 0,
+        val totalDurationSeconds: Int = 0
     ) : TimerState()
     data class Running(
         val remainingSeconds: Int,
@@ -13,7 +15,9 @@ sealed class TimerState {
         val isWorkPhase: Boolean,
         val currentRep: Int? = null,
         val totalReps: Int? = null,
-        val isPaused: Boolean = false
+        val isPaused: Boolean = false,
+        val totalElapsedSeconds: Int = 0,
+        val totalDurationSeconds: Int = 0
     ) : TimerState()
     data object Finished : TimerState()
 }

@@ -30,6 +30,9 @@ class FlexibleTimerEngine {
 
     private val skipTrigger = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
 
+    private var elapsed = 0
+    private var totalDuration = 0
+
     fun startExerciseProtocol(
         scope: CoroutineScope,
         workSec: Int,
@@ -41,6 +44,8 @@ class FlexibleTimerEngine {
     ) {
         job?.cancel()
         _isPaused.value = false
+        elapsed = 0
+        totalDuration = calculateTotalDuration(prepareSec, workSec, restRepSec, reps, sets, restSetSec)
         job = scope.launch {
             // Prepare Phase
             runPrepare(prepareSec)
@@ -84,17 +89,29 @@ class FlexibleTimerEngine {
         }
     }
 
+    private fun calculateTotalDuration(
+        prepareSec: Int,
+        workSec: Int,
+        restRepSec: Int,
+        reps: Int,
+        sets: Int,
+        restSetSec: Int
+    ): Int {
+        val workPerSet = reps * workSec + (if (reps > 1) (reps - 1) * restRepSec else 0)
+        return prepareSec + sets * workPerSet + (if (sets > 1) (sets - 1) * restSetSec else 0)
+    }
+
     private suspend fun runPrepare(seconds: Int) {
         var sec = seconds
         while (sec >= 1) {
             if (_isPaused.value) {
                 _state.value = (_state.value as? TimerState.Preparing)?.copy(isPaused = true) 
-                    ?: TimerState.Preparing(sec, isPaused = true)
+                    ?: TimerState.Preparing(sec, isPaused = true, totalElapsedSeconds = elapsed, totalDurationSeconds = totalDuration)
                 _isPaused.first { !it }
                 continue
             }
 
-            _state.value = TimerState.Preparing(sec, isPaused = false)
+            _state.value = TimerState.Preparing(sec, isPaused = false, totalElapsedSeconds = elapsed, totalDurationSeconds = totalDuration)
             _soundEvents.emit(SoundEvent.BEEP)
             val skipped = withTimeoutOrNull(1000L) {
                 skipTrigger.first()
@@ -102,6 +119,7 @@ class FlexibleTimerEngine {
             } ?: false
             if (skipped) break
             sec--
+            elapsed++
         }
     }
 
@@ -118,12 +136,12 @@ class FlexibleTimerEngine {
         while (sec >= 1) {
             if (_isPaused.value) {
                 _state.value = (_state.value as? TimerState.Running)?.copy(isPaused = true)
-                    ?: TimerState.Running(sec, currentSet, totalSets, isWork, currentRep, totalReps, isPaused = true)
+                    ?: TimerState.Running(sec, currentSet, totalSets, isWork, currentRep, totalReps, isPaused = true, totalElapsedSeconds = elapsed, totalDurationSeconds = totalDuration)
                 _isPaused.first { !it }
                 continue
             }
 
-            _state.value = TimerState.Running(sec, currentSet, totalSets, isWork, currentRep, totalReps, isPaused = false)
+            _state.value = TimerState.Running(sec, currentSet, totalSets, isWork, currentRep, totalReps, isPaused = false, totalElapsedSeconds = elapsed, totalDurationSeconds = totalDuration)
             if (sec <= 3) {
                 _soundEvents.emit(SoundEvent.BEEP)
             }
@@ -133,6 +151,7 @@ class FlexibleTimerEngine {
             } ?: false
             if (skipped) break
             sec--
+            elapsed++
         }
     }
 

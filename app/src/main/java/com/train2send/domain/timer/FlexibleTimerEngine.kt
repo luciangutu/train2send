@@ -89,7 +89,7 @@ class FlexibleTimerEngine {
         }
     }
 
-    private fun calculateTotalDuration(
+    fun calculateTotalDuration(
         prepareSec: Int,
         workSec: Int,
         restRepSec: Int,
@@ -105,8 +105,7 @@ class FlexibleTimerEngine {
         var sec = seconds
         while (sec >= 1) {
             if (_isPaused.value) {
-                _state.value = (_state.value as? TimerState.Preparing)?.copy(isPaused = true) 
-                    ?: TimerState.Preparing(sec, isPaused = true, totalElapsedSeconds = elapsed, totalDurationSeconds = totalDuration)
+                _state.value = TimerState.Preparing(sec, isPaused = true, totalElapsedSeconds = elapsed, totalDurationSeconds = totalDuration)
                 _isPaused.first { !it }
                 continue
             }
@@ -117,7 +116,10 @@ class FlexibleTimerEngine {
                 skipTrigger.first()
                 true
             } ?: false
-            if (skipped) break
+            if (skipped) {
+                totalDuration -= sec
+                break
+            }
             sec--
             elapsed++
         }
@@ -135,8 +137,17 @@ class FlexibleTimerEngine {
         var sec = seconds
         while (sec >= 1) {
             if (_isPaused.value) {
-                _state.value = (_state.value as? TimerState.Running)?.copy(isPaused = true)
-                    ?: TimerState.Running(sec, currentSet, totalSets, isWork, currentRep, totalReps, isPaused = true, totalElapsedSeconds = elapsed, totalDurationSeconds = totalDuration)
+                _state.value = TimerState.Running(
+                    remainingSeconds = sec,
+                    currentSet = currentSet,
+                    totalSets = totalSets,
+                    isWorkPhase = isWork,
+                    currentRep = currentRep,
+                    totalReps = totalReps,
+                    isPaused = true,
+                    totalElapsedSeconds = elapsed,
+                    totalDurationSeconds = totalDuration
+                )
                 _isPaused.first { !it }
                 continue
             }
@@ -149,7 +160,10 @@ class FlexibleTimerEngine {
                 skipTrigger.first()
                 true
             } ?: false
-            if (skipped) break
+            if (skipped) {
+                totalDuration -= sec
+                break
+            }
             sec--
             elapsed++
         }

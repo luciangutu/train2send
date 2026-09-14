@@ -474,7 +474,7 @@ fun TimerScreen(
                     OutlinedTextField(
                         value = workSecInput,
                         onValueChange = { workSecInput = it },
-                        label = { Text("Work Duration (s)") },
+                        label = { Text("Rep Duration (s)") },
                         supportingText = {
                             workSecInput.toIntOrNull()?.let { Text(formatDuration(it)) }
                         },
@@ -482,9 +482,28 @@ fun TimerScreen(
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         singleLine = true
                     )
+
+                    // Calculated Total Duration
+                    val totalSec = remember(prepareSecInput, workSecInput, restRepSecInput, repsInput, setsInput, restSetSecInput) {
+                        timerEngine.calculateTotalDuration(
+                            prepareSec = prepareSecInput.toIntOrNull() ?: 3,
+                            workSec = workSecInput.toIntOrNull() ?: 10,
+                            restRepSec = restRepSecInput.toIntOrNull() ?: 0,
+                            reps = repsInput.toIntOrNull() ?: 1,
+                            sets = setsInput.toIntOrNull() ?: 6,
+                            restSetSec = restSetSecInput.toIntOrNull() ?: 60
+                        )
+                    }
+
+                    Text(
+                        text = "Total Duration: ${formatDuration(totalSec)}",
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.secondary,
+                        modifier = Modifier.padding(vertical = 4.dp)
+                    )
                 }
 
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
                 Button(
                     onClick = {

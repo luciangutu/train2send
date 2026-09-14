@@ -16,8 +16,8 @@ android {
         applicationId = "com.github.luciangutu.train2send"
         minSdk = 26
         targetSdk = 37
-        versionCode = 38
-        versionName = "1.6.8"
+        versionCode = 39
+        versionName = "1.6.9"
 
         ndk {
             debugSymbolLevel = "FULL"

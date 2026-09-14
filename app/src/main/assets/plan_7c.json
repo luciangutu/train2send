@@ -46,7 +46,7 @@
       "description": "Standard push-ups for antagonist training.",
       "defaultSets": 3,
       "defaultReps": 10,
-      "defaultDurationSec": 3,
+      "defaultDurationSec": 20,
       "defaultRestSec": 0,
       "defaultRestBetweenSetsSec": 120,
       "defaultPrepareTimeSec": 5

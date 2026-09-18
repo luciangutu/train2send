@@ -142,7 +142,7 @@
       "name": "On-Wall ARC Intervals",
       "category": "ENDURANCE",
       "climbingType": "BOULDERING",
-      "description": "Aerobic Restitution and Capillarity (ARC) training for continuous climbing capacity. Move continuously on very easy holds at ~40% MVC. Forearms should feel light heat or a mild warm feeling, but never a full pump. Progress weekly by extending set duration rather than increasing wall difficulty.",
+      "description": "Aerobic Restitution and Capillarity (ARC) training for continuous climbing capacity. Move continuously on very easy holds where each grip requires relatively little force and you can keep moving continuously. Forearms should feel light heat or a mild warm feeling, but never a full pump. Progress weekly by extending set duration rather than increasing wall difficulty.",
       "defaultSets": 3,
       "defaultReps": 1,
       "defaultDurationSec": 900,
@@ -463,7 +463,7 @@
               "id": "pe-7c-sun-2",
               "exerciseId": "ex-outdoor-climbing",
               "section": "MAIN",
-              "alternativeGroupId": null,
+              "alternativeGroupId": "alt-7c-sun-outdoor",
               "isSelected": true,
               "orderIndex": 1,
               "description": "Volume day: climb many routes below your max. Build mileage and work on technique outdoors.",
@@ -473,10 +473,9 @@
               "id": "pe-7c-sun-3",
               "exerciseId": "ex-carcing",
               "section": "SECONDARY",
-              "alternativeGroupId": null,
-              "isSelected": true,
+              "alternativeGroupId": "alt-7c-sun-outdoor",
+              "isSelected": false,
               "orderIndex": 2,
-              "description": "Easy climbing at end of day for recovery and capillarity.",
               "customPrepareTimeSec": 5
             }
           ]

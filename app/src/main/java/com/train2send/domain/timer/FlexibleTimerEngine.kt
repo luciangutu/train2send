@@ -1,5 +1,6 @@
 package com.train2send.domain.timer
 
+import android.os.SystemClock
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -17,6 +18,23 @@ enum class SoundEvent {
     DOUBLE_BEEP
 }
 
+private sealed class PhaseSpec {
+    abstract val durationSec: Int
+
+    data class Prepare(
+        override val durationSec: Int
+    ) : PhaseSpec()
+
+    data class Running(
+        override val durationSec: Int,
+        val currentSet: Int,
+        val totalSets: Int,
+        val isWorkPhase: Boolean,
+        val currentRep: Int?,
+        val totalReps: Int?
+    ) : PhaseSpec()
+}
+
 class FlexibleTimerEngine {
 
     private var job: Job? = null
@@ -30,7 +48,6 @@ class FlexibleTimerEngine {
 
     private val skipTrigger = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
 
-    private var elapsed = 0
     private var totalDuration = 0
 
     fun startExerciseProtocol(
@@ -44,48 +61,62 @@ class FlexibleTimerEngine {
     ) {
         job?.cancel()
         _isPaused.value = false
-        elapsed = 0
-        totalDuration = calculateTotalDuration(prepareSec, workSec, restRepSec, reps, sets, restSetSec)
-        job = scope.launch {
-            // Prepare Phase
-            runPrepare(prepareSec)
-            
-            for (set in 1..sets) {
-                for (rep in 1..reps) {
-                    runPhase(
-                        seconds = workSec,
-                        currentSet = set,
-                        totalSets = sets,
-                        isWork = true,
-                        currentRep = rep,
-                        totalReps = reps
-                    )
-                    
-                    if (rep < reps && restRepSec > 0) {
-                        runPhase(
-                            seconds = restRepSec,
+
+        val phases = mutableListOf<PhaseSpec>()
+        if (prepareSec > 0) {
+            phases.add(PhaseSpec.Prepare(prepareSec))
+        }
+
+        for (set in 1..sets) {
+            for (rep in 1..reps) {
+                if (workSec > 0) {
+                    phases.add(
+                        PhaseSpec.Running(
+                            durationSec = workSec,
                             currentSet = set,
                             totalSets = sets,
-                            isWork = false,
+                            isWorkPhase = true,
                             currentRep = rep,
                             totalReps = reps
                         )
-                    }
+                    )
                 }
-                
-                if (set < sets && restSetSec > 0) {
-                    runPhase(
-                        seconds = restSetSec,
-                        currentSet = set,
-                        totalSets = sets,
-                        isWork = false,
-                        currentRep = null,
-                        totalReps = null
+                if (rep < reps && restRepSec > 0) {
+                    phases.add(
+                        PhaseSpec.Running(
+                            durationSec = restRepSec,
+                            currentSet = set,
+                            totalSets = sets,
+                            isWorkPhase = false,
+                            currentRep = rep,
+                            totalReps = reps
+                        )
                     )
                 }
             }
-            _soundEvents.emit(SoundEvent.DOUBLE_BEEP)
+            if (set < sets && restSetSec > 0) {
+                phases.add(
+                    PhaseSpec.Running(
+                        durationSec = restSetSec,
+                        currentSet = set,
+                        totalSets = sets,
+                        isWorkPhase = false,
+                        currentRep = null,
+                        totalReps = null
+                    )
+                )
+            }
+        }
+
+        if (phases.isEmpty()) {
             _state.value = TimerState.Finished
+            return
+        }
+
+        totalDuration = calculateTotalDuration(prepareSec, workSec, restRepSec, reps, sets, restSetSec)
+
+        job = scope.launch {
+            runProtocol(phases)
         }
     }
 
@@ -101,71 +132,150 @@ class FlexibleTimerEngine {
         return prepareSec + sets * workPerSet + (if (sets > 1) (sets - 1) * restSetSec else 0)
     }
 
-    private suspend fun runPrepare(seconds: Int) {
-        var sec = seconds
-        while (sec >= 1) {
+    private suspend fun runProtocol(phases: List<PhaseSpec>) {
+        var phaseIndex = 0
+        var completedPhasesDuration = 0
+
+        var phaseStartTime = SystemClock.elapsedRealtime()
+        var pausedAccumulatedMs = 0L
+        var pauseStartTime = 0L
+        var wasPaused = false
+        var lastBeepedSecond: Int? = null
+        var lastLoopTickRealtime = SystemClock.elapsedRealtime()
+
+        while (phaseIndex < phases.size) {
+            val currentPhase = phases[phaseIndex]
+            val durationSec = currentPhase.durationSec
+
             if (_isPaused.value) {
-                _state.value = TimerState.Preparing(sec, isPaused = true, totalElapsedSeconds = elapsed, totalDurationSeconds = totalDuration)
-                _isPaused.first { !it }
+                if (!wasPaused) {
+                    wasPaused = true
+                    pauseStartTime = SystemClock.elapsedRealtime()
+                }
+                val elapsedMsInPhase = pauseStartTime - phaseStartTime - pausedAccumulatedMs
+                val elapsedSecInPhase = (elapsedMsInPhase / 1000).toInt().coerceIn(0, durationSec)
+                val remainingSec = (durationSec - elapsedSecInPhase).coerceAtLeast(1)
+                val totalElapsed = completedPhasesDuration + elapsedSecInPhase
+
+                _state.value = createTimerState(
+                    spec = currentPhase,
+                    remainingSec = remainingSec,
+                    isPaused = true,
+                    totalElapsed = totalElapsed,
+                    totalDuration = totalDuration
+                )
+
+                val skipped = withTimeoutOrNull(200L) {
+                    skipTrigger.first()
+                    true
+                } ?: false
+
+                if (skipped) {
+                    _isPaused.value = false
+                    wasPaused = false
+                    totalDuration -= remainingSec
+                    completedPhasesDuration += elapsedSecInPhase
+                    phaseIndex++
+                    phaseStartTime = SystemClock.elapsedRealtime()
+                    pausedAccumulatedMs = 0L
+                    lastBeepedSecond = null
+                }
                 continue
             }
 
-            _state.value = TimerState.Preparing(sec, isPaused = false, totalElapsedSeconds = elapsed, totalDurationSeconds = totalDuration)
-            _soundEvents.emit(SoundEvent.BEEP)
-            val skipped = withTimeoutOrNull(1000L) {
+            if (wasPaused) {
+                wasPaused = false
+                pausedAccumulatedMs += (SystemClock.elapsedRealtime() - pauseStartTime)
+            }
+
+            val now = SystemClock.elapsedRealtime()
+            val loopInterval = now - lastLoopTickRealtime
+            lastLoopTickRealtime = now
+
+            val elapsedMsInPhase = now - phaseStartTime - pausedAccumulatedMs
+            val elapsedSecInPhase = (elapsedMsInPhase / 1000).toInt()
+
+            if (elapsedSecInPhase >= durationSec) {
+                val overflowMs = elapsedMsInPhase - (durationSec * 1000L)
+                completedPhasesDuration += durationSec
+                phaseIndex++
+                if (phaseIndex < phases.size) {
+                    phaseStartTime = now - overflowMs
+                    pausedAccumulatedMs = 0L
+                    lastBeepedSecond = null
+                }
+                continue
+            }
+
+            val remainingSec = durationSec - elapsedSecInPhase
+            val totalElapsed = completedPhasesDuration + elapsedSecInPhase
+
+            _state.value = createTimerState(
+                spec = currentPhase,
+                remainingSec = remainingSec,
+                isPaused = false,
+                totalElapsed = totalElapsed,
+                totalDuration = totalDuration
+            )
+
+            if (lastBeepedSecond != remainingSec) {
+                lastBeepedSecond = remainingSec
+                // Only trigger beep if engine was awake recently (<1500ms) to prevent beep storm on background wake
+                if (loopInterval < 1500L) {
+                    if (currentPhase is PhaseSpec.Prepare) {
+                        _soundEvents.emit(SoundEvent.BEEP)
+                    } else if (currentPhase is PhaseSpec.Running) {
+                        if (remainingSec <= 3) {
+                            _soundEvents.emit(SoundEvent.BEEP)
+                        }
+                    }
+                }
+            }
+
+            val skipped = withTimeoutOrNull(100L) {
                 skipTrigger.first()
                 true
             } ?: false
+
             if (skipped) {
-                totalDuration -= sec
-                break
+                totalDuration -= remainingSec
+                completedPhasesDuration += elapsedSecInPhase
+                phaseIndex++
+                phaseStartTime = SystemClock.elapsedRealtime()
+                pausedAccumulatedMs = 0L
+                lastBeepedSecond = null
             }
-            sec--
-            elapsed++
         }
+
+        _soundEvents.emit(SoundEvent.DOUBLE_BEEP)
+        _state.value = TimerState.Finished
     }
 
-    private suspend fun runPhase(
-        seconds: Int,
-        currentSet: Int,
-        totalSets: Int,
-        isWork: Boolean,
-        currentRep: Int? = null,
-        totalReps: Int? = null
-    ) {
-        if (seconds <= 0) return
-        var sec = seconds
-        while (sec >= 1) {
-            if (_isPaused.value) {
-                _state.value = TimerState.Running(
-                    remainingSeconds = sec,
-                    currentSet = currentSet,
-                    totalSets = totalSets,
-                    isWorkPhase = isWork,
-                    currentRep = currentRep,
-                    totalReps = totalReps,
-                    isPaused = true,
-                    totalElapsedSeconds = elapsed,
-                    totalDurationSeconds = totalDuration
-                )
-                _isPaused.first { !it }
-                continue
-            }
-
-            _state.value = TimerState.Running(sec, currentSet, totalSets, isWork, currentRep, totalReps, isPaused = false, totalElapsedSeconds = elapsed, totalDurationSeconds = totalDuration)
-            if (sec <= 3) {
-                _soundEvents.emit(SoundEvent.BEEP)
-            }
-            val skipped = withTimeoutOrNull(1000L) {
-                skipTrigger.first()
-                true
-            } ?: false
-            if (skipped) {
-                totalDuration -= sec
-                break
-            }
-            sec--
-            elapsed++
+    private fun createTimerState(
+        spec: PhaseSpec,
+        remainingSec: Int,
+        isPaused: Boolean,
+        totalElapsed: Int,
+        totalDuration: Int
+    ): TimerState {
+        return when (spec) {
+            is PhaseSpec.Prepare -> TimerState.Preparing(
+                remainingSeconds = remainingSec,
+                isPaused = isPaused,
+                totalElapsedSeconds = totalElapsed,
+                totalDurationSeconds = totalDuration
+            )
+            is PhaseSpec.Running -> TimerState.Running(
+                remainingSeconds = remainingSec,
+                currentSet = spec.currentSet,
+                totalSets = spec.totalSets,
+                isWorkPhase = spec.isWorkPhase,
+                currentRep = spec.currentRep,
+                totalReps = spec.totalReps,
+                isPaused = isPaused,
+                totalElapsedSeconds = totalElapsed,
+                totalDurationSeconds = totalDuration
+            )
         }
     }
 

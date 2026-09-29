@@ -15,6 +15,18 @@
       "defaultPrepareTimeSec": 5
     },
     {
+      "id": "ex-abrahangs",
+      "name": "Abrahangs",
+      "category": "STRENGTH",
+      "climbingType": "ANY",
+      "description": "High-frequency, low-intensity finger tendon loading. Keep your feet on the floor throughout and apply only light pressure to the edge; you should not actually hang. Perform 10 different grip positions, 10 seconds each, with 50 seconds rest between repetitions. Use a comfortable edge and very low intensity.",
+      "defaultSets": 1,
+      "defaultReps": 10,
+      "defaultDurationSec": 10,
+      "defaultRestSec": 50,
+      "defaultPrepareTimeSec": 5
+    },
+    {
       "id": "ex-dead-hang-jugs",
       "name": "Dead-hang on Jugs",
       "category": "STRENGTH",
@@ -285,6 +297,16 @@
               "alternativeGroupId": null,
               "isSelected": true,
               "orderIndex": 1,
+              "customPrepareTimeSec": 5
+            },
+            {
+              "id": "pe-7c-tue-3",
+              "exerciseId": "ex-abrahangs",
+              "section": "SECONDARY",
+              "alternativeGroupId": null,
+              "isSelected": true,
+              "orderIndex": 2,
+              "description": "10 x 10s low-intensity hangs with 50s rest. Keep feet on the floor throughout. Use very low force; do not actually hang.",
               "customPrepareTimeSec": 5
             }
           ]

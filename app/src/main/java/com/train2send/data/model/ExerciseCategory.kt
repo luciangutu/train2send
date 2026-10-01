@@ -1,6 +1,7 @@
 package com.train2send.data.model
 
 enum class ExerciseCategory(val label: String, val colorHex: String) {
+    FINGER("Finger Strength", "#795548"),
     STRENGTH("Strength", "#E53935"),
     POWER("Power", "#8E24AA"),
     POWER_ENDURANCE("Power Endurance", "#FB8C00"),

@@ -18,7 +18,7 @@ import com.train2send.data.model.*
         PlanDayEntity::class,
         PlannedExerciseEntity::class
     ],
-    version = 8,
+    version = 9,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -37,6 +37,32 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
+        private val MIGRATION_8_9 = object : Migration(8, 9) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                // Recategorize known finger/hangboard exercises to the new FINGER category.
+                // Matches exercises imported from bundled asset plans by their stable IDs.
+                db.execSQL(
+                    """
+                    UPDATE exercises SET category = 'FINGER' WHERE id IN (
+                        'ex-abrahangs',
+                        'ex-dead-hang-jugs',
+                        'ex-dead-hang-small-edge',
+                        'ex-max-finger',
+                        'ex-no-hangs',
+                        'ex-hangboard-max',
+                        'ex-hangboard-repeaters',
+                        'ex-strength-endurance-hangboard',
+                        'ex-repeaters',
+                        'ex-megos-pe-finger',
+                        'ex-hangboard-pe',
+                        'ex-finger-curls',
+                        'ex-finger-lift'
+                    )
+                    """.trimIndent()
+                )
+            }
+        }
+
         fun getInstance(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
@@ -44,7 +70,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "train2send_db"
                 )
-                    .addMigrations(MIGRATION_7_8)
+                    .addMigrations(MIGRATION_7_8, MIGRATION_8_9)
                     .fallbackToDestructiveMigration(true)
                     .build()
                 INSTANCE = instance

@@ -19,7 +19,7 @@ Defines the default properties for a specific exercise type.
 
 *   **`id`**: Unique string identifier (e.g., `ex-max-finger`).
 *   **`name`**: Display name of the exercise.
-*   **`category`**: Enum string (`STRENGTH`, `POWER`, `POWER_ENDURANCE`, `ENDURANCE`, `MOBILITY`, `CONDITIONING`).
+*   **`category`**: Enum string (`FINGER`, `STRENGTH`, `POWER`, `POWER_ENDURANCE`, `ENDURANCE`, `MOBILITY`, `CONDITIONING`).
 *   **`climbingType`**: Enum string (`BOULDERING`, `ROPE`, `ANY`). Used to toggle between exercises based on the training environment: rope wall or bouldering.
 *   **`description`**: Detailed instructions or notes for the exercise.
 *   **`defaultSets` / `defaultReps`**: Default count for sets and repetitions.

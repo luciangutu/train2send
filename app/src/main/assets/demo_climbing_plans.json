@@ -5,7 +5,7 @@
     {
       "id": "ex-hangboard-max",
       "name": "Max Hangs (20mm edge)",
-      "category": "STRENGTH",
+      "category": "FINGER",
       "climbingType": "ANY",
       "description": "Hang on a 20mm edge with added weight. 10s hang, full recovery between sets.",
       "defaultSets": 5,
@@ -16,7 +16,7 @@
     {
       "id": "ex-hangboard-repeaters",
       "name": "Repeaters (20mm edge)",
-      "category": "POWER_ENDURANCE",
+      "category": "FINGER",
       "climbingType": "ANY",
       "description": "7s on / 3s off repeaters on a 20mm edge.",
       "defaultSets": 6,

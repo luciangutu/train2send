@@ -17,7 +17,7 @@
     {
       "id": "ex-abrahangs",
       "name": "Abrahangs",
-      "category": "STRENGTH",
+      "category": "FINGER",
       "climbingType": "ANY",
       "description": "High-frequency, low-intensity finger tendon loading. Keep your feet on the floor throughout and apply only light pressure to the edge; you should not actually hang. Perform 10 different grip positions, 10 seconds each, with 50 seconds rest between repetitions. Use a comfortable edge and very low intensity.",
       "defaultSets": 1,
@@ -29,7 +29,7 @@
     {
       "id": "ex-dead-hang-jugs",
       "name": "Dead-hang on Jugs",
-      "category": "STRENGTH",
+      "category": "FINGER",
       "climbingType": "ANY",
       "description": "Dead-hang on jug holds for warm-up and endurance.",
       "defaultSets": 1,
@@ -41,7 +41,7 @@
     {
       "id": "ex-max-finger",
       "name": "Max finger strength",
-      "category": "STRENGTH",
+      "category": "FINGER",
       "climbingType": "ANY",
       "description": "Max finger strength (usually half-crimp) weighted hangs (90-100% of your maximum). Hangboard exercise designed to increase the maximum force your fingers can produce. Stop if grip position breaks down. For weaker climbers the same exercise can be done with assistance (e.g. pulley/band) to reach the appropriate intensity.",
       "defaultSets": 1,
@@ -186,7 +186,7 @@
     {
       "id": "ex-repeaters",
       "name": "Repeaters (Hangboard)",
-      "category": "POWER_ENDURANCE",
+      "category": "FINGER",
       "climbingType": "ANY",
       "description": "Hangboard repeater protocol: 7 seconds on / 3 seconds off for 6-8 reps per set. Use an edge size and load that produces significant pump by the final rep but allows controlled grip throughout. Trains the forearm's ability to sustain force output under fatigue — a key capacity for sustained hard route climbing.",
       "defaultSets": 4,

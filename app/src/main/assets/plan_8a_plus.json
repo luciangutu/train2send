@@ -5,7 +5,7 @@
     {
       "id": "ex-dead-hang-jugs",
       "name": "Dead-hang on Jugs",
-      "category": "STRENGTH",
+      "category": "FINGER",
       "climbingType": "ANY",
       "description": "Dead-hang on jug holds for warm-up and endurance.",
       "defaultSets": 1,
@@ -16,7 +16,7 @@
     {
       "id": "ex-dead-hang-small-edge",
       "name": "Dead-hang on smallest edge",
-      "category": "STRENGTH",
+      "category": "FINGER",
       "climbingType": "ANY",
       "description": "Intermittent dead-hangs on the smallest edge.",
       "defaultSets": 1,
@@ -27,7 +27,7 @@
     {
       "id": "ex-max-finger",
       "name": "Max finger strength",
-      "category": "STRENGTH",
+      "category": "FINGER",
       "climbingType": "ANY",
       "description": "Max finger strength (usually half-crimp) weighted hangs (90-100% of your maximum). Hangboard exercise designed to increase the maximum force your fingers can produce, useful especially for hard bouldering and difficult cruxes. Stop if grip position breaks down. For weaker climbers the same exercise can be done with assistance (e.g. pulley/band) to reach the appropriate intensity.",
       "defaultSets": 1,
@@ -50,7 +50,7 @@
     {
       "id": "ex-strength-endurance-hangboard",
       "name": "Strength Endurance Hangboard",
-      "category": "POWER_ENDURANCE",
+      "category": "FINGER",
       "climbingType": "ANY",
       "description": "Hangboard strength-endurance protocol using repeated 7-second hangs with 3 seconds of rest. Use a moderate-high intensity that allows all repetitions with controlled grip position. Designed to improve the ability to sustain repeated high-intensity finger contractions and tolerate pump.",
       "defaultSets": 1,
@@ -61,7 +61,7 @@
     {
       "id": "ex-no-hangs",
       "name": "No-hangs Hangboard",
-      "category": "STRENGTH",
+      "category": "FINGER",
       "climbingType": "ANY",
       "description": "Sub-maximal isometric finger loading on a hangboard with feet on the ground (~30-50% max effort) to promote finger health, tendon collagen synthesis, and warm-up readiness without fatigue.",
       "defaultSets": 1,
@@ -72,7 +72,7 @@
     {
       "id": "ex-megos-pe-finger",
       "name": "Megos PE Finger Training",
-      "category": "POWER_ENDURANCE",
+      "category": "FINGER",
       "climbingType": "ANY",
       "description": "Alex Megos's finger training protocol for power endurance. Hang with both arms on an edge that you can finnish the exercise on.",
       "defaultSets": 6,
@@ -84,7 +84,7 @@
     {
       "id": "ex-hangboard-pe",
       "name": "Hangboard PE Finger Training",
-      "category": "POWER_ENDURANCE",
+      "category": "FINGER",
       "climbingType": "ANY",
       "description": "Hangboard standard finger training protocol for power endurance. Hang with both arms on an edge that you can finnish the exercise on.",
       "defaultSets": 3,
@@ -96,7 +96,7 @@
     {
       "id": "ex-finger-curls",
       "name": "Finger Curls on Hangboard",
-      "category": "POWER_ENDURANCE",
+      "category": "FINGER",
       "climbingType": "ANY",
       "description": "Finger curls on hangboard with your feet on. Can be used as warm-up.",
       "defaultSets": 1,
@@ -107,7 +107,7 @@
     {
       "id": "ex-finger-lift",
       "name": "Finger Lifting weights",
-      "category": "POWER_ENDURANCE",
+      "category": "FINGER",
       "climbingType": "ANY",
       "description": "Lift weights with each hand. 5 reps of 25sec per hand.",
       "defaultSets": 1,

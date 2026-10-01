@@ -173,6 +173,7 @@
     {
       "id": "plan-road-to-7a",
       "title": "Road to 7a (Sport)",
+      "description": "A 3-day-per-week sport climbing plan for intermediate climbers. Builds technique, finger strength, and route endurance to break into the 7a grade.",
       "isActive": true,
       "createdAt": 1724340000000,
       "days": [
@@ -312,6 +313,7 @@
     {
       "id": "plan-bouldering-power-7b",
       "title": "Bouldering Power (Target 7B)",
+      "description": "A 4-day bouldering plan focused on max finger strength, explosive power, and limit bouldering to push into the 7B range.",
       "isActive": false,
       "createdAt": 1724340000000,
       "days": [
@@ -483,6 +485,7 @@
     {
       "id": "plan-elite-sport-8a",
       "title": "Elite Sport Climber (8a)",
+      "description": "A high-volume 5-day plan for advanced climbers targeting 8a. Covers max strength, endurance, power endurance, finger conditioning, and performance sessions.",
       "isActive": false,
       "createdAt": 1724340000000,
       "days": [

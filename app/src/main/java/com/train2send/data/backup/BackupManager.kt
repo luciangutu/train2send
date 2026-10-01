@@ -52,6 +52,7 @@ class BackupManager(private val app: Train2SendApp) {
             PlanBackup(
                 id = plan.id,
                 title = plan.title,
+                description = plan.description,
                 isActive = plan.isActive,
                 createdAt = plan.createdAt,
                 days = dayBackups
@@ -126,6 +127,7 @@ class BackupManager(private val app: Train2SendApp) {
                     TrainingPlanEntity(
                         id = planBackup.id,
                         title = planBackup.title,
+                        description = planBackup.description,
                         isActive = planBackup.isActive,
                         createdAt = planBackup.createdAt
                     )

@@ -8,6 +8,7 @@ import java.util.UUID
 data class TrainingPlanEntity(
     @PrimaryKey val id: String = UUID.randomUUID().toString(),
     val title: String,
+    val description: String? = null,
     val isActive: Boolean = true,
     val createdAt: Long = System.currentTimeMillis()
 )

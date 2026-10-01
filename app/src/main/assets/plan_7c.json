@@ -213,6 +213,7 @@
     {
       "id": "plan-7c-target",
       "title": "Target 7c",
+      "description": "A structured training plan to build the finger strength, power endurance, and technique needed to climb 7c.",
       "isActive": true,
       "createdAt": 1724500000000,
       "days": [

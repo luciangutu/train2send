@@ -33,6 +33,7 @@ data class ExerciseBackup(
 data class PlanBackup(
     val id: String,
     val title: String,
+    val description: String? = null,
     val isActive: Boolean,
     val createdAt: Long,
     val days: List<PlanDayBackup> = emptyList()

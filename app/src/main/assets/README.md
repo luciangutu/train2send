@@ -36,6 +36,7 @@ A plan organizes exercises into specific days of the week.
 
 *   **`id`**: Unique string identifier for the plan (e.g., `plan-7c-target`).
 *   **`title`**: Display name of the plan (e.g., "Target 7c").
+*   **`description`**: (Optional) A short summary of the plan's goals or structure. Shown via an info icon on the My Plans screen. Omit or set to `null` for no description.
 *   **`isActive`**: Boolean indicating whether this is the currently active plan.
 *   **`createdAt`**: Unix timestamp (ms) when the plan was created.
 *   **`days`**: A list of `PlanDay` objects.

@@ -34,6 +34,7 @@ fun PlanSetupScreen(
     val scope = rememberCoroutineScope()
 
     var planTitle by remember { mutableStateOf("") }
+    var planDescription by remember { mutableStateOf("") }
     var isLoading by remember { mutableStateOf(planId != null) }
     var existingPlan by remember { mutableStateOf<TrainingPlanEntity?>(null) }
 
@@ -57,6 +58,7 @@ fun PlanSetupScreen(
             if (plan != null) {
                 existingPlan = plan
                 planTitle = plan.title
+                planDescription = plan.description.orEmpty()
             }
             isLoading = false
         }
@@ -107,6 +109,7 @@ fun PlanSetupScreen(
                                     app = app,
                                     existingPlan = existingPlan,
                                     title = planTitle,
+                                    description = planDescription,
                                     dayConfigs = dayConfigs
                                 )
                                 navController.popBackStack()
@@ -148,6 +151,19 @@ fun PlanSetupScreen(
                         placeholder = { Text("e.g., Climbing Season Prep") },
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true
+                    )
+                }
+
+                // Plan description
+                item {
+                    OutlinedTextField(
+                        value = planDescription,
+                        onValueChange = { planDescription = it },
+                        label = { Text("Description (optional)") },
+                        placeholder = { Text("e.g., 8-week strength block focusing on finger power") },
+                        modifier = Modifier.fillMaxWidth(),
+                        minLines = 2,
+                        maxLines = 4
                     )
                 }
 
@@ -330,10 +346,12 @@ private suspend fun savePlan(
     app: Train2SendApp,
     existingPlan: TrainingPlanEntity?,
     title: String,
+    description: String,
     dayConfigs: List<DayConfig>
 ) {
-    val plan = existingPlan?.copy(title = title)
-        ?: TrainingPlanEntity(title = title, isActive = false) // Default to inactive, will activate if needed
+    val descriptionValue = description.ifBlank { null }
+    val plan = existingPlan?.copy(title = title, description = descriptionValue)
+        ?: TrainingPlanEntity(title = title, description = descriptionValue, isActive = false)
 
     if (existingPlan != null) {
         app.trainingPlanRepository.updatePlan(plan)

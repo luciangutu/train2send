@@ -233,6 +233,7 @@
     {
       "id": "plan-7c-phase1-base",
       "title": "7c Phase 1: Base & Endurance (Wk 1-4, 4wk-deload wk)",
+      "description": "Foundation phase building aerobic capacity, volume climbing, and core stability. Includes a deload week to consolidate gains.",
       "isActive": true,
       "createdAt": 1724500000000,
       "days": [
@@ -479,6 +480,7 @@
     {
       "id": "plan-7c-phase2-strength",
       "title": "7c Phase 2: Strength (Wk 5-8, 8wk-deload wk)",
+      "description": "Strength phase with progressive max hangs, weighted pull-ups, and limit bouldering to build raw finger and upper-body power.",
       "isActive": false,
       "createdAt": 1724500000000,
       "days": [
@@ -701,6 +703,7 @@
     {
       "id": "plan-7c-phase3-power-endurance",
       "title": "7c Phase 3: Power Endurance (Wk 9-11)",
+      "description": "Convert raw strength into sustained climbing power with 4x4s, repeaters, and route-level intensity work.",
       "isActive": false,
       "createdAt": 1724500000000,
       "days": [
@@ -947,6 +950,7 @@
     {
       "id": "plan-7c-phase4-peak",
       "title": "7c Phase 4: Performance & Peak (Wk 12-13)",
+      "description": "Peaking phase with reduced volume and high-quality limit sessions. Taper into your send attempts.",
       "isActive": false,
       "createdAt": 1724500000000,
       "days": [

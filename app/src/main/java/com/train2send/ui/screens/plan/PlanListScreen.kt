@@ -1,5 +1,9 @@
 package com.train2send.ui.screens.plan
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -142,9 +146,16 @@ private fun PlanCard(
     onDelete: () -> Unit
 ) {
     var showDeleteConfirm by remember { mutableStateOf(false) }
+    var expanded by remember { mutableStateOf(false) }
+    val hasDescription = !plan.description.isNullOrBlank()
 
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .then(
+                if (hasDescription) Modifier.clickable { expanded = !expanded }
+                else Modifier
+            ),
         shape = RoundedCornerShape(12.dp),
         colors = if (plan.isActive) {
             CardDefaults.cardColors(
@@ -205,6 +216,20 @@ private fun PlanCard(
                         tint = MaterialTheme.colorScheme.error
                     )
                 }
+            }
+
+            // Expandable description
+            AnimatedVisibility(
+                visible = expanded && hasDescription,
+                enter = expandVertically(),
+                exit = shrinkVertically()
+            ) {
+                Text(
+                    text = plan.description.orEmpty(),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(top = 8.dp)
+                )
             }
         }
     }
